@@ -4,8 +4,6 @@
 
 inherit eutils
 
-
-
 MY_P=${PN}-${PV}
 
 DESCRIPTION="The TinyOS tools"
@@ -49,9 +47,10 @@ S=${WORKDIR}/${MY_P}/tools
 
 src_unpack() {
 	unpack ${A}
+	cd ${S} 
 	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
 	epatch ${FILESDIR}/tos-java_make_fPIC.patch
-	cd ${S} && ./Bootstrap || die "Failed to bootstrap"
+	./Bootstrap || die "Failed to bootstrap"
 }
 
 src_compile(){
@@ -61,7 +60,7 @@ src_compile(){
 }
 
 src_install() {
-	einstall || die "install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 }
 
 pkg_postinst() {

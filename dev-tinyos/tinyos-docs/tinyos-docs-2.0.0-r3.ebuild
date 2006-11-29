@@ -4,36 +4,42 @@
 inherit eutils
 
 
-DESCRIPTION="TinyOS: an open-source OS designed for wireless embedded sensor networks"
+DESCRIPTION="TinyOS docs : documentation for Tinyos "
 HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://www.naurel.org/stuff/${MY_P}.tar.gz"
+SRC_URI="http://www.naurel.org/stuff/${PN}-${PVR}.tar.gz"
 LICENSE="Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
-DEPEND=""
+DEPEND=">=dev-python/docutils-0.3.9"
 RDEPEND=""
 
 PDEPEND=" dev-tinyos/nesc"
 
+S=${WORKDIR}/${PN}-${PVR}
 src_unpack() {
 	unpack ${A}
 	cd ${S}
 }
 
 src_compile() {
+	
+	emake || die "Failed to build "
 	einfo "FIXME, should compile the docs "
 }
 
 src_install() {
-	dodoc ${PN}
+
+	local TOSROOT=/usr/src/tinyos-2.x
+	insinto ${TOSROOT}/docs 
+	doins -r html
+	doins -r stylesheets
+	doins -r pdf 
+	doins -r txt 
+	doins -r policy
+	doins index.html
 }
 
-pkg_postinst() {
-	elog "If you want to use TinyOS on real hardware you need a cross compiler."
-	elog "You should emerge sys-devel/crossdev and compile any toolchain you need"
-	elog "Example: for Mica2 and Mica2 Dot: crossdev --target avr"
-	ebeep 5
-	epause 5
+pkg_postinst(){
+	einfo "Tinyos-2 docs are avaialable at  ${TOS_ROOT}/docs"	
 }
-

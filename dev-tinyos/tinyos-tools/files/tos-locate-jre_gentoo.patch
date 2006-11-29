@@ -1,5 +1,5 @@
---- tinyos-tools-1.2.2/tools/tinyos/misc/tos-locate-jre-orig	2006-11-03 20:44:39.000000000 +0100
-+++ tinyos-tools-1.2.2/tools/tinyos/misc/tos-locate-jre	2006-11-03 21:25:20.000000000 +0100
+--- tools/tinyos/misc/tos-locate-jre-orig	2006-11-03 20:44:39.000000000 +0100
++++ tools/tinyos/misc/tos-locate-jre	2006-11-03 21:25:20.000000000 +0100
 @@ -50,6 +50,12 @@
      ;;
  

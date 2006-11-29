@@ -4,7 +4,7 @@
 inherit eutils
 
 
-MY_PV=${PV}
+MY_PV=${PVR}
 MY_P=tinyos-${MY_PV}
 DOC_PV=${MY_PV}
 
@@ -43,20 +43,26 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/src/tinyos-2.x
+	TOSROOT=/usr/src/tinyos-2.x
+	
+	dobin ${FILESDIR}/tos-bcastinject
+
+
+	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
 	doins -r support
 	chown -R root:0 "${D}"
 
 	echo "VER=\"${PV}\"" > ${T}/${PV}
-	echo "TOSROOT=\"/usr/src/tinyos-2.x\"" >>  ${T}/${PV}
+	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
 	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">>  ${T}/${PV}
 	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
 	echo "PATH=/opt/msp430/bin:$PATH">>  ${T}/${PV}
 
- 	env_dir="/etc/env.d/tinyos/"
+
+ 	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
  	doins ${T}/${PV}
@@ -64,6 +70,8 @@ src_install() {
 	# hack 
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
 	doins ${FILESDIR}/1.1.15
+	
+
 }
 
 pkg_postinst() {

@@ -1,5 +1,5 @@
---- tinyos-tools-1.2.2/tools/tinyos/java/serial/Makefile.am-orig	2006-11-03 21:31:55.000000000 +0100
-+++ tinyos-tools-1.2.2/tools/tinyos/java/serial/Makefile.am	2006-11-03 21:32:17.000000000 +0100
+--- tools/tinyos/java/serial/Makefile.am-orig	2006-11-03 21:31:55.000000000 +0100
++++ tools/tinyos/java/serial/Makefile.am	2006-11-03 21:32:17.000000000 +0100
 @@ -19,7 +19,7 @@
    TOSComm_wrap.cxx
  
