@@ -1,0 +1,11 @@
+--- tinyos-tools-1.2.2/tools/tinyos/java/serial/Makefile.am-orig	2006-11-03 21:31:55.000000000 +0100
++++ tinyos-tools-1.2.2/tools/tinyos/java/serial/Makefile.am	2006-11-03 21:32:17.000000000 +0100
+@@ -19,7 +19,7 @@
+   TOSComm_wrap.cxx
+ 
+ libtoscomm.so: $(libtoscomm_so_SOURCES)
+-	$(CXX) -O2 -shared "-I$(JDK)/include" "-I$(JDK)/include/linux" \
++	$(CXX) -O2 -shared -fPIC "-I$(JDK)/include" "-I$(JDK)/include/linux" \
+ 	  -o $@ NativeSerial_linux.cpp
+ 
+ toscomm.dll: $(toscomm_dll_SOURCES)

@@ -1,0 +1,7 @@
+EBUILD tinyos-2.0.0_beta2.ebuild 749 RMD160 d687f13e5bd67624b4401347e92c0353ae77ad9d SHA1 531854d61e252b94840979e4f0c85f9a1f9bcfbf SHA256 e8a0a564ca1bc1de0177d8b8a87cde1faab641a2a15cefeeca79daa300e53758
+MD5 acb862a9c7dad92c4dab1155f8e89988 tinyos-2.0.0_beta2.ebuild 749
+RMD160 d687f13e5bd67624b4401347e92c0353ae77ad9d tinyos-2.0.0_beta2.ebuild 749
+SHA256 e8a0a564ca1bc1de0177d8b8a87cde1faab641a2a15cefeeca79daa300e53758 tinyos-2.0.0_beta2.ebuild 749
+MD5 68b329da9893e34099c7d8ad5cb9c940 files/digest-tinyos-2.0.0_beta2 1
+RMD160 c0da025038ed83c687ddc430da9846ecb97f3998 files/digest-tinyos-2.0.0_beta2 1
+SHA256 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b files/digest-tinyos-2.0.0_beta2 1

@@ -1,0 +1,15 @@
+
+
+Overlay for Tinyos 2.X 
+
+
+
+
+TODO:
+
+
+* Classpath modification by eselect-tinyos is broken 
+* Modify eselect tinyos in order to change class path and makerules 
+* Clarify which package should be dropped / which should be keept 
+* extract ncc from Tinyos tools ebuild ? 
+* extract tinyos-javalibs from tos ebuild 

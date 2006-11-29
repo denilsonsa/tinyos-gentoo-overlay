@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+  <email>aurelien.francillon@inrialpes.fr</email>
+</maintainer>
+	<longdescription>Manages environement for tinyos, this makes easy to swith from tinyos 1 to 2 and back again </longdescription> 
+</pkgmetadata>
