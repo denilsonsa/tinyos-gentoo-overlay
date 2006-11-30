@@ -1,7 +1,7 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
-inherit eutils
+inherit eutils python
 
 
 MY_PV=${PVR}
@@ -36,6 +36,19 @@ S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
 	cd ${S}
+
+	einfo "fixing sim.extra:"
+
+	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
+	# on amd64 only ? 
+	einfo " -> gcc bug  "
+	sed -i 's/OPTFLAGS = -g -O0/OPTFLAGS = -g -O2/g' support/make/sim.extra 
+
+	# set the python version to use 
+	python_version
+	einfo " -> python version" ${PYVER}
+	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra 
+
 }
 
 src_compile() {
@@ -45,7 +58,10 @@ src_compile() {
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
 	
-	dobin ${FILESDIR}/tos-bcastinject
+
+
+
+	#dobin ${FILESDIR}/tos-bcastinject
 
 
 	insinto ${TOSROOT}
@@ -53,7 +69,7 @@ src_install() {
 	doins -r apps
 	doins -r support
 	chown -R root:0 "${D}"
-
+	
 	echo "VER=\"${PV}\"" > ${T}/${PV}
 	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
