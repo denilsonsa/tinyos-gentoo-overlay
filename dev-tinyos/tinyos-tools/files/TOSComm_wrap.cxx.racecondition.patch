@@ -1,0 +1,41 @@
+--- tools/tinyos/java/serial/TOSComm_wrap.cxx.old	2005-07-26 22:54:02.000000000 +0200
++++ tools/tinyos/java/serial/TOSComm_wrap.cxx	2006-11-30 20:32:54.000000000 +0100
+@@ -997,23 +997,34 @@
+     NativeSerial *arg1 = (NativeSerial *) 0 ;
+     int arg2 ;
+     bool result;
+-    
++	bool tuut=false;
++	
+     (void)jenv;
+     (void)jcls;
++
+     arg1 = *(NativeSerial **)&jarg1; 
+     arg2 = (int)jarg2; 
+     {
+-        try {
+-            result = (bool)(arg1)->didEventOccur(arg2);
++	  try {
++
++		if (arg1 != NULL ){
++		  result = (bool)(arg1)->didEventOccur(arg2);
++		  tuut=true;
++		}
+             
+         } catch (comm_port_error &e) {
++		//fprintf(stderr,"c\n");
+             jclass clazz = jenv->FindClass("java/lang/Exception");
+             std::string s = "TOSComm JNI library runtime error: ";
+             s += + e.what();
+             jenv->ThrowNew( clazz, s.c_str() );
+             return 0;
+-        }
++	  }catch (...) {
++		fprintf(stderr,"d\n");
++	  }
+     }
++//	if (tuut)
++//	  fprintf(stderr,"tuut\n");
+     jresult = (jboolean)result; 
+     return jresult;
+ }

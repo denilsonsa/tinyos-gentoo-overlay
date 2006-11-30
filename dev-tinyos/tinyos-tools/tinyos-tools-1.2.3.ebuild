@@ -85,6 +85,8 @@ src_unpack() {
 	# adapt to gentoo java handling 
 	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
 	epatch ${FILESDIR}/tos-java_make_fPIC.patch
+	epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
+	
 
 	# tos-bsl needs to be actually "built" in order to adapt to tke libdir  
 	rm ${S}/platforms/msp430/pybsl/tos-bsl
