@@ -15,7 +15,8 @@ LICENSE="Intel"
 SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
-DEPEND="doc? ( =tinyos-doc-${MY_PV} )"
+#DEPEND="doc? ( =dev-tinyos/tinyos-doc-${MY_PV} )"
+DEPEND=""
 RDEPEND=""
 
 #Required to do anything useful. Could not be a RDEPEND since portage try to emerge nesc before tos.

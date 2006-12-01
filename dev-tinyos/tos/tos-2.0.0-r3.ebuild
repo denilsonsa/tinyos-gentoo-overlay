@@ -17,7 +17,7 @@ LICENSE="Intel"
 SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
-DEPEND="doc? ( =tinyos-docs-${MY_PV} )"
+DEPEND="doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.5.0.3"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
