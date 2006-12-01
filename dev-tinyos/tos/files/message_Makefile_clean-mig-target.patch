@@ -1,0 +1,22 @@
+Index: support/sdk/java/net/tinyos/message/Makefile
+===================================================================
+RCS file: /cvsroot/tinyos/tinyos-2.x/support/sdk/java/net/tinyos/message/Makefile,v
+retrieving revision 1.1.2.5
+diff -u -r1.1.2.5 Makefile
+--- support/sdk/java/net/tinyos/message/Makefile	11 Jun 2006 16:11:04 -0000	1.1.2.5
++++ support/sdk/java/net/tinyos/message/Makefile	1 Dec 2006 12:15:06 -0000
+@@ -3,6 +3,7 @@
+ INITIAL_TARGETS = SerialPacket.class
+ 
+ ROOT = ../../..
++OTHER_CLEAN = clean-mig
+ include $(ROOT)/Makefile.include
+ 
+ TOS=$(shell ncc -print-tosdir)
+@@ -10,3 +11,6 @@
+ 
+ SerialPacket.java: $(SERIAL_H)
+ 	mig -o $@ -java-classname=net.tinyos.message.SerialPacket java $(SERIAL_H) serial_packet -I$(TOSDIR)/types
++
++clean-mig:
++	@rm -f SerialPacket.java

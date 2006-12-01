@@ -1,0 +1,10 @@
+--- /usr/src/tinyos-2.x/tos/chips/atm128/atm128hardware.h-old	2006-12-01 13:18:05.000000000 +0100
++++ /usr/src/tinyos-2.x/tos/chips/atm128/atm128hardware.h	2006-12-01 13:18:46.000000000 +0100
+@@ -42,7 +42,6 @@
+ #define _H_atmega128hardware_H
+ 
+ #include <avr/io.h>
+-#include <avr/signal.h>
+ #include <avr/interrupt.h>
+ #include <avr/wdt.h>
+ #include <avr/pgmspace.h>
