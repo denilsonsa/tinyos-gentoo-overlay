@@ -85,6 +85,8 @@ src_unpack() {
 	# adapt to gentoo java handling 
 	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
 	epatch ${FILESDIR}/tos-java_make_fPIC.patch
+
+	# bug in toscomm java vm plugin 
 	epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
 	
 
