@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos-make/tos-make-1.1.15.ebuild,v 1.2 2006/08/09 19:51:22 sanchan Exp $
 
-inherit eutils java-pkg-2
+inherit eutils java-pkg-2 toolchain
 
 MY_P=${PN}-${PV}
 
@@ -85,9 +85,16 @@ src_unpack() {
 	# adapt to gentoo java handling 
 	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
 	epatch ${FILESDIR}/tos-java_make_fPIC.patch
-
+	
+	# not a good patch but bug evaporates when building with gcc 3.4.6
+	
+	if [ `gcc-major-version` -ge 4 ] ; then 
+		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934" 
+		die "libtoscomm.so is buyggy when built against gcc-4"
+		
+	fi
 	# bug in toscomm java vm plugin 
-	epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
+	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
 	
 
 	# tos-bsl needs to be actually "built" in order to adapt to tke libdir  
