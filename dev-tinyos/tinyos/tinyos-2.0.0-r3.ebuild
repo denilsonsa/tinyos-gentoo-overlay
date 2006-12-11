@@ -9,14 +9,14 @@ SRC_URI=""
 LICENSE="Intel"
 SLOT="2"
 KEYWORDS="amd64 ~x86"
-IUSE="java"
+IUSE="java python"
 
 RDEPEND="dev-tinyos/eselect-tinyos
     >=dev-tinyos/tos-2.0.0-r3
-    >=dev-tinyos/tos-sdk-java-2.0.0-r3
+    java? (>=dev-tinyos/tos-sdk-java-2.0.0-r3)
+    python? (>=dev-tinyos/tos-sdk-python-2.0.0-r3)
 	>=dev-tinyos/nesc-1.2.7a
-    >=dev-tinyos/tinyos-tools-1.2.3
-    !dev-embedded/uisp"
+    >=dev-tinyos/tinyos-tools-1.2.3"
 
 #    >=dev-tinyos/tos-sdk-c-2.0.0-r3
-#    >=dev-tinyos/tos-sdk-python-2.0.0-r3
+
