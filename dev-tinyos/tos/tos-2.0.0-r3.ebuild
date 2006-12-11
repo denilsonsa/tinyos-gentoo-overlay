@@ -81,6 +81,8 @@ src_install() {
 	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
+	dodir ${TOSROOT}/support 
+	insinto ${TOSROOT}/support
 	doins -r support/make
 	chown -R root:0 "${D}"
 	
