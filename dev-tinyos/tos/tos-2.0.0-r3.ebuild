@@ -52,8 +52,8 @@ src_unpack() {
 
     # 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ? 
-	einfo " -> sim.extra gcc bug  "
-	sed -i 's/OPTFLAGS = -g -O0/OPTFLAGS = -g -O2/g' support/make/sim.extra 
+	einfo " -> sim.extra gcc 4.1.1  bug  "
+	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch 
 
 	# set the python version to use 
 	python_version
@@ -81,6 +81,7 @@ src_install() {
 	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
+	# don't really want to split make scripts ... 
 	dodir ${TOSROOT}/support 
 	insinto ${TOSROOT}/support
 	doins -r support/make

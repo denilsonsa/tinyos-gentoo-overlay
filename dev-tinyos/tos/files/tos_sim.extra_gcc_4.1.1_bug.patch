@@ -1,0 +1,19 @@
+--- /usr/src/tinyos-2.x/support/make/sim.extra-orig	2006-11-30 18:41:17.000000000 +0100
++++ /usr/src/tinyos-2.x/support/make/sim.extra	2006-12-11 15:26:38.000000000 +0100
+@@ -3,7 +3,7 @@
+ 
+ GCC=gcc
+ GPP=g++
+-OPTFLAGS = -g -O0
++OPTFLAGS = -g -O2
+ LIBS = -lm -lstdc++ 
+ PFLAGS += -tossim -fnesc-nido-tosnodes=1000 -fnesc-simulate -fnesc-nido-motenumber=sim_node\(\)  
+ WFLAGS = -Wno-nesc-data-race
+@@ -52,6 +52,7 @@
+ 	@echo "  placing object files in $(BUILDDIR)"
+ 	@echo "  writing XML schema to $(XML)"
+ 	@echo "  compiling $(COMPONENT) to object file sim.o"
++	@echo "  **** if ever you have '-O0' in your makefile and use gcc-4.1.1 this will fail with a wierd message, remove the -O0 from your makefile or change gcc version or fix gcc ;) *****"
+ 	$(NCC) -c $(PLATFORM_FLAGS) -o $(OBJFILE) $(OPTFLAGS) $(PFLAGS) $(CFLAGS) $(WFLAGS) $(COMPONENT).nc $(LDFLAGS)  $(DUMPTYPES) -fnesc-dumpfile=$(XML)
+ 
+ 	@echo "  compiling Python support and C libraries into pytossim.o, tossim.o, and c-support.o"
