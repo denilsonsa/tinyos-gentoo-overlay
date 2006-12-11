@@ -7,12 +7,16 @@ DESCRIPTION="TinyOS: merge this to pull in all TinyOS packages"
 HOMEPAGE="http://www.tinyos.net/"
 SRC_URI=""
 LICENSE="Intel"
-SLOT="0"
+SLOT="2"
 KEYWORDS="amd64 ~x86"
-IUSE=""
+IUSE="java"
 
 RDEPEND="dev-tinyos/eselect-tinyos
     >=dev-tinyos/tos-2.0.0-r3
+    >=dev-tinyos/tos-sdk-java-2.0.0-r3
 	>=dev-tinyos/nesc-1.2.7a
     >=dev-tinyos/tinyos-tools-1.2.3
     !dev-embedded/uisp"
+
+#    >=dev-tinyos/tos-sdk-c-2.0.0-r3
+#    >=dev-tinyos/tos-sdk-python-2.0.0-r3

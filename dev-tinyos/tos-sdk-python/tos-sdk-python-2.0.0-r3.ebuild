@@ -59,6 +59,12 @@ src_unpack() {
 	python_version
 	einfo " -> sim.extra python version" ${PYVER}
 	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra 
+
+
+	# java build system minor patch 
+	
+	#einfo " -> java makefile clean target "
+	epatch ${FILESDIR}/message_Makefile_clean-mig-target.patch
 	
 	# tinyos warning 
 	
@@ -69,29 +75,33 @@ src_unpack() {
 src_compile() {
 	
 	
-	einfo "nothing to compile"
+	einfo "compiling the java sdk"
 	
+	rm ${S}/support/sdk/java/tinyos.jar
+	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
+
+	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc
+	
+
 }
 
 src_install() {
-	local TOSROOT=/usr/src/tinyos-2.x
+	TOSROOT=/usr/src/tinyos-2.x
 	
 	#dobin ${FILESDIR}/tos-bcastinject
 
 	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
-	doins -r support/make
+	doins -r support
 	chown -R root:0 "${D}"
 	
 	echo "VER=\"${PV}\"" > ${T}/${PV}
 	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
-	# not ok wrt gentoo java-config-2 rules but for now ...  
 	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">>  ${T}/${PV}
 	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
-	# /usr/lib/ncc/nesc-compile needs to ba available on the path 
-	echo "PATH=/usr/lib/ncc/">>  ${T}/${PV}
+	echo "PATH=/opt/msp430/bin:$PATH">>  ${T}/${PV}
 
 
  	local env_dir="/etc/env.d/tinyos/"

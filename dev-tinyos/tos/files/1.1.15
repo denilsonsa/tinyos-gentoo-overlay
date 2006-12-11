@@ -2,4 +2,6 @@ VER="1.1.15"
 TOSROOT="/usr/src/tinyos-1.x"
 TOSDIR="/usr/src/tinyos-1.x/tos"
 #CLASSPATH="`$TOSROOT/tools/java/javapath`"
+CLASSPATH=""
 MAKERULES=$TOSROOT/tools/make/Makerules
+

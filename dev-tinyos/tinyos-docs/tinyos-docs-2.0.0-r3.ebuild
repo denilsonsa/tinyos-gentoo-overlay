@@ -14,7 +14,7 @@ IUSE=""
 DEPEND=">=dev-python/docutils-0.3.9"
 RDEPEND=""
 
-PDEPEND=" dev-tinyos/nesc"
+PDEPEND="dev-tinyos/nesc"
 
 S=${WORKDIR}/${PN}-${PVR}
 src_unpack() {
@@ -41,5 +41,5 @@ src_install() {
 }
 
 pkg_postinst(){
-	einfo "Tinyos-2 docs are avaialable at  ${TOS_ROOT}/docs"	
+	einfo "Tinyos-2 docs are avaialable at  ${TOSROOT}/docs"	
 }
