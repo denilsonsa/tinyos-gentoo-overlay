@@ -1,6 +1,7 @@
+# -*- sh -*-
 # Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id: tinyos.eselect 267 2006-04-14 16:18:40Z kugelfang $
+# $Id$
 
 inherit config portage
 
@@ -45,16 +46,21 @@ switch_profile() {
 	[[ ${#@} -eq 1 ]] || die "Need exactly 1 argument!"
 	local profile=${1##*/}
 	local profile_file="${ROOT}/etc/env.d/tinyos/${profile}"
-	local version tosroot tosdir
+	local version tosroot tosdir tosmakerules tosextrapath tosextraclasspath
 	version=$(load_config ${profile_file} VER)
 	is_active ${version} \
 		&& die -q "Profile \"${profile}\" is already active!"
 	
 	tosroot=$(load_config ${profile_file} TOSROOT)
 	tosdir=$(load_config ${profile_file} TOSDIR)
+	tosmakerules=$(load_config ${profile_file} MAKERULES)
+	tosextrapath=$(load_config ${profile_file} PATH)
 	
 	store_config ${TINYOS_ENVFILE} TOSROOT ${tosroot}
 	store_config ${TINYOS_ENVFILE} TOSDIR ${tosdir}
+	store_config ${TINYOS_ENVFILE} MAKERULES ${tosmakerules}
+	store_config ${TINYOS_ENVFILE} PATH ${tosextrapath}
+	store_config ${TINYOS_ENVFILE} CLASSPATH ${tosextraclasspath}
 
 	store_config \
 		"${ROOT}"/etc/env.d/tinyos/config CURRENT ${version}
