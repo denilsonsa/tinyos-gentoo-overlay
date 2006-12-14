@@ -13,8 +13,8 @@ IUSE="java python"
 
 RDEPEND="dev-tinyos/eselect-tinyos
     >=dev-tinyos/tos-2.0.0-r3
-    java? (>=dev-tinyos/tos-sdk-java-2.0.0-r3)
-    python? (>=dev-tinyos/tos-sdk-python-2.0.0-r3)
+    java? ( >=dev-tinyos/tos-sdk-java-2.0.0-r3 )
+    python? ( >=dev-tinyos/tos-sdk-python-2.0.0-r3 )
 	>=dev-tinyos/nesc-1.2.7a
     >=dev-tinyos/tinyos-tools-1.2.3"
 

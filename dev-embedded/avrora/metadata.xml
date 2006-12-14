@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+  <email>no maintener</email>
+</maintainer>
+  <longdescription> 
+   Avrora, a research project of the UCLA Compilers Group, is a set of
+   simulation and analysis tools for programs written for the AVR
+   microcontroller produced by Atmel and the Mica2 sensor
+   nodes. Avrora contains a flexible framework for simulating and
+   analyzing assembly programs, providing a clean Java API and
+   infrastructure for experimentation, profiling, and analysis.
+  </longdescription> 
+</pkgmetadata>
