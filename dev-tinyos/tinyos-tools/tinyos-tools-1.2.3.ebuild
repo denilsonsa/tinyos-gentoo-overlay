@@ -16,9 +16,9 @@ IUSE=""
 DEPEND=">=dev-tinyos/tos-2.0.0
         !dev-tinyos/listen
         !dev-tinyos/tos-uisp
-        !dev-tinyos/tos-getenv
-        !dev-tinyos/channelgen
-        !dev-tinyos/ncc"
+        !dev-tinyos/channelgen"
+#        !dev-tinyos/tos-getenv
+#        !dev-tinyos/ncc"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
          >=dev-java/ibm-jdk-bin-1.5"
 
@@ -88,11 +88,11 @@ src_unpack() {
 	
 	# not a good patch but bug evaporates when building with gcc 3.4.6
 	
-	if [ `gcc-major-version` -ge 4 ] ; then 
-		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934" 
-		die "libtoscomm.so is buyggy when built against gcc-4"
-		
-	fi
+#	if [ `gcc-major-version` -ge 4 ] ; then 
+#		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934" 
+#		die "libtoscomm.so is buyggy when built against gcc-4"
+#		
+#	fi
 	# bug in toscomm java vm plugin 
 	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
 	
