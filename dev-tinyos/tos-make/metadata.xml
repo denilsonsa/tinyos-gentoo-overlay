@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>dev-embedded</herd>
+<maintainer>
+  <email>sanchan@gentoo.org</email>
+</maintainer>
+ <longdescription>
+	TinyOS Make System
+	created on 7 Jan 2004
+	written by Cory Sharp cssharp@eecs.berkeley.edu
+	In order to use this, just add in your Makefile something like:
+	TOSMAKE_PATH += ${YOUR_ADDITIONAL_RULES_DIRECTORY}
+	MAKERULES = ${TOSROOT}/tools/make/Makerules
+ </longdescription>
+</pkgmetadata>

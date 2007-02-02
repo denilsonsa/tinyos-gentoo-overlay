@@ -8,7 +8,7 @@ MY_P="tinyos"
 
 inherit eutils java-pkg java-utils
 
-DESCRIPTION="SimDriver is an extensible platform for interacting with TOSSIM/Nido, the TinyOS simulator."
+DESCRIPTION="The TinyOS Simulator Message Library"
 HOMEPAGE="http://www.tinyos.net/"
 SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
 LICENSE="Intel"
@@ -17,24 +17,16 @@ KEYWORDS="amd64 ~x86"
 IUSE="source"
 DEPEND=">=dev-java/ibm-jdk-bin-1.4.0
 	dev-java/java-config
-	>=dev-java/oalnf-3.0
-	>=dev-tinyos/tos-util-1.1.15
 	>=dev-tinyos/tos-message-1.1.15
-	>=dev-tinyos/tos-tython-1.1.15
-	>=dev-tinyos/tos-sf-1.1.15
-	>=dev-tinyos/tos-packet-1.1.15
-	|| ( >=dev-tinyos/ncc-1.1.15
-         >=dev-tinyos/tinyos-tools-1.2.3)
+    ||( (>=dev-tinyos/ncc-1.1.15
+         >=dev-tinyos/tos-getenv-1.1.15)
+        >=dev-tinyos/tinyos-tools-1.2.3)
+	>=dev-tinyos/tos-1.1.15
 	source? ( app-arch/zip )"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.4.0
-	>=dev-java/oalnf-3.0
-	|| ( >=dev-tinyos/tos-getenv-1.1.15
-         >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-util-1.1.15
+    ||( >=dev-tinyos/tos-getenv-1.1.15
+        >=dev-tinyos/tinyos-tools-1.2.3)
 	>=dev-tinyos/tos-message-1.1.15
-	>=dev-tinyos/tos-tython-1.1.15
-	>=dev-tinyos/tos-sf-1.1.15
-	>=dev-tinyos/tos-packet-1.1.15
 	source? ( app-arch/zip )"
 
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools/java
@@ -57,33 +49,16 @@ pkg_setup() {
 	fi
 }
 
-
 src_compile() {
 	local cp="."
-	cp=${cp}:$(java-pkg_getjars tos-util)
 	cp=${cp}:$(java-pkg_getjars tos-message)
-	cp=${cp}:$(java-pkg_getjars tos-tython)
-	cp=${cp}:$(java-pkg_getjars tos-sim-msg)
-	cp=${cp}:$(java-pkg_getjars tos-sf)
-	cp=${cp}:$(java-pkg_getjars tos-packet)
-	cp=${cp}:$(java-pkg_getjars oalnf)
-
-	#Makefile broken, compiling by hand
-	einfo "Compiling TinyOS SimDriver"
-	find net/tinyos/sim -name "*.java" | xargs $(java-config -c) -source 1.4 -classpath ${cp} || die "Failed to compile"
-	make -C net/tinyos/sim  plugins/plugins.list
-	einfo "Packaging TinyOS SimDriver"
-	find net/tinyos/sim -name "*.class" | xargs $(java-config -j) cmf \
-		net/tinyos/sim/simdriver.manifest \
-		${PN}.jar \
-		net/tinyos/sim/ui \
-		net/tinyos/sim/plugins/plugins.list
+	einfo "Compiling TinyOS Sim Message"
+	make -C net/tinyos/sim/msg CLASSPATH=${cp}
+	einfo "Packaging TinyOS Sim Message"
+	find net/tinyos/sim/msg -name "*.class" | xargs jar cf ${PN}.jar
 }
 
 src_install() {
-	dodoc net/tinyos/sim/README net/tinyos/sim/TODO
 	java-pkg_dojar ${PN}.jar
-	use source && java-pkg_dosrc net/tinyos/sim
-	dobin ${FILESDIR}/tinyviz
-	dobin ${FILESDIR}/simdriver
+	use source && java-pkg_dosrc net/tinyos/sim/msg
 }
