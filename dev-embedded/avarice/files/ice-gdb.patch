@@ -1,0 +1,14 @@
+--- scripts/ice-gdb.in-old	2007-02-02 19:06:14.000000000 +0100
++++ scripts/ice-gdb.in	2007-02-02 19:07:07.000000000 +0100
+@@ -39,6 +39,10 @@
+ 
+ $exe = "" if $capture;
+ 
+-system "start-avarice $exe" unless $avarice_running;
++
++print "please launch in a new terminal : \nstart-avarice $exe \nand wait for completion before hiting enter" unless $avarice_running;
++#system "start-avarice $exe" unless $avarice_running;
++$line = <STDIN>;
++$line = readline(*STDIN);
+ unshift @ARGV, ($debugger, "-x", "$datadir/avarice/gdb-avarice-script" );
+ exec @ARGV;
