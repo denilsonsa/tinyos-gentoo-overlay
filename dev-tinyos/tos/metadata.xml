@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<!-- 
-
-This is the example metadata file.
-The root element of this file is <pkgmetadata>. Within this element a 
-number of subelements are allowed: herd, maintainer, and 
-longdescription. herd is a required subelement.
-
-For a full description look at:
-http://www.gentoo.org/proj/en/metastructure/herds/
-
-
-Before committing, please remove the comments from this file. They are 
-not relevant for general metadata.xml files.
--->
 <pkgmetadata>
-<herd>no-herd</herd>
+<herd>dev-embedded</herd>
 <maintainer>
-  <email>@gentoo.org</email>
-<!--  <description>Description of the maintainership</description> -->
+  <email>sanchan@gentoo.org</email>
 </maintainer>
-<!-- <longdescription>Long description of the package</longdescription> -->
+  <longdescription>
+    TinyOS is a small operating system written in NesC language for embedded system like wireless sensor.
+    This package provides the sources of the tos directory of the TinyOS distribution, which contains the core
+    system, and the doc directory with the TinyOS documentation.
+  </longdescription>
 </pkgmetadata>

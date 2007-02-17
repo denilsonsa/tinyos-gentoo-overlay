@@ -1,0 +1,87 @@
+
+
+
+
+### 
+##  Tinyos 2 dependencies 
+### 
+=dev-tinyos/tinyos-2.0.0-r3
+=dev-tinyos/tos-2.0.0-r3
+=dev-tinyos/tinyos-tools-1.2.3
+=dev-tinyos/tinyos-docs-2.0.0-r3
+=dev-tinyos/eselect-tinyos-0.1
+=dev-tinyos/tos-sdk-python-2.0.0-r3
+=dev-tinyos/tos-sdk-java-2.0.0-r3
+
+
+###
+## tiny os / AVR devel
+###
+
+dev-tinyos/tinyos 		~*
+dev-tinyos/tos			~*
+dev-tinyos/ncc 			~*
+dev-tinyos/nesc			~*
+dev-tinyos/tos-apps		~*
+dev-tinyos/channelgen		~*
+dev-tinyos/listen		~*
+dev-tinyos/tos-make 		~*
+dev-tinyos/tos-scripts		~*
+dev-tinyos/tos-uisp		~*
+
+#tinyos java stuff
+dev-tinyos/tos-sf 		~*
+dev-tinyos/tos-packet 		~*
+dev-tinyos/tos-simdriver 	~*
+dev-tinyos/tos-sim-msg		~*
+dev-tinyos/serial-forwarder	~*
+dev-tinyos/tos-javalibs 	~*
+dev-tinyos/tos-getenv		~*
+dev-tinyos/tos-tython		~*
+dev-tinyos/tos-util 		~*
+dev-tinyos/tos-message		~*
+dev-tinyos/tos-deluge		~* 
+dev-tinyos/tos-listen-java	~*
+
+
+##
+## various tools 
+##
+
+dev-embedded/avarice		~*
+
+##
+## dependencies 
+##
+
+#dependency of java stuff
+=dev-java/ptplot-5.5
+
+# dependency of documentation 
+=app-text/tetex-3.0_p1-r2
+
+dev-python/jpype		~*
+
+###
+## # AVR GCC 
+###
+cross-avr/binutils		* ~* -*
+cross-avr/gcc			* ~* -*
+cross-avr/avr-libc 		x86 ~x86
+cross-avr/gdb 			x86 ~x86
+
+###
+## ?
+###
+
+# =dev-tinyos/tos-oscilloscope-1.1.15
+# dev-tinyos/tos-plot	~x86
+# dev-java/oalnf ~x86
+# =dev-java/log4j-1.2.12
+# =dev-java/ant-1.6.5
+# =dev-java/ant-core-1.6.5-r2
+# =dev-java/ant-tasks-1.6.5
+# =sci-mathematics/jama-1.0.2
+# =www-servers/jetty-4.2.19
+
+

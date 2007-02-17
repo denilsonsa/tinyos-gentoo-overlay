@@ -1,18 +1,21 @@
+# Overlay for Tinyos 2.X 
+
+You can find packages.keywords in various/
 
 
-Overlay for Tinyos 2.X 
-
-TODO:
-
-* Classpath modification by eselect-tinyos is broken 
-* Modify eselect tinyos in order to change class path and makerules 
-* Clarify which package should be dropped / which should be keept 
-
-* split tos ebuild into  :
-tos-2.0.0.ebuild 
-tos-sdk-c-2.0.0.ebuild 
-tos-sdk-java-2.0.0.ebuild 
-tos-sdk-python-2.0.0.ebuild 
+ TODO:
 
 
-* fix the rependency 
+
+++ Classpath modification by eselect-tinyos is broken 
+++ Modify eselect tinyos in order to change class path and makerules 
++ Clarify which package should be dropped / which should be keept 
+
+x  split tos ebuild 
+ into  
+       tos-2.0.0.ebuild 
+       tos-sdk-c-2.0.0.ebuild 
+       tos-sdk-java-2.0.0.ebuild 
+       tos-sdk-python-2.0.0.ebuild 
+
++ fix the rependency 

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+MY_JAVA=$(java-config -J)
+MY_CP="."
+MY_CP="${MY_CP}:$(java-config -p tos-util)"
+MY_CP="${MY_CP}:$(java-config -p tos-message)"
+MY_CP="${MY_CP}:$(java-config -p oalnf)"
+MY_CP="${MY_CP}:$(java-config -p tos-deluge)"
+MY_CP="${MY_CP}:$(java-config -p tos-packet)"
+#echo ${MY_JAVA} -jar -classpath ${MY_CP} ${MY_ARGS} ${MY_JAR} "${@}"
+exec ${MY_JAVA} -classpath ${MY_CP} ${MY_ARGS} ${MY_JAR} net.tinyos.tools.Deluge   "${@}"

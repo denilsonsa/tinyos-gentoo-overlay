@@ -18,7 +18,7 @@ IUSE=""
 DEPEND=">=dev-tinyos/tos-1.1.15"
 RDEPEND="||( >=dev-tinyos/ncc-1.1.15
              >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-scripts"
+	>=dev-tinyos/tos-scripts-1.1.15"
 
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools
 pkg_setup() {
