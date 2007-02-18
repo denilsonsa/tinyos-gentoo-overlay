@@ -6,7 +6,7 @@ CVS_MONTH="Dec"
 CVS_YEAR="2005"
 MY_P="tinyos"
 
-inherit eutils java-pkg java-utils
+inherit eutils java-pkg-2
 
 DESCRIPTION="The TinyOS tools to use deluge, progamation over the air for motes  "
 HOMEPAGE="http://www.tinyos.net/"
@@ -16,7 +16,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="source micaz mica2 telosb"
 DEPEND=">=dev-java/ibm-jdk-bin-1.4.0
-	dev-java/java-config
 	>=dev-tinyos/tos-getenv-1.1.15
 	>=dev-tinyos/tos-util-1.1.15
 	>=dev-tinyos/tos-message-1.1.15
@@ -42,11 +41,11 @@ pkg_setup() {
 		die "setup failed due to missing prerequisite: javacomm"
 	fi
 
-	java-utils_setup-vm
-	java-utils_ensure-vm-version-ge 1 4 0
+	java-pkg-2_pkg_setup
+	java-pkg_ensure-vm-version-ge 1 4 0
 	local vendor=`java-utils_get-vm-vendor`
 	einfo "${vendor} vm detected."
-	if ! [[ ${vendor} = "ibm-jdk-bin" ]]; then
+	if ! [[ ${vendor} = "ibm" ]]; then
 		eerror "ibm-jdk-bin is required!"
 		eerror "Please use java-config -S to set your system vm to a ibm-jdk."
 		die "setup failed due to missing prerequisite: ibm-jdk-bin"
@@ -84,8 +83,8 @@ src_compile() {
 	make -C net/tinyos/deluge DelugeConsts.java
 
 	einfo "Compiling TinyOS Deluge"
-	find net/tinyos/deluge -name "*.java" | xargs $(java-config-2 -c) -source 1.4 -classpath ${cp} -nowarn || die "Failed to compile"
-	echo  "net/tinyos/tools/Deluge.java" | xargs $(java-config-2 -c) -source 1.4 -classpath ${cp} -nowarn || die "Failed to compile"
+	find net/tinyos/deluge -name "*.java" | xargs ejavac  -source 1.4 -classpath ${cp} -nowarn || die "Failed to compile"
+	echo  "net/tinyos/tools/Deluge.java" | xargs ejavac -source 1.4 -classpath ${cp} -nowarn || die "Failed to compile"
 
 	einfo "Packaging TinyOS Deluge"
 	find net/tinyos/{deluge,tools}  -name "*.class" | xargs jar cf ${PN}.jar 

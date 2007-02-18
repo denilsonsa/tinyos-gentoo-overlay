@@ -7,7 +7,7 @@ DESCRIPTION="TinyOS: merge this to pull in all TinyOS packages"
 HOMEPAGE="http://www.tinyos.net/"
 SRC_URI=""
 LICENSE="Intel"
-SLOT="0"
+SLOT="1"
 KEYWORDS="amd64 ~x86"
 IUSE=""
 

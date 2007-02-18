@@ -42,7 +42,7 @@ dev-tinyos/tos-util 		~*
 dev-tinyos/tos-message		~*
 dev-tinyos/tos-deluge		~* 
 dev-tinyos/tos-listen-java	~*
-
+dev-tinyos/tos-plot		~*
 
 ##
 ## various tools 
@@ -60,7 +60,17 @@ dev-embedded/avarice		~*
 # dependency of documentation 
 =app-text/tetex-3.0_p1-r2
 
+# needed for some of teh stufff made by K. Whitehouse...
 dev-python/jpype		~*
+
+# dependency of dev-tinyos/tos-simdriver
+=dev-java/oalnf-3.0
+
+# dependency of dev-tinyos/tos-javalibs-1.1.15 
+=www-servers/jetty-4.2.19
+=sci-mathematics/jama-1.0.2
+
+
 
 ###
 ## # AVR GCC 
@@ -75,7 +85,7 @@ cross-avr/gdb 			x86 ~x86
 ###
 
 # =dev-tinyos/tos-oscilloscope-1.1.15
-# dev-tinyos/tos-plot	~x86
+
 # dev-java/oalnf ~x86
 # =dev-java/log4j-1.2.12
 # =dev-java/ant-1.6.5
