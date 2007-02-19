@@ -1,9 +1,17 @@
+# Copyright 2007 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# Original Author: Aurélien Francillon <aurelien.francillon@inrialpes.fr>
+# Purpose: helper functions for tinyos java ebuilds  
+
 
 # uses java
 inherit tinyos java-pkg-2
 
 EXPORT_FUNCTIONS pkg_setup src_install src_compile
 
+# To create a tarball of sourcecode   
 IUSE="source"
 
 # tinyos needs an ibm vm with javacomm this may change in the futre
@@ -11,9 +19,12 @@ IUSE="source"
 JAVA_PKG_FORCE_VM=ibm-jdk-1.5 
 #JAVA_PKG_WANT_TARGET=ibm-jdk-1.5
 
+
+# path of the java stuff 
 S=${S}/tools/java
 
 
+# checks for poroper settings of TOSROOT and TOSDIR
 tinyos_check_tosenv() {
 	if [ -z "${TOSROOT}" ]
 	then
