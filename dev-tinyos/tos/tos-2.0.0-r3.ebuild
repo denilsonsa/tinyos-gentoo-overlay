@@ -26,12 +26,12 @@ RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc
-         !dev-tinyos/tos-make"
+         dev-tinyos/nesc"
 
 #those two are in the jar file 
-PDEPEND="${PDEPEND} !dev-tinyos/tos-plot
-	                 !dev-tinyos/serial-forwarder"
+PDEPEND="${PDEPEND} "
+#!dev-tinyos/tos-plot
+#!dev-tinyos/serial-forwarder"
 
 
 S=${WORKDIR}/${MY_P}

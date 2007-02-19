@@ -13,10 +13,11 @@ LICENSE="Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64" 
 IUSE=""
-DEPEND=">=dev-tinyos/tos-2.0.0
-        !dev-tinyos/listen
-        !dev-tinyos/tos-uisp
-        !dev-tinyos/channelgen"
+DEPEND=">=dev-tinyos/tos-2.0.0"
+
+#        !dev-tinyos/listen
+#        !dev-tinyos/tos-uisp
+#        !dev-tinyos/channelgen"
 #        !dev-tinyos/tos-getenv
 #        !dev-tinyos/ncc"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
