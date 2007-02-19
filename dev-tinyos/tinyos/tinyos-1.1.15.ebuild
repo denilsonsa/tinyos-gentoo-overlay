@@ -11,7 +11,7 @@ SLOT="1"
 KEYWORDS="amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-tinyos/tos-1.1.15
+RDEPEND="=dev-tinyos/tos-1*
 	>=dev-tinyos/nesc-1.2.1
 	|| ( ( >=dev-tinyos/listen-1.1.15
 	       >=dev-tinyos/tos-uisp-1.1.15	

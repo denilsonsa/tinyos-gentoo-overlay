@@ -1,23 +1,8 @@
 
 # uses java
-inherit java-pkg-2
+inherit tinyos java-pkg-2
 
-EXPORT_FUNCTIONS pkg_setup src_install
-#DEPEND=">=dev-java/ibm-jdk-bin-1.4.0"
-#RDEPEND=">=dev-java/ibm-jdk-bin-1.4.0"
-# should lookup config files for this 
-TOSDIR=/usr/src/tinyos-1.x/tos
-TOSROOT=/usr/src/tinyos-1.x
-
-NESCPATH=/usr/lib/ncc/
-PATH=$PATH:$NESCPATH
-
-CVS_MONTH="Dec"
-CVS_YEAR="2005"
-MY_P="tinyos"
-
-HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
+EXPORT_FUNCTIONS pkg_setup src_install src_compile
 
 IUSE="source"
 
@@ -26,7 +11,29 @@ IUSE="source"
 JAVA_PKG_FORCE_VM=ibm-jdk-1.5 
 #JAVA_PKG_WANT_TARGET=ibm-jdk-1.5
 
-S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools/java
+S=${S}/tools/java
+
+
+tinyos_check_tosenv() {
+	if [ -z "${TOSROOT}" ]
+	then
+		# best to make an assumption
+		export TOSDIR=/usr/src/tinyos-1.x/tos
+	fi
+
+	if [ ! -d "${TOSROOT}" ]
+	then
+		eerror "In order to compile nesc you have to set the"
+		eerror "\$TOSROOT environment properly."
+		eerror ""
+		eerror "You can achieve this by emerging >=dev-tinyos/tos-1.1.15"
+		eerror "or by exporting TOSDIR=\"path to your tinyos dir\""
+		die "Couldn't find a valid TinyOS home"
+	else
+		einfo "Building tos-scripts for ${TOSROOT}"
+	fi
+}
+
 
 tinyos_check_vm() {
 	debug-print-function ${FUNCNAME} $*
@@ -60,7 +67,7 @@ tos_java_build_source(){
 		TOS_JAVA_SOURCESFILES=`find ${TOS_PKG_JAVA_DIR} -name "*.java"`
 	fi 
 	einfo "building files :  ${TOS_JAVA_SOURCESFILES} "
-	ejavac    ${TOS_JAVA_SOURCESFILES} || die "Failed to compile"	
+	ejavac   ${TOS_JAVA_SOURCESFILES} || die "Failed to compile"	
 
 }
 
@@ -78,6 +85,7 @@ tos_java_create_jar() {
 pkg_setup() {
 	debug-print-function ${FUNCNAME} $*
 	tinyos_check_vm
+	tinyos_check_tosenv
 }
 
 src_install() {
@@ -86,12 +94,26 @@ src_install() {
 	if [[ -f  ${TOS_PKG_JAVA_DIR}/README ]]; then 
 		dodoc ${TOS_PKG_JAVA_DIR}/README
 	fi
-	if ! [[ -z  ${TOS_JAVA_LAUNCHER} ]]; then 
-		if [[ -f  ${FILESDIR}/${TOS_JAVA_LAUNCHER}  ]]; then 
-			dobin ${FILESDIR}/${TOS_JAVA_LAUNCHER}
-		else
-			java-pkg_dolauncher ${TOS_JAVA_LAUNCHER} --main ${TOS_JAVA_LAUNCHER_MAIN}
-		fi					
+	if [[ -f  ${TOS_PKG_JAVA_DIR}/TODO ]]; then 
+		dodoc ${TOS_PKG_JAVA_DIR}/TODO
 	fi
+
+	for LAUNCHER in ${TOS_JAVA_LAUNCHER}; do 
+		if ! [[ -z  ${LAUNCHER} ]]; then 
+			if [[ -f  ${FILESDIR}/${LAUNCHER}  ]]; then 
+				dobin ${FILESDIR}/${LAUNCHER}
+			else
+				java-pkg_dolauncher ${LAUNCHER} --main ${TOS_JAVA_LAUNCHER_MAIN}
+			fi					
+		fi
+	done
 	use source && java-pkg_dosrc ${TOS_PKG_JAVA_DIR}
 }
+
+
+
+src_compile() {
+	tos_java_build_source
+	tos_java_create_jar
+}
+

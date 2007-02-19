@@ -2,15 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-CVS_MONTH="Dec"
-CVS_YEAR="2005"
-MY_P="tinyos"
+inherit eutils tinyos-java
 
-inherit java-pkg
 
 DESCRIPTION="TinyOS Jython patched version"
-HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
 LICENSE="Intel JPython Apache-1.1"
 SLOT="0"
 KEYWORDS="amd64 ~x86"
@@ -20,18 +15,10 @@ RDEPEND=">=virtual/jre-1.2
 	jikes? ( >=dev-java/jikes-1.18 )"
 
 DEPEND=">=virtual/jdk-1.2
-	source? ( app-arch/zip )
 	${RDEPEND}"
 
 
-S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools/java
-
-src_compile() {
-	javac=$(java-config -c)
-	if use jikes ; then
-		java=$(which jikes)
-	fi
-
+src_compile() {	
 	local cp="."
 	local exclude=""
 
@@ -41,10 +28,15 @@ src_compile() {
 	else
 		exclude="${exclude} ! -name ReadlineConsole.java"
 	fi
-	find org -name "*.java" ${exclude} | xargs ${javac} -source 1.3 -classpath ${cp} -nowarn || die "Failed to compile"
+	TOS_PKG_JAVA_DIR=org
+	java-pkg_addcp ${cp}
+	tos_java_build_source 
+	tos_java_create_jar
 
-	einfo "Packaging patched version of Jython 2.2a0"
-	find org -name "*.class" | xargs jar cf ${PN}.jar
+# 	find org -name "*.java" ${exclude} | xargs ${javac} -source 1.3 -classpath ${cp} -nowarn || die "Failed to compile"
+
+# 	einfo "Packaging patched version of Jython 2.2a0"
+# 	find org -name "*.class" | xargs jar cf ${PN}.jar
 }
 
 src_install() {

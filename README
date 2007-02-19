@@ -2,6 +2,28 @@
 
 You can find packages.keywords in various/
 
+Dependency graph tinyos-1
+[ebuild  NS   ] dev-tinyos/tinyos-1.1.15  0 kB [2]
+[ebuild  N    ]  dev-tinyos/tos-javalibs-1.1.15  0 kB [2]
+[ebuild  N    ]   sci-mathematics/jama-1.0.2  USE="-doc -source" 75 kB [2]
+[ebuild  N    ]   dev-java/ptplot-5.5  0 kB [2]
+[ebuild  N    ]   dev-java/xmlrpc-1.2_beta1-r1  USE="-doc -jikes" 75 kB
+[ebuild  N    ]   dev-java/jdom-1.0-r2  USE="-doc -source" 3,488 kB
+[ebuild  N    ]    dev-java/saxpath-1.0  USE="junit -doc -source" 2,115 kB
+[ebuild  N    ]   www-servers/jetty-4.2.19  11,892 kB
+[ebuild  N    ]  dev-tinyos/tos-make-1.1.15  0 kB [2]
+[ebuild  N    ]   dev-tinyos/tos-scripts-1.1.15-r1  0 kB [2]
+[ebuild  N    ]  dev-tinyos/tos-simdriver-1.1.15  USE="-source" 0 kB [2]
+[ebuild  N    ]   dev-tinyos/tos-tython-1.1.15  USE="readline -doc -jikes -source" 0 kB [2]
+[ebuild  N    ]   dev-tinyos/tos-plot-1.1.15  USE="-source" 0 kB [2]
+[ebuild  N    ]   dev-tinyos/tos-sf-1.1.15-r1  USE="-source" 0 kB [2]
+[ebuild  N    ]    dev-tinyos/tos-packet-1.1.15  USE="-source" 0 kB [2]
+[ebuild  N    ]    dev-tinyos/tos-sim-msg-1.1.15  USE="-source" 0 kB [2]
+[ebuild  N    ]     dev-tinyos/tos-1.1.15-r1  USE="-doc" 0 kB [2]
+[ebuild  N    ]   dev-tinyos/tos-message-1.1.15  USE="-source" 0 kB [2]
+[ebuild  N    ]    dev-tinyos/tos-util-1.1.15  0 kB [2]
+
+
 
  TODO:
 

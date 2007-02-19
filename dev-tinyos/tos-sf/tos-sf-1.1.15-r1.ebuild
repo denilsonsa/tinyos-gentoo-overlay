@@ -10,16 +10,12 @@ KEYWORDS="amd64 ~x86"
 DEPEND=">=virtual/jdk-1.4
 	|| ( >=dev-tinyos/tos-getenv-1.1.15
          >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-util-1.1.15
-	>=dev-tinyos/tos-message-1.1.15
 	>=dev-tinyos/tos-packet-1.1.15
 	>=dev-tinyos/tos-sim-msg-1.1.15"
 
 RDEPEND=">=virtual/jdk-1.4
 	|| ( >=dev-tinyos/tos-getenv-1.1.15
          >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-util-1.1.15
-	>=dev-tinyos/tos-message-1.1.15
 	>=dev-tinyos/tos-packet-1.1.15
 	>=dev-tinyos/tos-sim-msg-1.1.15"
 

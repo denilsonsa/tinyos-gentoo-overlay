@@ -2,10 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-CVS_MONTH="Dec"
-CVS_YEAR="2005"
-MY_P="tinyos"
-
 inherit eutils tinyos-java
 
 DESCRIPTION="The TinyOS Simulator Message Library"
@@ -17,7 +13,7 @@ DEPEND=">=virtual/jdk-1.4
     ||( (>=dev-tinyos/ncc-1.1.15
          >=dev-tinyos/tos-getenv-1.1.15)
         >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-1.1.15"
+	=dev-tinyos/tos-1*"
 
 RDEPEND=">=virtual/jre-1.4
          ||( >=dev-tinyos/tos-getenv-1.1.15
