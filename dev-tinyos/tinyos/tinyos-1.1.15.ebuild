@@ -15,7 +15,7 @@ RDEPEND="=dev-tinyos/tos-1*
 	>=dev-tinyos/nesc-1.2.1
 	|| ( ( >=dev-tinyos/listen-1.1.15
 	       >=dev-tinyos/tos-uisp-1.1.15	
-	       >=dev-tinyos/channelgen
+	       >=dev-tinyos/channelgenp-1.1.15
            >=dev-tinyos/tos-getenv-1.1.15
           )>=dev-tinyos/tinyos-tools-1.2.3)
     >=dev-tinyos/serial-forwarder-1.1.15

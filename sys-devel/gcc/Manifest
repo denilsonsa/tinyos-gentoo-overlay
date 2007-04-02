@@ -1,0 +1,139 @@
+AUX 3.2.1/gcc31-loop-load-final-value.patch 3324 RMD160 8bb0e9133923821daf2e9d10a27a0a1930e00bbd SHA1 c73dc6e19a76a1dcbb11a15ff5ff04b11a9f0343 SHA256 70aa8433fb19c95f334b6cbc155cae22a3b61a6892ed9e18f95860509d0091a8
+MD5 8ec9b0352d226e4693cabffe0fa5bba6 files/3.2.1/gcc31-loop-load-final-value.patch 3324
+RMD160 8bb0e9133923821daf2e9d10a27a0a1930e00bbd files/3.2.1/gcc31-loop-load-final-value.patch 3324
+SHA256 70aa8433fb19c95f334b6cbc155cae22a3b61a6892ed9e18f95860509d0091a8 files/3.2.1/gcc31-loop-load-final-value.patch 3324
+AUX 3.2.1/gcc32-arm-disable-mathf.patch 2229 RMD160 40c451d6912473ba39adb72e91d6f507c1045a38 SHA1 6a74ff0312caf8a0ead67dd7aef8d32897cc5d6b SHA256 808368680a4635cdf46844e63342a8ca387769b2323ef99f90530d3bbc622587
+MD5 5e8f2122ef7f9ce187b0a0d50ac9d24a files/3.2.1/gcc32-arm-disable-mathf.patch 2229
+RMD160 40c451d6912473ba39adb72e91d6f507c1045a38 files/3.2.1/gcc32-arm-disable-mathf.patch 2229
+SHA256 808368680a4635cdf46844e63342a8ca387769b2323ef99f90530d3bbc622587 files/3.2.1/gcc32-arm-disable-mathf.patch 2229
+AUX 3.2.1/gcc32-arm-reload1-fix.patch 932 RMD160 c681e89ab44626068c0fcda6c929fe4888584c6f SHA1 72589641cb8e7b411a81d08fd5acd768c5a72f5d SHA256 d1158fa35b98cf72565e9b12cfd3f92a1eb14f0abfc5bf86d5990792cf1fefc3
+MD5 044a164462d9392aa67cde6f9fd5c1bc files/3.2.1/gcc32-arm-reload1-fix.patch 932
+RMD160 c681e89ab44626068c0fcda6c929fe4888584c6f files/3.2.1/gcc32-arm-reload1-fix.patch 932
+SHA256 d1158fa35b98cf72565e9b12cfd3f92a1eb14f0abfc5bf86d5990792cf1fefc3 files/3.2.1/gcc32-arm-reload1-fix.patch 932
+AUX 3.2.1/gcc32-athlon-alignment.patch 509 RMD160 63c5f4104b8d25bdca08d34c3679cac289f5f090 SHA1 8d1d31ed2e716296539f1a1742b36d2c3d81a874 SHA256 1e6f86716e6daa2840e66d49ca90a528cf5c1cba733d2ceecba5fd0805a5e1c3
+MD5 38131a537835873acb08c415d27a013e files/3.2.1/gcc32-athlon-alignment.patch 509
+RMD160 63c5f4104b8d25bdca08d34c3679cac289f5f090 files/3.2.1/gcc32-athlon-alignment.patch 509
+SHA256 1e6f86716e6daa2840e66d49ca90a528cf5c1cba733d2ceecba5fd0805a5e1c3 files/3.2.1/gcc32-athlon-alignment.patch 509
+AUX 3.2.1/gcc32-sparc32-hack.patch 2192 RMD160 4b33288c872aa8744722063b706b7034f61eb29f SHA1 36e2561f031421d161869df5d1daa47539419d74 SHA256 b89cfccb9f4ebb0929ff404428a1ec820fb580baa4c53eae2640f8fbf9b26b78
+MD5 7978d1aaf6bae19163e83c110dec1b38 files/3.2.1/gcc32-sparc32-hack.patch 2192
+RMD160 4b33288c872aa8744722063b706b7034f61eb29f files/3.2.1/gcc32-sparc32-hack.patch 2192
+SHA256 b89cfccb9f4ebb0929ff404428a1ec820fb580baa4c53eae2640f8fbf9b26b78 files/3.2.1/gcc32-sparc32-hack.patch 2192
+AUX 3.2.1/gcc32-strip-dotdot.patch 2071 RMD160 939a53d8a40999927ff3d3b85e12cb8a328cf005 SHA1 6a393715788a11fd2e7897da574e1df38b88de1d SHA256 66605306254840e7584feb97e2ecb1a1158c4a66fc274e523ede40349ef1390e
+MD5 51719a174883702ef1851fac4cc79398 files/3.2.1/gcc32-strip-dotdot.patch 2071
+RMD160 939a53d8a40999927ff3d3b85e12cb8a328cf005 files/3.2.1/gcc32-strip-dotdot.patch 2071
+SHA256 66605306254840e7584feb97e2ecb1a1158c4a66fc274e523ede40349ef1390e files/3.2.1/gcc32-strip-dotdot.patch 2071
+AUX 3.2.2/gcc-3.2.2-cross-compile.patch 479 RMD160 beedd93602fda5ac431901eb23cd4a829e83aa2c SHA1 9c7193d3f783c3eda809e8cf74c21b6f2377b865 SHA256 162d461ae205f470f89afa562f95d777f3d272689dbe4e9e91166ebbea34c383
+MD5 ed5b074a1d34f4b30a0b1d3928be57e3 files/3.2.2/gcc-3.2.2-cross-compile.patch 479
+RMD160 beedd93602fda5ac431901eb23cd4a829e83aa2c files/3.2.2/gcc-3.2.2-cross-compile.patch 479
+SHA256 162d461ae205f470f89afa562f95d777f3d272689dbe4e9e91166ebbea34c383 files/3.2.2/gcc-3.2.2-cross-compile.patch 479
+AUX 3.2.2/gcc-3.2.2-no-COPYING-cross-compile.patch 1001 RMD160 eb076534fc5e2487d94a96858abe9e9397c18020 SHA1 e685f74f038a941772d296fb540d70282d84503f SHA256 abdb66e19439fabb2b2249f374c1a0071f791859e8592e78cfcc894c323d7458
+MD5 9a67d782b2a574f77714b29675cbda62 files/3.2.2/gcc-3.2.2-no-COPYING-cross-compile.patch 1001
+RMD160 eb076534fc5e2487d94a96858abe9e9397c18020 files/3.2.2/gcc-3.2.2-no-COPYING-cross-compile.patch 1001
+SHA256 abdb66e19439fabb2b2249f374c1a0071f791859e8592e78cfcc894c323d7458 files/3.2.2/gcc-3.2.2-no-COPYING-cross-compile.patch 1001
+AUX 3.2.2/gcc32-pr7768.patch 1789 RMD160 fbfd679a5548d2cbd621b4bcec2e6e89329d071b SHA1 ee426071cbe9f5065b118dee730e4cbdb9954aa0 SHA256 1f66eae379ef25a618d460ccee1fe3d876fe8e708af6b9bf3aad73803135a559
+MD5 17f15202b98a8dd84d0f4b67eff2d868 files/3.2.2/gcc32-pr7768.patch 1789
+RMD160 fbfd679a5548d2cbd621b4bcec2e6e89329d071b files/3.2.2/gcc32-pr7768.patch 1789
+SHA256 1f66eae379ef25a618d460ccee1fe3d876fe8e708af6b9bf3aad73803135a559 files/3.2.2/gcc32-pr7768.patch 1789
+AUX 3.2.2/gcc32-pr8213.patch 2036 RMD160 d55cdd9534f77cfe760fa0ff350e72e6766ec58c SHA1 4b6e181e4f3da796ae6b34768a6f89ea0aad2eb8 SHA256 44215ac0f877d01241a789675b3bee3c8206d6fabffd6134f05c9edfaf8ff338
+MD5 9f5b59d7567b90894d8d32cf99f910cc files/3.2.2/gcc32-pr8213.patch 2036
+RMD160 d55cdd9534f77cfe760fa0ff350e72e6766ec58c files/3.2.2/gcc32-pr8213.patch 2036
+SHA256 44215ac0f877d01241a789675b3bee3c8206d6fabffd6134f05c9edfaf8ff338 files/3.2.2/gcc32-pr8213.patch 2036
+AUX 3.2.2/gcc322-ggc_page-speedup.patch 872 RMD160 5e0bbda0b528b34939f5e27e0caa97779c59d749 SHA1 570324e7640c5f68cf387ebb008542be1fef1d04 SHA256 a193b395aff6dd272de5a92e83ef65c05ae5b42d382647ff847a2b25388d3006
+MD5 465eeaf6008c25dc69ff502dc2a9d8e0 files/3.2.2/gcc322-ggc_page-speedup.patch 872
+RMD160 5e0bbda0b528b34939f5e27e0caa97779c59d749 files/3.2.2/gcc322-ggc_page-speedup.patch 872
+SHA256 a193b395aff6dd272de5a92e83ef65c05ae5b42d382647ff847a2b25388d3006 files/3.2.2/gcc322-ggc_page-speedup.patch 872
+AUX 3.2.3/gcc-3.2.3-mergel-fix.patch 2749 RMD160 4d001a659923382134f9616fe6da2caec684fad1 SHA1 153b81de69f9929628ba616ff3360a266c459613 SHA256 7958b2db54d4805ba7656628df6d9c00406eae54b566e1bfb0a882e9070a120c
+MD5 52ef1426cb70a472182503502b768058 files/3.2.3/gcc-3.2.3-mergel-fix.patch 2749
+RMD160 4d001a659923382134f9616fe6da2caec684fad1 files/3.2.3/gcc-3.2.3-mergel-fix.patch 2749
+SHA256 7958b2db54d4805ba7656628df6d9c00406eae54b566e1bfb0a882e9070a120c files/3.2.3/gcc-3.2.3-mergel-fix.patch 2749
+AUX 3.2.3/gcc-3.2.3-move-propolice-into-glibc.patch 3534 RMD160 29517ec355d7c00137b6dea9f7882f07772be7e9 SHA1 8a1a1732157e71a8807f0d248ad2480337867dbc SHA256 8f904a2d638d40faa0c41200963bf0a86f2161ed26f0cf4307ab0d5d1c07b68d
+MD5 a3315d69ba1be0bc1518a75027896bf3 files/3.2.3/gcc-3.2.3-move-propolice-into-glibc.patch 3534
+RMD160 29517ec355d7c00137b6dea9f7882f07772be7e9 files/3.2.3/gcc-3.2.3-move-propolice-into-glibc.patch 3534
+SHA256 8f904a2d638d40faa0c41200963bf0a86f2161ed26f0cf4307ab0d5d1c07b68d files/3.2.3/gcc-3.2.3-move-propolice-into-glibc.patch 3534
+AUX 3.2.3/gcc-323-propolice-version.patch 700 RMD160 3b29427a70e6167ff8bec10910c0143f178a6cd5 SHA1 51e6a8fe9b6bb105c454e3108f5a50e6f021eb8e SHA256 fc963759d98c659fc96b33995d527456b20c37db3166d50d15454595d993ba84
+MD5 1f4f8ca52d2dda4a5dc3a9b8f130841c files/3.2.3/gcc-323-propolice-version.patch 700
+RMD160 3b29427a70e6167ff8bec10910c0143f178a6cd5 files/3.2.3/gcc-323-propolice-version.patch 700
+SHA256 fc963759d98c659fc96b33995d527456b20c37db3166d50d15454595d993ba84 files/3.2.3/gcc-323-propolice-version.patch 700
+AUX 3.2.3/gcc32-c++-classfn-member-template.patch 3219 RMD160 82918f7456c782dd12c84077e5cfc24ef07c606a SHA1 902e3558b92858cea03f23aae4b9740d2c7bdfe2 SHA256 c923b09eb0f16224c964d417280f80be0736cafe0ecb88796d3c4e27aaa24dc3
+MD5 c9c45dab64bab25e716859626ad7f94f files/3.2.3/gcc32-c++-classfn-member-template.patch 3219
+RMD160 82918f7456c782dd12c84077e5cfc24ef07c606a files/3.2.3/gcc32-c++-classfn-member-template.patch 3219
+SHA256 c923b09eb0f16224c964d417280f80be0736cafe0ecb88796d3c4e27aaa24dc3 files/3.2.3/gcc32-c++-classfn-member-template.patch 3219
+AUX 3.2.3/gcc32-mklibgcc-serialize-crtfiles.patch 926 RMD160 d1284118b22478ee9143262bbe037b47c6703ad5 SHA1 a56334b3d56d12d11e8a57f96219b9e51e7f8fa8 SHA256 ad3f723715298a85bc0080ec8661f76e549a02bfd052be349774f4eb15eabdf0
+MD5 494d917cc15c81c9cead4a8c17d4d00d files/3.2.3/gcc32-mklibgcc-serialize-crtfiles.patch 926
+RMD160 d1284118b22478ee9143262bbe037b47c6703ad5 files/3.2.3/gcc32-mklibgcc-serialize-crtfiles.patch 926
+SHA256 ad3f723715298a85bc0080ec8661f76e549a02bfd052be349774f4eb15eabdf0 files/3.2.3/gcc32-mklibgcc-serialize-crtfiles.patch 926
+AUX 3.2.3/gcc323-gentoo-branding.patch 2058 RMD160 0b0c2505d92c8498cab2a1043eb8ae9c08d43442 SHA1 00282412292d41d18a3b7b763c93aac793881c9b SHA256 65c7c0dbead0a742864501664f2aa05b3df2a3445e8b88f3ff6eb2c7f5249e6d
+MD5 99db7c1a41babe024f0c6859c30a87ee files/3.2.3/gcc323-gentoo-branding.patch 2058
+RMD160 0b0c2505d92c8498cab2a1043eb8ae9c08d43442 files/3.2.3/gcc323-gentoo-branding.patch 2058
+SHA256 65c7c0dbead0a742864501664f2aa05b3df2a3445e8b88f3ff6eb2c7f5249e6d files/3.2.3/gcc323-gentoo-branding.patch 2058
+AUX 3.2.3/gcc323-hppa-default_assemble_visibility.patch 571 RMD160 e2b382faab856e01b97fcb687e35886ce4ce776a SHA1 7d328ec0e5bdc1220ca23eb755c6b7ceef4a1ed7 SHA256 1b023f0224054ebc482762ab4bbebc8a9f5329c4c34ed3d124ce32a9b01aa17a
+MD5 869b9a1ea49bf8b07c8405d2f1d76270 files/3.2.3/gcc323-hppa-default_assemble_visibility.patch 571
+RMD160 e2b382faab856e01b97fcb687e35886ce4ce776a files/3.2.3/gcc323-hppa-default_assemble_visibility.patch 571
+SHA256 1b023f0224054ebc482762ab4bbebc8a9f5329c4c34ed3d124ce32a9b01aa17a files/3.2.3/gcc323-hppa-default_assemble_visibility.patch 571
+AUX c89 428 RMD160 1030ea2af20b5bb4c2b07668230b3e752ddab035 SHA1 c70119483d984a7c2300947679663fffd5df1419 SHA256 999b40b67f690638f601d76b756d529dd40a4325f42dfd9fd2e629ad0a91947c
+MD5 ddef29c39d1a5d5ac6a5380627309ad5 files/c89 428
+RMD160 1030ea2af20b5bb4c2b07668230b3e752ddab035 files/c89 428
+SHA256 999b40b67f690638f601d76b756d529dd40a4325f42dfd9fd2e629ad0a91947c files/c89 428
+AUX c99 451 RMD160 b0e058d8ad3e2eac5f0e7b6e85583de5b1c4be93 SHA1 939df3f67e73790ae785fddb86a41b3dcf87686a SHA256 474357dd9ce161b6db3ce88a5c0bd1e536a0f40d66a86894d48abe30226ee193
+MD5 b397ff885850ebf98a36fc0b877becbb files/c99 451
+RMD160 b0e058d8ad3e2eac5f0e7b6e85583de5b1c4be93 files/c99 451
+SHA256 474357dd9ce161b6db3ce88a5c0bd1e536a0f40d66a86894d48abe30226ee193 files/c99 451
+AUX fix_libtool_files.sh 1712 RMD160 01788fd6927a9f7bba4a01ec133d6f3494644fe9 SHA1 157be8228ac7338991ae4461ccd3cea7a702565a SHA256 6b47fb8fa34920ca9ccb449396b25205ad8fe307c869a50e5c4442971e8d4d15
+MD5 1acd56209164ab837c5f91723434464e files/fix_libtool_files.sh 1712
+RMD160 01788fd6927a9f7bba4a01ec133d6f3494644fe9 files/fix_libtool_files.sh 1712
+SHA256 6b47fb8fa34920ca9ccb449396b25205ad8fe307c869a50e5c4442971e8d4d15 files/fix_libtool_files.sh 1712
+AUX gcc-configure-LANG.patch 2052 RMD160 91f5b90600dfccb10c4e2308a5a1485275fdfeee SHA1 56ecd1d6f2e4bd0b35ac108be72a4f6f60212c38 SHA256 63de6d2dcfe14f21d147abeb1390405b9220c03f8e968f482d4b4c1cf279c88b
+MD5 e1d606df0fb23c52c4ec513d52fa50ab files/gcc-configure-LANG.patch 2052
+RMD160 91f5b90600dfccb10c4e2308a5a1485275fdfeee files/gcc-configure-LANG.patch 2052
+SHA256 63de6d2dcfe14f21d147abeb1390405b9220c03f8e968f482d4b4c1cf279c88b files/gcc-configure-LANG.patch 2052
+AUX gcc-spec-env.patch 1478 RMD160 c3b9071296dbb7a37901714ef4db75bf04211381 SHA1 1f3cd57bab7187947d244ca843b7bd485f72c633 SHA256 167f2a1994c51c1c82d62943fb214f13540859dc89fe578632f3b60daf79c289
+MD5 c4045bfa85d8be780affd465be9d8ca8 files/gcc-spec-env.patch 1478
+RMD160 c3b9071296dbb7a37901714ef4db75bf04211381 files/gcc-spec-env.patch 1478
+SHA256 167f2a1994c51c1c82d62943fb214f13540859dc89fe578632f3b60daf79c289 files/gcc-spec-env.patch 1478
+AUX mkinfodir 7324 RMD160 96bbe8860ae8c0a50db42fea01cc1c2216bd36c8 SHA1 3b8316da1a0fa94943e6b71be709827563af7058 SHA256 0565353e767e253207adb8b5c9be9ba215a628447e075a4dc7bb3183ed099d2a
+MD5 e3193bdffb435b77a21bfb504ff6f591 files/mkinfodir 7324
+RMD160 96bbe8860ae8c0a50db42fea01cc1c2216bd36c8 files/mkinfodir 7324
+SHA256 0565353e767e253207adb8b5c9be9ba215a628447e075a4dc7bb3183ed099d2a files/mkinfodir 7324
+AUX pro-police-docs.patch 3287 RMD160 eef412d92bed145db05bffa3a3e54e2ba74ee50d SHA1 ca58eda97d80f3d51f4e383ad3053fcb13f7a91b SHA256 ec012aed77285545b9d993cba1bc5fdb402c8dc9a17040f48b8b354746ede627
+MD5 ea2cf3df0d89a26d5fdc1a531176e395 files/pro-police-docs.patch 3287
+RMD160 eef412d92bed145db05bffa3a3e54e2ba74ee50d files/pro-police-docs.patch 3287
+SHA256 ec012aed77285545b9d993cba1bc5fdb402c8dc9a17040f48b8b354746ede627 files/pro-police-docs.patch 3287
+AUX scan_libgcc_linked_ssp.sh 861 RMD160 c89d7e1f9aa7cea0d39281932dacfc1aec7bab74 SHA1 0e8bec97fe24af3bd5e2a06d66a6d27543dc3fab SHA256 9fe574de3978aad4d62cd10b47879384a4f03a7fb1f17e283daf74aad0e45f3b
+MD5 07b57d62aa1a8cd4d1cd37984ebe2053 files/scan_libgcc_linked_ssp.sh 861
+RMD160 c89d7e1f9aa7cea0d39281932dacfc1aec7bab74 files/scan_libgcc_linked_ssp.sh 861
+SHA256 9fe574de3978aad4d62cd10b47879384a4f03a7fb1f17e283daf74aad0e45f3b files/scan_libgcc_linked_ssp.sh 861
+AUX stubs/gcc-3.3-htb-stub.patch 2195 RMD160 0b067c3fda6631f2b327c566bdd3b030daa2f0a0 SHA1 8a687b84d5003eca986e03acab83cf8342b898e5 SHA256 36fd59370c87ac60c2fa1e98fc4a43dfc17ad8188d730b8c16fb680e83f7e9c2
+MD5 0f8035bc5ae6126fd9380ba9dcdcc271 files/stubs/gcc-3.3-htb-stub.patch 2195
+RMD160 0b067c3fda6631f2b327c566bdd3b030daa2f0a0 files/stubs/gcc-3.3-htb-stub.patch 2195
+SHA256 36fd59370c87ac60c2fa1e98fc4a43dfc17ad8188d730b8c16fb680e83f7e9c2 files/stubs/gcc-3.3-htb-stub.patch 2195
+AUX stubs/gcc-3.3-ssp-stub.patch 1735 RMD160 a467bbaeaecc94cb3ef8582a7610c69a94337d2a SHA1 065441d4e986660be0e5586e72a0697098b620a5 SHA256 935863cad4820d7cf35b124efdeafeeab7e67a01da1cef161ef590f18d643beb
+MD5 cb27bc36a5b9a1175a5f3bdf38647814 files/stubs/gcc-3.3-ssp-stub.patch 1735
+RMD160 a467bbaeaecc94cb3ef8582a7610c69a94337d2a files/stubs/gcc-3.3-ssp-stub.patch 1735
+SHA256 935863cad4820d7cf35b124efdeafeeab7e67a01da1cef161ef590f18d643beb files/stubs/gcc-3.3-ssp-stub.patch 1735
+AUX stubs/gcc-3.4-htb-stub.patch 722 RMD160 0769dbc28e18df8e0533d12b0a85fff727556a19 SHA1 ee55a300820330c23c22842ed48e5bd12919534c SHA256 0768dcafc35be6d35c9aa0106b0c8b87932e6b2ec7a82547b8cc7fc9c8b0e1f4
+MD5 053b213d6994cef2ad995aa516ed937a files/stubs/gcc-3.4-htb-stub.patch 722
+RMD160 0769dbc28e18df8e0533d12b0a85fff727556a19 files/stubs/gcc-3.4-htb-stub.patch 722
+SHA256 0768dcafc35be6d35c9aa0106b0c8b87932e6b2ec7a82547b8cc7fc9c8b0e1f4 files/stubs/gcc-3.4-htb-stub.patch 722
+AUX stubs/gcc-3.4-ssp-stub.patch 1068 RMD160 a72cfd5921084366d8ed93786254c37b3cd782e1 SHA1 84ff7b2dd5dadf996cc6ab7bf13f6e4e95ae85e6 SHA256 259b08fc6ba1a5fcc6848c1a0742e9b90dd43985c61fab4ea2e9e79ec795d982
+MD5 d71c91009df788366867cb67fc875d6d files/stubs/gcc-3.4-ssp-stub.patch 1068
+RMD160 a72cfd5921084366d8ed93786254c37b3cd782e1 files/stubs/gcc-3.4-ssp-stub.patch 1068
+SHA256 259b08fc6ba1a5fcc6848c1a0742e9b90dd43985c61fab4ea2e9e79ec795d982 files/stubs/gcc-3.4-ssp-stub.patch 1068
+AUX stubs/gcc-4.0-htb-stub.patch 722 RMD160 c2f98915d90365d0823721ae6ad80bc6820eef65 SHA1 a1226eb412b98fb02d1bd3a5ab3b8a2a171a55fe SHA256 e9b63d3644c0c10e871d5bd94ceae55bec0726b76e9a7c43c83daf6c840dfb5c
+MD5 37e756238508fe9f9e2b9ba6a7ca67ca files/stubs/gcc-4.0-htb-stub.patch 722
+RMD160 c2f98915d90365d0823721ae6ad80bc6820eef65 files/stubs/gcc-4.0-htb-stub.patch 722
+SHA256 e9b63d3644c0c10e871d5bd94ceae55bec0726b76e9a7c43c83daf6c840dfb5c files/stubs/gcc-4.0-htb-stub.patch 722
+AUX stubs/gcc-4.0-ssp-stub.patch 1068 RMD160 a72cfd5921084366d8ed93786254c37b3cd782e1 SHA1 84ff7b2dd5dadf996cc6ab7bf13f6e4e95ae85e6 SHA256 259b08fc6ba1a5fcc6848c1a0742e9b90dd43985c61fab4ea2e9e79ec795d982
+MD5 d71c91009df788366867cb67fc875d6d files/stubs/gcc-4.0-ssp-stub.patch 1068
+RMD160 a72cfd5921084366d8ed93786254c37b3cd782e1 files/stubs/gcc-4.0-ssp-stub.patch 1068
+SHA256 259b08fc6ba1a5fcc6848c1a0742e9b90dd43985c61fab4ea2e9e79ec795d982 files/stubs/gcc-4.0-ssp-stub.patch 1068
+DIST gcc-3.2.3-manpages.tar.bz2 129510 RMD160 1f066a3f0de918766a25b24a580e8e52eb9876df SHA1 a4cbb70b96621cb9156cf9a92d01e4a9b4e4bdec SHA256 219efe9cff7d18f7fe8d11721d18f4eb48645c866738b13f3d7c13eb910befee
+DIST gcc-3.2.3-tls-update.patch.bz2 396362 RMD160 a24434ec6ff6ff734a5e8b6254f0dce55c5cdcba SHA1 f62a98975032bf91ce793e27a2073bf15a98eaec SHA256 36d26ca6e00a0a09ab2716abd05c07f18239039ae7e28fdec68c3fab4f5dd4af
+DIST gcc-3.2.3.tar.bz2 20662887 RMD160 64b599c5ee29475785c910ccaf9ccc41ee5244e7 SHA1 86d0af66a78ae2fb39c63403569d0f4349cf93fb SHA256 9229434cfdfb79d3183149ac09e1093be642d4be377cc491e75c23b856243fda
+DIST protector-3.2.2-10.tar.gz 24556 RMD160 905b1ef473435230f7f4519ecf0f8a3d4c66e4e5 SHA1 c3a45f3fc450f1bd282af88a94d4b3d427d23072 SHA256 ad8401650ee0f7162e844cea492aa6151de77e8d0236cacc999aada69d511bab
+EBUILD gcc-3.2.3-r4.ebuild 19754 RMD160 78b2ea0438939dfbb3a9ec66f5d359c14524bdec SHA1 57bd7b21de34bfff610add5cad5f8e604b63ddc6 SHA256 d61fd4f2377d5ee214a251a746a2e06d7c6890e24efdb4fa1fbe01be5ab3bffc
+MD5 a88d0f7a25127cb0952d9afeeaeda364 gcc-3.2.3-r4.ebuild 19754
+RMD160 78b2ea0438939dfbb3a9ec66f5d359c14524bdec gcc-3.2.3-r4.ebuild 19754
+SHA256 d61fd4f2377d5ee214a251a746a2e06d7c6890e24efdb4fa1fbe01be5ab3bffc gcc-3.2.3-r4.ebuild 19754
+MD5 b413e53ff85eab72c07cfd89768fe126 files/digest-gcc-3.2.3-r4 1021
+RMD160 04a0bb5569d768e017b54633110aedaecbbbc4b6 files/digest-gcc-3.2.3-r4 1021
+SHA256 2aa3f73ea3bd77d83d6c3fcb325475f53932751f939e5018cc01ac6f4efafcc9 files/digest-gcc-3.2.3-r4 1021

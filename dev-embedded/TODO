@@ -1,0 +1,11 @@
+
+- dev-embedded/cdk4msp-0.2 :
+  install error :
+chmod: ne peut accéder `/var/tmp/portage/cdk4msp-0.2/image//opt/cdk4msp/msp430': Aucun fichier ou répertoire de ce type
+
+-cdk-msp-libc
+chmod: ne peut accéder `/var/tmp/portage/cdk-msp-libc-20031102/image//opt/cdk4msp/bin': Aucun fichier ou répertoire de ce type
+
+
+
+- cdk4msp gentoo way 
