@@ -18,7 +18,7 @@ PIE_GLIBC_STABLE="x86 sparc amd64"
 PIE_UCLIBC_STABLE="x86 mips ppc"
 
 # arch/libc configurations known to be broken with {PIE,SSP}-by-default
-SSP_UNSUPPORTED="hppa"
+SSP_UNSUPPORTED="hppa msp430"
 SSP_UCLIBC_UNSUPPORTED="${SSP_UNSUPPORTED}"
 PIE_UCLIBC_UNSUPPORTED="alpha amd64 arm hppa ia64 m68k ppc64 s390 sh sparc"
 PIE_GLIBC_UNSUPPORTED="hppa"

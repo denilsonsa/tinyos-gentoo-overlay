@@ -25,9 +25,39 @@ Dependency graph tinyos-1
 
 
 
+msp430 support is limited at this time:
+
+use crossdev -t msp430 to build binutils 
+for now i use  
+
+
+wget ftp://ftp.informatik.rwth-aachen.de/pub/gnu/gcc/gcc-3.3.6/gcc-core-3.3.6.tar.bz2
+wget ftp://ftp.cs.univ-paris8.fr/mirrors/ftp.gnu.org/gnu/binutils/binutils-2.17.tar.bz2
+### checkout cvs from msp430.sf.net
+
+
+tar jxf binutils*
+cd binutils*
+./configure --target=msp430 --prefix=/opt/msp_2007_03_04
+make 
+make install 
+cd ../
+
+
+tar jxf gcc-core-3.3.6.tar.bz2 
+cd gcc-core-3.3.6 
+# version mismatch intended ...  
+cp -r ~/cvstrees/mspgcc/gcc/gcc-3.4/* .
+./configure --target=msp430 --prefix=/opt/msp_2007_03_04
+make 
+make install 
+
+
+this builds a msp430 compiler + basic tools in /opt/msp_2007_03_04
+
+
+
  TODO:
-
-
 
 ++ Classpath modification by eselect-tinyos is broken 
 ++ Modify eselect tinyos in order to change class path and makerules 
