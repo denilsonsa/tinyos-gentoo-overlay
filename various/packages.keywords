@@ -95,3 +95,4 @@ cross-avr/gdb 			x86 ~x86
 # =www-servers/jetty-4.2.19
 
 
+=dev-embedded/msp430-libc-20060423 ~*

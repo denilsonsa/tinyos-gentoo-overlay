@@ -1,0 +1,38 @@
+# Copyright 1999-2004 Gentoo Technologies, Inc.
+# Distributed under the terms of the GNU General Public License v2
+# $Header$
+# adapted from dev-embedded/avr-libc
+
+ECVS_SERVER="cvs.sourceforge.net:/cvsroot/mspgcc"
+ECVS_MODULE="$PN"
+
+inherit cvs
+
+IUSE="nls"
+
+DESCRIPTION="Libc for the MSP430 microcontroller architecture"
+HOMEPAGE="http://mspgcc.sourceforge.net/"
+
+SLOT="0"
+LICENSE="GPL-2"
+KEYWORDS="~x86"
+
+DEPEND="dev-embedded/msp430-gcc"
+
+src_unpack() {
+	cvs_src_unpack
+	cd ${WORKDIR}
+	epatch ${FILESDIR}/gcc-3.3-unsupported.patch
+}
+
+src_compile() {
+	cd ${WORKDIR}/${PN}/src
+	mkdir msp1
+	mkdir msp2
+	emake || die
+}
+
+src_install() {
+	cd ${WORKDIR}/${PN}/src
+	einstall || die
+}

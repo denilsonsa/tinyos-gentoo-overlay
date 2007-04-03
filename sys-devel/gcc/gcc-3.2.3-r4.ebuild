@@ -99,7 +99,7 @@ LICENSE="GPL-2 LGPL-2.1"
 # this is a glibc-propolice forced bump to a gcc without guard 
 # when no binary on the system has references to guard@@libgcc
 # hppa has no dependency on propolice for gcc - skip this arch
-KEYWORDS="x86 amd64 ppc sparc mips alpha -hppa ia64 s390"
+KEYWORDS="x86 amd64 ppc sparc mips alpha -hppa ia64 s390 msp430"
 IUSE="static nls bootstrap java build"
 
 # Ok, this is a hairy one again, but lets assume that we
@@ -278,6 +278,8 @@ src_unpack() {
 		# Alexander Gabert <pappy@nikita.ath.cx> (14 Jul 2003).
 		epatch ${FILESDIR}/3.2.3/gcc323-hppa-default_assemble_visibility.patch
 	fi
+
+	[[ $(tc-arch) == "msp430" ]] && epatch ${FILESDIR}/3.2.3/gcc323-msp430.patch
 
 	# Install our pre generated manpages if we do not have perl ...
 	if [ ! -x /usr/bin/perl ]

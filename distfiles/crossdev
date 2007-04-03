@@ -128,8 +128,8 @@ parse_target() {
 
 		msp430)
 		      TARCH=${HARCH}; CPOST="";
-		      STAGE=${STAGE_C_ONLY};;
-	              #STAGE=${STAGE_BINUTILS};;
+		      GVER="3.3.6";LPKG="msp430-libc";
+		      STAGE=${STAGE_LIBC};;
 
 		nios2*)
 		      TARCH=${HARCH};
