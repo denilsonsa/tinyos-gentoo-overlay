@@ -22,12 +22,14 @@ SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
 
-# DEPEND=">=sys-devel/crossdev-0.9.1"
-# [[ ${CATEGORY/cross-} != ${CATEGORY} ]] \
-# 	&& RDEPEND="!dev-embedded/msp430-libc" \
-# 	|| RDEPEND=""
+DEPEND=">=sys-devel/crossdev-0.9.1"
+[[ ${CATEGORY/cross-} != ${CATEGORY} ]] \
+	&& RDEPEND="!dev-embedded/msp430-libc" \
+	|| RDEPEND=""
 
 
+
+#FIXME restablish this check once msp-gcc will be properly installed 
 # pkg_setup() {
 # 	ebegin "Checking for msp430-gcc"
 # 	if type -p msp430-gcc > /dev/null ; then

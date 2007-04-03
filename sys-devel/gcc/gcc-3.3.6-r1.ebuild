@@ -12,13 +12,13 @@ HTB_VER="1.00-r1"
 ETYPE="gcc-compiler"
 
 # arch/libc configurations known to be stable with {PIE,SSP}-by-default
-SSP_STABLE="x86 sparc amd64"
+SSP_STABLE="x86 sparc "
 SSP_UCLIBC_STABLE="arm mips ppc x86"
 PIE_GLIBC_STABLE="x86 sparc amd64"
 PIE_UCLIBC_STABLE="x86 mips ppc"
 
 # arch/libc configurations known to be broken with {PIE,SSP}-by-default
-SSP_UNSUPPORTED="hppa msp430"
+SSP_UNSUPPORTED="hppa msp430 amd64"
 SSP_UCLIBC_UNSUPPORTED="${SSP_UNSUPPORTED}"
 PIE_UCLIBC_UNSUPPORTED="alpha amd64 arm hppa ia64 m68k ppc64 s390 sh sparc"
 PIE_GLIBC_UNSUPPORTED="hppa"
@@ -78,8 +78,13 @@ src_unpack() {
 	# misc patches that havent made it into a patch tarball yet
 	[[ ${CHOST} == ${CTARGET} ]] && epatch "${FILESDIR}"/gcc-spec-env.patch
 	epatch "${FILESDIR}"/3.3.6/gcc-3.3.6-cross-compile.patch
-    # add support for msp430
-	epatch "${FILESDIR}"/3.3.6/gcc-3.3.6-msp430.patch
+
+	# add support for msp430
+	if use vanilla; then  
+		epatch "${FILESDIR}"/3.3.6/gcc-3.3-msp430-20070403.patch-old 
+	else
+		epatch "${FILESDIR}"/3.3.6/gcc-3.3-msp430-20070403.patch
+	fi
 
 	# Anything useful and objc will require libffi. Seriously. Lets just force
 	# libffi to install with USE="objc", even though it normally only installs
