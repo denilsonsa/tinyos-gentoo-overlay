@@ -9,3 +9,10 @@ chmod: ne peut accéder `/var/tmp/portage/cdk-msp-libc-20031102/image//opt/cdk4m
 
 
 - cdk4msp gentoo way 
+
+
+for now use (from this overlay)
+
+./distfiles/makelinks.sh
+./distfiles/crossdev -t msp430 
+

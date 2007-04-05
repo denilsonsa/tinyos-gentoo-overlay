@@ -80,6 +80,11 @@ cross-avr/gcc			* ~* -*
 cross-avr/avr-libc 		x86 ~x86
 cross-avr/gdb 			x86 ~x86
 
+cross-msp430/binutils		* ~* -*
+cross-msp430/gcc			* ~* -*
+cross-msp430/avr-libc 		x86 ~x86
+cross-msp430/gdb 			x86 ~x86
+
 ###
 ## ?
 ###

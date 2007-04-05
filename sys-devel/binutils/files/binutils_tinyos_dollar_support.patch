@@ -1,0 +1,14 @@
+This patch enables support for dollar sign in identifiers when
+binutils is built for target msp430, this is needed for tinyos
+
+--- gas/config/tc-msp430.h-orig	2007-04-05 15:24:29.000000000 +0200
++++ gas/config/tc-msp430.h	2007-04-05 15:24:45.000000000 +0200
+@@ -97,7 +97,7 @@
+      example, a value of 2 might print `1234 5678' where a value of 1
+      would print `12 34 56 78'.  The default value is 4.  */
+ 
+-#define LEX_DOLLAR 0
++#undef LEX_DOLLAR
+ /* MSP430 port does not use `$' as a logical line separator */
+ 
+ #define TC_IMPLICIT_LCOMM_ALIGNMENT(SIZE, P2VAR) (P2VAR) = 0

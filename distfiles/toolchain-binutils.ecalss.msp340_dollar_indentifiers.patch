@@ -1,0 +1,12 @@
+--- toolchain-binutils.eclass.orig	2007-04-05 15:51:06.000000000 +0200
++++ toolchain-binutils.eclass	2007-04-05 16:00:07.000000000 +0200
+@@ -137,6 +137,9 @@
+ 		done
+ 	fi
+ 
++	# Support for $ in identifiers for tinyos 
++	sed -i 's/define LEX_DOLLAR 0/undef LEX_DOLLAR/' gas/config/tc-msp430.h || die "sed dollar failed"
++
+ 	# Fix po Makefile generators
+ 	sed -i \
+ 		-e '/^datadir = /s:$(prefix)/@DATADIRNAME@:@datadir@:' \

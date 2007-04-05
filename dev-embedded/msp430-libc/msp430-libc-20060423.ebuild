@@ -28,22 +28,20 @@ DEPEND=">=sys-devel/crossdev-0.9.1"
 	|| RDEPEND=""
 
 
+pkg_setup() {
+	ebegin "Checking for msp430-gcc"
+	if type -p msp430-gcc > /dev/null ; then
+		eend 0
+	else
+		eend 1
 
-#FIXME restablish this check once msp-gcc will be properly installed 
-# pkg_setup() {
-# 	ebegin "Checking for msp430-gcc"
-# 	if type -p msp430-gcc > /dev/null ; then
-# 		eend 0
-# 	else
-# 		eend 1
-
-# 		eerror
-# 		eerror "Failed to locate 'msp430-gcc' in \$PATH. You can install an MSP430 toolchain using:"
-# 		eerror "  $ crossdev -t msp430"
-# 		eerror
-# 		die "MSP430 toolchain not found"
-# 	fi
-# }
+		eerror
+		eerror "Failed to locate 'msp430-gcc' in \$PATH. You can install an MSP430 toolchain using:"
+		eerror "  $ crossdev -t msp430"
+		eerror
+		die "MSP430 toolchain not found"
+	fi
+}
 
 src_unpack() {
 	unpack  ${A}
@@ -60,6 +58,7 @@ src_unpack() {
     sed -i 's/crt430xG4616.o//g' src/Makefile 
     sed -i 's/crt430xG4619.o//g' src/Makefile 
 
+#    sed -i 's:prefix = /usr/local/msp430:prefix = '${D}'/opt/msp_2007_03_04/:' src/Makefile
     mkdir src/msp1
     mkdir src/msp2
 
@@ -68,11 +67,10 @@ src_unpack() {
 src_compile() {
 
 	cd ${WORKDIR}/${PN}-${PV}/src
-# FIXME use tc-gcc when proper support of mspgcc will be in portage ...
-	PATH=${PATH}:/opt/msp_2007_03_04/bin emake || die
+	emake || die
 }
 
 src_install() {
 	cd ${WORKDIR}/${PN}-${PV}/src
-	prefix="/usr/" einstall || die
+	einstall || die
 }
