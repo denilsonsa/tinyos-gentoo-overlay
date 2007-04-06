@@ -48,10 +48,14 @@ PDEPEND="|| ( sys-devel/gcc-config app-admin/eselect-compiler )"
 
 src_unpack() {
 
-	if [[ ${CATEGORY/cross-} == ${CATEGORY} ]]; then
-		eerror "this ebuild is ment to be use with crossdev, to build a toolchain for msp430 use :"
-		eerror "emerge crossdev"
-		eerror "crossdev -t msp430"
+# 	if [[ ${CATEGORY/cross-} == ${CATEGORY} ]]; then
+# 		eerror "this ebuild is ment to be use with crossdev, to build a toolchain for msp430 use :"
+# 		eerror "emerge crossdev"
+# 		eerror "crossdev -t msp430"
+# 	fi
+	if [[ -h /usr/msp430/lib/msp2/ldscripts ]] ; then 
+		eerror "this ebuild is a bit broken ... "
+		eerror "you need to fix some symlinks please use msp430-binutilsroot-fix.sh, and restart emrge  "
 	fi
 
 	gcc_src_unpack
