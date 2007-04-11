@@ -53,9 +53,10 @@ src_unpack() {
 # 		eerror "emerge crossdev"
 # 		eerror "crossdev -t msp430"
 # 	fi
-	if [[ -h /usr/msp430/lib/msp2/ldscripts ]] ; then 
+	if [[ ! -h /usr/msp430/lib/msp2/ldscripts ]] ; then 
 		eerror "this ebuild is a bit broken ... "
 		eerror "you need to fix some symlinks please use msp430-binutilsroot-fix.sh, and restart emrge  "
+		die "you have to fix binutils links ... "
 	fi
 
 	gcc_src_unpack

@@ -20,8 +20,8 @@ mkdir -p ${SYSROOTDIR}/bin
 
 
 for util in ${BINUTILS} ; do 
-	if [[ -h ${SYSROOTDIR}/bin/${util} ]] ; then 
-		rm  ${SYSROOTDIR}/bin/${util}
+	if [[ -h ${SYSROOTDIR}/bin/${util} || ! -e ${SYSROOTDIR}/bin/${util} ]] ; then 
+		rm -f  ${SYSROOTDIR}/bin/${util}
 		ln -s /usr/bin/${TARGET}-${util} ${SYSROOTDIR}/bin/${util}
 	else
 		echo "hum ...  ${SYSROOTDIR}/bin/${util} isn't a symlink aborting opration " ;
@@ -35,7 +35,10 @@ LDSCRIPTS_BASE=/usr/lib64/binutils/${TARGET}
 current=$(load_config ${ROOT}/etc/env.d/binutils/config-${TARGET} CURRENT)
 echo "for target ${TARGET} binutils version "  $current
 
+mkdir -p /usr/msp430/lib/msp2/ 
+mkdir -p /usr/msp430/lib/msp1/
 rm -f /usr/msp430/lib/msp2/ldscripts  /usr/msp430/lib/msp1/ldscripts 
+
 ln -s ${LDSCRIPTS_BASE}/${current}/ldscripts /usr/msp430/lib/msp2
 ln -s ${LDSCRIPTS_BASE}/${current}/ldscripts /usr/msp430/lib/msp1
 

@@ -128,7 +128,7 @@ parse_target() {
 
 		msp430)
 		      TARCH=${HARCH}; CPOST="";
-		      KPKG="[none]"; 
+		      KPKG="[none]"; BVER="2.16.1-r3";
 			  GCAT="dev-embedded"; GPKG="mspgcc"; GVER="3.2.3-r5";
 		      LCAT="dev-embedded"; LPKG="msp430-libc";
 		      #STAGE=${STAGE_LIBC};
