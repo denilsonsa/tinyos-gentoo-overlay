@@ -73,16 +73,12 @@ src_unpack() {
 }
 
 src_compile() {
-	
-	
 	einfo "compiling the java sdk"
 	
 	rm ${S}/support/sdk/java/tinyos.jar
 	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
 
 	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc
-	
-
 }
 
 src_install() {
@@ -113,14 +109,5 @@ src_install() {
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
 	doins ${FILESDIR}/1.1.15
 	
-
-}
-
-pkg_postinst() {
-	elog "If you want to use TinyOS on real hardware you need a cross compiler."
-	elog "You should emerge sys-devel/crossdev and compile any toolchain you need"
-	elog "Example: for Mica2 and Mica2 Dot: crossdev --target avr"
-	ebeep 5
-	epause 5
 }
 

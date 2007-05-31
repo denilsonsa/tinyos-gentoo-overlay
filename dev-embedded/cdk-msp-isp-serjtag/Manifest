@@ -1,8 +1,0 @@
-DIST cdk-msp-isp-serjtag-20031101cvs-20031104.noarch.rpm 561213 RMD160 0fc43ddaeffa26559a748e9d31591644b46e8f76 SHA1 86e6eda705b4d341cbe726c9ce424a010b219e96 SHA256 7fb979a35886b2bc025632b4e8d21f550f37fb0b8ef081ad2d5a09d12cc4c8bf
-EBUILD cdk-msp-isp-serjtag-20031104.ebuild 600 RMD160 1e285dd46b02d4a67640b15c7e1ee843a3d74791 SHA1 fd1ce1e7e3599fe351d7d1728c8779bfdee46283 SHA256 c75a5cd015d147a6fe6efabb67fca5e91e55526c7efd2b3e0108c067d6ea339d
-MD5 aab1eaf7d0e64378446922e5dfb2250b cdk-msp-isp-serjtag-20031104.ebuild 600
-RMD160 1e285dd46b02d4a67640b15c7e1ee843a3d74791 cdk-msp-isp-serjtag-20031104.ebuild 600
-SHA256 c75a5cd015d147a6fe6efabb67fca5e91e55526c7efd2b3e0108c067d6ea339d cdk-msp-isp-serjtag-20031104.ebuild 600
-MD5 ae260b6bc53a88bd3800a4f9ffe86abc files/digest-cdk-msp-isp-serjtag-20031104 334
-RMD160 cf4dee8fe7c86cf448b6695b0c9a805efeebd3c8 files/digest-cdk-msp-isp-serjtag-20031104 334
-SHA256 d56d96f83c11c70db7983b69e28af9da455004d14fd1805a24c1d1e18b6adbff files/digest-cdk-msp-isp-serjtag-20031104 334

@@ -1,7 +1,7 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
-inherit eutils python java
+inherit eutils python
 
 
 MY_PV=${PVR}
@@ -17,21 +17,15 @@ LICENSE="Intel"
 SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
-DEPEND="dev-tinyos/tinyos-tools
-        dev-tinyos/eselect-tinyos
+DEPEND=" dev-tinyos/eselect-tinyos
         doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
-RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
-PDEPEND="dev-tinyos/eselect-tinyos
+PDEPEND="dev-tinyos/tinyos-tools
+         dev-tinyos/eselect-tinyos
          dev-tinyos/nesc"
-
-#those two are in the jar file 
-PDEPEND="${PDEPEND} "
-#!dev-tinyos/tos-plot
-#!dev-tinyos/serial-forwarder"
 
 
 S=${WORKDIR}/${MY_P}
@@ -39,31 +33,18 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	einfo "various fixes"
-
 	export TOSROOT="${S}"
 	export TOS="${S}"
 	export TOSDIR="${TOS}/tos"
 
-
-	#
-    # simulation fixes 
-	# 
-
     # 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ? 
-	einfo " -> sim.extra gcc 4.1.1  bug  "
 	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch 
 
 	# set the python version to use 
 	python_version
-	einfo " -> sim.extra python version" ${PYVER}
+	einfo " fixing sim.extra python version" ${PYVER}
 	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra 
-	
-	# tinyos warning 
-	
-	#einfo " ->atm128hardware.h warning fix"
-	epatch ${FILESDIR}/atm128hardware.h-warning-signal.h.patch
 }
 
 src_compile() {
@@ -72,8 +53,6 @@ src_compile() {
 
 src_install() {
 	local TOSROOT=/usr/src/tinyos-2.x
-	
-	#dobin ${FILESDIR}/tos-bcastinject
 
 	insinto ${TOSROOT}
 	doins -r tos
@@ -92,6 +71,8 @@ src_install() {
 	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
 	# /usr/lib/ncc/nesc-compile needs to ba available on the path 
 	echo "PATH=/usr/lib/ncc/">>  ${T}/${PV}
+    # needed to build some packages 
+	echo "ROOTPATH=/usr/lib/ncc/">>  ${T}/${PV}
 
  	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
@@ -104,9 +85,14 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "If you want to use TinyOS on real hardware you need a cross compiler."
-	elog "You should emerge sys-devel/crossdev and compile any toolchain you need"
-	elog "Example: for Mica2 and Mica2 Dot: crossdev --target avr"
+    eselect tinyos set 2 
+    eselect  env update
+	ewarn "you need to select a version of tinyos with i.e.: eselect tinyos set 2 "
+	ewarn "this is required to build some tinyos related packages"
+	ewarn "and don't forget to : env-update && source /etc/zsh/zprofile"
+	einfo "If you want to use TinyOS on real hardware you need a cross compiler."
+	einfo "You should emerge sys-devel/crossdev and compile any toolchain you need"
+	einfo "Example: for Mica2 and Mica2 Dot: crossdev --target avr"
 	ebeep 5
 	epause 5
 }
