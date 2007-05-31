@@ -13,7 +13,7 @@ LICENSE="Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64" 
 IUSE=""
-DEPEND=">=dev-tinyos/tos-2.0.0"
+#DEPEND=">=dev-tinyos/tos-2.0.0"
 
 #        !dev-tinyos/listen
 #        !dev-tinyos/tos-uisp
