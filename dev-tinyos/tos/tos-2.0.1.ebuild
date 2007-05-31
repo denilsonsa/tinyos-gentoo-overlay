@@ -85,11 +85,11 @@ src_install() {
 }
 
 pkg_postinst() {
-    eselect tinyos set 2 
+    eselect tinyos set 2  || einfo "probably already set "
     eselect  env update
 	ewarn "you need to select a version of tinyos with i.e.: eselect tinyos set 2 "
 	ewarn "this is required to build some tinyos related packages"
-	ewarn "and don't forget to : env-update && source /etc/zsh/zprofile"
+	ewarn "and don't forget to : env-update && source /etc/profile"
 	einfo "If you want to use TinyOS on real hardware you need a cross compiler."
 	einfo "You should emerge sys-devel/crossdev and compile any toolchain you need"
 	einfo "Example: for Mica2 and Mica2 Dot: crossdev --target avr"
