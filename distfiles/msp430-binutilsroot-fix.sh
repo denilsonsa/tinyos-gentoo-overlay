@@ -32,6 +32,10 @@ done
 
 
 LDSCRIPTS_BASE=/usr/lib64/binutils/${TARGET}
+if [ ! -f ${LDSCRIPTS_BASE} ] ; then
+    LDSCRIPTS_BASE=/usr/lib/binutils/${TARGET}
+fi
+
 current=$(load_config ${ROOT}/etc/env.d/binutils/config-${TARGET} CURRENT)
 echo "for target ${TARGET} binutils version "  $current
 
