@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev,v 1.86 2007/02/10 04:46:15 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev-stable,v 1.86 2007/02/10 04:46:15 vapier Exp $
 
 cd /
 umask 0022 #159111
@@ -11,7 +11,7 @@ if [[ ${ROOT:-/} != "/" ]] ; then
 	exit 2
 fi
 
-source /sbin/functions.sh || exit 1
+source /etc/init.d/functions.sh || exit 1
 esyslog() { :; }
 die() {
 	echo
@@ -359,7 +359,7 @@ SET_X="no"
 
 while [[ $# -gt 0 ]] ; do
 	case $1 in
-	-V|--version)   echo "crossdev-0.9.17"; exit 0;;
+	-V|--version)   echo "crossdev-GENTOO_PV"; exit 0;;
 	-t|--target)    shift; parse_target $1;;
 	--b|--binutils) shift; BVER=$1;;
 	--g|--gcc)      shift; GVER=$1;;
