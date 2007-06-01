@@ -153,7 +153,13 @@ parse_target() {
 		      LCAT="dev-util"; LPKG="mingw-runtime";;
 
 		msp430)
-		      STAGE=${STAGE_BINUTILS};;
+		      TARCH=${HARCH}; CPOST="";
+		      KPKG="[none]"; BVER="2.16.1-r3";
+			  GCAT="dev-embedded"; GPKG="mspgcc"; GVER="3.2.3-r5";
+		      LCAT="dev-embedded"; LPKG="msp430-libc";
+		      #STAGE=${STAGE_LIBC};
+		      STAGE=${STAGE_C_CPP};
+		      GUSE=${GUSE_DISABLE};;
 
 		nios2*)
 		      BPKG="binutils-nios2";
