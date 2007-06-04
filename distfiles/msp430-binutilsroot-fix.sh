@@ -1,8 +1,14 @@
 #!/bin/bash 
 
+[[ -z ${ROOT} ]] && ROOT="/"
+[[ ${ROOT} != */ ]] && ROOT="${ROOT}/"
+[[ ${ROOT} != /* ]] && ROOT="${PWD}${ROOT}"
+
+
 # this script is used to create links in /usr/msp430/bin to the
 # binutils executables in the old fahshioned way ...
 # this is needed for <gcc-3.4 to build properly ...
+
 
 ESELECT_DATA_PATH="/usr/share/eselect/"
 ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
@@ -11,7 +17,7 @@ source "${ESELECT_CORE_PATH}/core.bash" || exit 255
 
 BINUTILS="ar c++filt nm objdump readelf strings addr2line as ld objcopy ranlib size strip"
 TARGET=msp430
-SYSROOTDIR=/usr/${TARGET}
+SYSROOTDIR=${ROOT}/usr/${TARGET}
 
 
 inherit config package-manager
@@ -31,9 +37,9 @@ done
 
 
 
-LDSCRIPTS_BASE=/usr/lib64/binutils/${TARGET}
+LDSCRIPTS_BASE=${ROOT}/usr/lib64/binutils/${TARGET}
 if [ ! -f ${LDSCRIPTS_BASE} ] ; then
-    LDSCRIPTS_BASE=/usr/lib/binutils/${TARGET}
+    LDSCRIPTS_BASE=${ROOT}/usr/lib/binutils/${TARGET}
 fi
 
 current=$(load_config ${ROOT}/etc/env.d/binutils/config-${TARGET} CURRENT)
