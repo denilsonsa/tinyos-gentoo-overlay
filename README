@@ -27,8 +27,15 @@ Dependency graph tinyos-1
 
 msp430 support is limited at this time:
 
+
+merge crossdev from this overlay
 use crossdev -t msp430 to build binutils 
-for now i use  
+
+if it fails try to run again the script dev-embedded/mspgcc*/files/msp430-binutilsroot-fix.sh
+
+and finally run again crossdev
+
+
 
 
 wget ftp://ftp.informatik.rwth-aachen.de/pub/gnu/gcc/gcc-3.3.6/gcc-core-3.3.6.tar.bz2

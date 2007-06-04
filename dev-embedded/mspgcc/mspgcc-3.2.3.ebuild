@@ -47,17 +47,10 @@ PDEPEND="|| ( sys-devel/gcc-config app-admin/eselect-compiler )"
 
 
 src_unpack() {
-
-# 	if [[ ${CATEGORY/cross-} == ${CATEGORY} ]]; then
-# 		eerror "this ebuild is ment to be use with crossdev, to build a toolchain for msp430 use :"
-# 		eerror "emerge crossdev"
-# 		eerror "crossdev -t msp430"
-# 	fi
-	if [[ ! -h /usr/msp430/lib/msp2/ldscripts ]] ; then 
-		eerror "this ebuild is a bit broken ... "
-		eerror "you need to fix some symlinks please use msp430-binutilsroot-fix.sh, and restart emrge  "
-		die "you have to fix binutils links ... "
-	fi
+        ewarn "fixing some links issues (expected to fail if run with sandbox enabled)"
+#        //MERGEROOT=${D} bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
+        bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
+        || die "failed to fix links try to do this by hand with msp430-binutilsroot-fix.sh , try again with FEATURES=\-sandbox\" or report error "
 
 	gcc_src_unpack
 	local PATCHESDIR=${FILESDIR}/${PV}
