@@ -20,13 +20,12 @@ src_unpack(){
 	unpack ${A}
 
 # prevents the error : Reply contains invalid hex digit 79
- 
+
 	# alternatice to patch ....
 #	echo "set remotetimeout 60"> ${P}/scripts/gdb-avarice-script-new
 #	cat ${P}/scripts/gdb-avarice-script >> ${P}/scripts/gdb-avarice-script-new
 #	mv ${P}/scripts/gdb-avarice-script-new ${P}/scripts/gdb-avarice-script
 	epatch ${FILESDIR}/gdb-avarice-script.patch
-
 }
 
 

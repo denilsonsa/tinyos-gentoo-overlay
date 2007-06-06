@@ -1,0 +1,13 @@
+ 
+# This file contains descriptions of local USE flags, and the ebuilds which
+# contain them.
+
+
+dev-embedded/mspgcc:multislot - Allow for SLOTs to include minor version (3.3.4 instead of just 3.3)
+dev-embedded/mspgcc:objc  - Build support for the Objective C code language
+dev-tinyos/tos-deluge:micaz - Build support for the micaz target 
+dev-tinyos/tos-deluge:mica2 - Build support for the mica2 target 
+dev-tinyos/tos-deluge:telosb - Build support for the telosb target 
+dev-tinyos/tos-bcastinject:micaz - Build support for the micaz target 
+dev-tinyos/tos-bcastinject:mica2 - Build support for the mica2 target 
+dev-tinyos/tos-bcastinject:telosb - Build support for the telosb target 

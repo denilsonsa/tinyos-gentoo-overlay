@@ -14,9 +14,9 @@ HOMEPAGE="http://mspgcc.sourceforge.net/"
 SRC_URI="http://naurel.org/stuff/${P}.tar.bz2"
 
 SLOT="0"
-# May need to clarify license 
+# May need to clarify license
 # random look into source files headers gave :
-# parts are BSD 
+# parts are BSD
 # parts are  (c) sun  "free use"
 # parts are GPL
 LICENSE="GPL-2"
@@ -46,21 +46,21 @@ pkg_setup() {
 src_unpack() {
 	unpack  ${A}
 	cd "${S}"
-# FIXME well it "works" ...
-    sed -i 's/crt430x2001.o  crt430x2011.o/ /g' src/Makefile
-    sed -i 's/crt430x2002.o  crt430x2012.o/ /g' src/Makefile
-    sed -i 's/crt430x2003.o  crt430x2013.o/ /g' src/Makefile
-    sed -i 's/crt430x2234.o//g' src/Makefile 
-    sed -i 's/crt430x2254.o//g' src/Makefile 
-    sed -i 's/crt430x2274.o//g' src/Makefile 
-    sed -i 's/crt430xG4618.o//g' src/Makefile 
-    sed -i 's/crt430xG4617.o//g' src/Makefile 
-    sed -i 's/crt430xG4616.o//g' src/Makefile 
-    sed -i 's/crt430xG4619.o//g' src/Makefile 
+#	FIXME well it "works" ...
+	sed -i 's/crt430x2001.o  crt430x2011.o/ /g' src/Makefile
+	sed -i 's/crt430x2002.o  crt430x2012.o/ /g' src/Makefile
+	sed -i 's/crt430x2003.o  crt430x2013.o/ /g' src/Makefile
+	sed -i 's/crt430x2234.o//g' src/Makefile
+	sed -i 's/crt430x2254.o//g' src/Makefile
+	sed -i 's/crt430x2274.o//g' src/Makefile
+	sed -i 's/crt430xG4618.o//g' src/Makefile
+	sed -i 's/crt430xG4617.o//g' src/Makefile
+	sed -i 's/crt430xG4616.o//g' src/Makefile
+	sed -i 's/crt430xG4619.o//g' src/Makefile
 
-#    sed -i 's:prefix = /usr/local/msp430:prefix = '${D}'/opt/msp_2007_03_04/:' src/Makefile
-    mkdir src/msp1
-    mkdir src/msp2
+#	sed -i 's:prefix = /usr/local/msp430:prefix = '${D}'/opt/msp_2007_03_04/:' src/Makefile
+	mkdir src/msp1
+	mkdir src/msp2
 
 }
 

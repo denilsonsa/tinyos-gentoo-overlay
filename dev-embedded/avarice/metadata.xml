@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+  <email>aurel@naurel.org</email>
+</maintainer>
+ <longdescription>AVaRICE is a program for interfacing the Atmel JTAG ICE to GDB to allow users to debug their embedded AVR target. from http://sourceforge.net/projects/avarice/ </longdescription> 
+</pkgmetadata>

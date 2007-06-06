@@ -12,10 +12,10 @@ KEYWORDS="amd64 ~x86"
 IUSE="java python"
 
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
-    dev-tinyos/eselect-tinyos
-    >=dev-tinyos/tos-2.0.1
-    java? ( >=dev-tinyos/tos-sdk-java-2.0.1 )
-    python? ( >=dev-tinyos/tos-sdk-python-2.0.1 )
-    >=dev-tinyos/tinyos-tools-1.2.3
-    >=dev-tinyos/tos-sdk-c-2.0.1"
+	dev-tinyos/eselect-tinyos
+	>=dev-tinyos/tos-2.0.1
+	java? ( >=dev-tinyos/tos-sdk-java-2.0.1 )
+	python? ( >=dev-tinyos/tos-sdk-python-2.0.1 )
+	>=dev-tinyos/tinyos-tools-1.2.3
+	>=dev-tinyos/tos-sdk-c-2.0.1"
 

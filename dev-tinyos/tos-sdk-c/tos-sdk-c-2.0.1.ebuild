@@ -18,7 +18,7 @@ SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND=" dev-tinyos/nesc
-     doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
+	 doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 
 
 S=${WORKDIR}/${MY_P}/support/sdk/c
@@ -26,17 +26,17 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-    export TOSROOT="/usr/src/tinyos-2.x"
+	export TOSROOT="/usr/src/tinyos-2.x"
 	export TOS="${TOSROOT}"
 	export TOSDIR="${TOS}/tos"
 }
 
 src_compile() {
-#    cd $S}/support/sdk/c
-    ./bootstrap
+#	cd $S}/support/sdk/c
+	./bootstrap
 	econf || die "econf failed"
 	einfo "compiling the c sdk"
-    emake || die "emake failed"
+	emake || die "emake failed"
 
 }
 
@@ -45,8 +45,7 @@ src_install() {
 
 	insinto ${TOSROOT}
 	dodir ${TOSROOT}/support/sdk/
-    insinto ${TOSROOT}/support/sdk/
-    doins -r ${S}
-    chown -R root:0 "${D}"
-
+	insinto ${TOSROOT}/support/sdk/
+	doins -r ${S}
+	chown -R root:0 "${D}"
 }

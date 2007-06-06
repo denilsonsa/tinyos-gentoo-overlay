@@ -39,7 +39,7 @@ RDEPEND="|| ( >=sys-devel/gcc-config-1.3.12-r4 app-admin/eselect-compiler )
 
 if [[ ${CATEGORY/cross-} != ${CATEGORY} ]]; then
 	RDEPEND="${RDEPEND} ${CATEGORY}/binutils"
-fi 
+fi
 DEPEND="${RDEPEND}
 	>=sys-apps/texinfo-4.2-r4
 	amd64? ( >=sys-devel/binutils-2.15.90.0.1.1-r1 )"
@@ -47,14 +47,14 @@ PDEPEND="|| ( sys-devel/gcc-config app-admin/eselect-compiler )"
 
 
 src_unpack() {
-        ewarn "fixing some links issues (expected to fail if run with sandbox enabled)"
-#        //MERGEROOT=${D} bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
-        bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
-        || die "failed to fix links try to do this by hand with msp430-binutilsroot-fix.sh , try again with FEATURES=\-sandbox\" or report error "
+	ewarn "fixing some links issues (expected to fail if run with sandbox enabled)"
+#	MERGEROOT=${D} bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
+	bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
+		|| die "failed to fix links try to do this by hand with msp430-binutilsroot-fix.sh , try again with FEATURES=\-sandbox\" or report error "
 
 	gcc_src_unpack
 	local PATCHESDIR=${FILESDIR}/${PV}
-	
+
 	# Those are patches from sys-devel/gcc-3.2.3-r4
 	epatch ${PATCHESDIR}/gcc31-loop-load-final-value.patch
 	epatch ${PATCHESDIR}/gcc32-strip-dotdot.patch
@@ -62,6 +62,6 @@ src_unpack() {
 	epatch ${PATCHESDIR}/gcc32-c++-classfn-member-template.patch
 	epatch ${PATCHESDIR}/gcc32-mklibgcc-serialize-crtfiles.patch
 
-	# msp430 support 
+	# msp430 support
 	epatch ${PATCHESDIR}/gcc323-msp430.patch
 }

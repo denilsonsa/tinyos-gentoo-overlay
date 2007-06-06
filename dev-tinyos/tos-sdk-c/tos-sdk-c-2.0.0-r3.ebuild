@@ -18,20 +18,20 @@ SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND="dev-tinyos/tinyos-tools
-        dev-tinyos/eselect-tinyos
-        doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
+	dev-tinyos/eselect-tinyos
+	doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc
-         !dev-tinyos/tos-make"
+	dev-tinyos/nesc
+	!dev-tinyos/tos-make"
 
-#those two are in the jar file 
+#those two are in the jar file
 PDEPEND="${PDEPEND} !dev-tinyos/tos-plot
-	                 !dev-tinyos/serial-forwarder"
+	!dev-tinyos/serial-forwarder"
 
 
 S=${WORKDIR}/${MY_P}
@@ -47,34 +47,34 @@ src_unpack() {
 
 
 	#
-    # simulation fixes 
-	# 
+	# simulation fixes
+	#
 
-    # 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
-	# on amd64 only ? 
+	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
+	# on amd64 only ?
 	einfo " -> sim.extra gcc bug  "
-	sed -i 's/OPTFLAGS = -g -O0/OPTFLAGS = -g -O2/g' support/make/sim.extra 
+	sed -i 's/OPTFLAGS = -g -O0/OPTFLAGS = -g -O2/g' support/make/sim.extra
 
-	# set the python version to use 
+	# set the python version to use
 	python_version
 	einfo " -> sim.extra python version" ${PYVER}
-	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra 
+	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra
 
 
-	# java build system minor patch 
-	
+	# java build system minor patch
+
 	#einfo " -> java makefile clean target "
 	epatch ${FILESDIR}/message_Makefile_clean-mig-target.patch
-	
-	# tinyos warning 
-	
+
+	# tinyos warning
+
 	#einfo " ->atm128hardware.h warning fix"
 	epatch ${FILESDIR}/atm128hardware.h-warning-signal.h.patch
 }
 
 src_compile() {
 	einfo "compiling the java sdk"
-	
+
 	rm ${S}/support/sdk/java/tinyos.jar
 	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
 
@@ -83,7 +83,7 @@ src_compile() {
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-	
+
 	#dobin ${FILESDIR}/tos-bcastinject
 
 	insinto ${TOSROOT}
@@ -91,7 +91,7 @@ src_install() {
 	doins -r apps
 	doins -r support
 	chown -R root:0 "${D}"
-	
+
 	echo "VER=\"${PV}\"" > ${T}/${PV}
 	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
@@ -105,9 +105,9 @@ src_install() {
 	insinto ${env_dir}
  	doins ${T}/${PV}
 
-	# hack 
+	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
 	doins ${FILESDIR}/1.1.15
-	
+
 }
 

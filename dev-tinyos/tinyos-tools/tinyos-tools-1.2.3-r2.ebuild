@@ -12,14 +12,7 @@ SRC_URI="http://naurel.org/stuff/${MY_P}.tar.gz"
 LICENSE="Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
-#DEPEND=">=dev-tinyos/tos-2.0.0"
-
-#		!dev-tinyos/listen
-#		!dev-tinyos/tos-uisp
-#		!dev-tinyos/channelgen"
-#		!dev-tinyos/tos-getenv
-#		!dev-tinyos/ncc"
+IUSE="toscomm"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
 		 >=dev-java/ibm-jdk-bin-1.5"
 
@@ -82,11 +75,24 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	# adapt to gentoo java handling
-	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
-	epatch ${FILESDIR}/tos-java_make_fPIC.patch
+	### needs some cleanup
 
-	# tos-bsl needs to be actually "built" in order to adapt to tke libdir
+	if use toscomm; then
+		# not a good patch but bug evaporates when building with gcc 3.4.6
+		ewarn "you are building tinyos-tools with toscomm use flag enabled, you then need to use tinyos-java-sdk merged with toscomm flag too "
+		if [ `gcc-major-version` -ge 4 ] ; then
+			einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934"
+			die "libtoscomm.so is buyggy when built against gcc-4"
+		fi
+	# bug in toscomm java vm plugin
+	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
+	else
+		ewarn "you are building tinyos-tools with toscomm use flag Disabled, you then need to use a jdk with javacomm flag enabled"
+		die "not yet functionnal .... patch under dev ..."
+		#epatch ${FILESDIR}/somepatch.patch
+	fi
+
+	# tos-bsl needs to be actually "built" in order to adapt to the  correct libdir
 	rm ${S}/platforms/msp430/pybsl/tos-bsl
 
 	./Bootstrap || die "Failed to bootstrap"
@@ -102,9 +108,8 @@ src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 
 	local JNI="$(java-config -O)/jre"
-	einfo "installing libgetenv.so  and libtoscomm.so in  ${JNI}"
+	einfo "installing jni libs in  ${JNI}"
 	into ${JNI}
 	dobin ${S}/tinyos/java/env/libgetenv.so
-	dobin ${S}/tinyos/java/serial/libtoscomm.so
+	use javacomm && dobin ${S}/tinyos/java/serial/libtoscomm.so
 }
-

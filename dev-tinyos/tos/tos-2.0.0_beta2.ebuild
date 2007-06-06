@@ -21,12 +21,12 @@ RDEPEND=""
 
 #Required to do anything useful. Could not be a RDEPEND since portage try to emerge nesc before tos.
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc
-         !dev-tinyos/tos-make"
+		 dev-tinyos/nesc
+		 !dev-tinyos/tos-make"
 
-#those two are in the jar file 
+#those two are in the jar file
 PDEPEND="${PDEPEND} !dev-tinyos/tos-plot
-	                 !dev-tinyos/serial-forwarder"
+					!dev-tinyos/serial-forwarder"
 
 
 S=${WORKDIR}/${MY_P}
@@ -36,7 +36,7 @@ src_unpack() {
 }
 
 src_compile() {
-	einfo "FIXME, should compile the java stuff "
+	einfo "FIXME, should compile the java stuff"
 }
 
 src_install() {
@@ -47,18 +47,18 @@ src_install() {
 	chown -R root:0 "${D}"
 
 	echo "VER=\"${PV}\"" > ${T}/${PV}
-	echo "TOSROOT=\"/usr/src/tinyos-2.x\"" >>  ${T}/${PV}
-	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
-	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">>  ${T}/${PV}
-	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
-	echo "PATH=/opt/msp430/bin:$PATH">>  ${T}/${PV}
+	echo "TOSROOT=\"/usr/src/tinyos-2.x\"" >> ${T}/${PV}
+	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">> ${T}/${PV}
+	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">> ${T}/${PV}
+	echo "MAKERULES=$TOSROOT/support/make/Makerules">> ${T}/${PV}
+	echo "PATH=/opt/msp430/bin:$PATH">> ${T}/${PV}
 
- 	env_dir="/etc/env.d/tinyos/"
+	env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
- 	doins ${T}/${PV}
+	doins ${T}/${PV}
 
-	# hack 
+	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
 	doins ${FILESDIR}/1.1.15
 }

@@ -11,17 +11,17 @@ HOMEPAGE="http://www.tinyos.net/"
 SRC_URI="http://naurel.org/stuff/${PF}.tar.gz"
 LICENSE="Intel"
 SLOT="0"
-KEYWORDS="~x86 ~amd64" 
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 #DEPEND=">=dev-tinyos/tos-2.0.0"
 
-#        !dev-tinyos/listen
-#        !dev-tinyos/tos-uisp
-#        !dev-tinyos/channelgen"
-#        !dev-tinyos/tos-getenv
-#        !dev-tinyos/ncc"
+#		!dev-tinyos/listen
+#		!dev-tinyos/tos-uisp
+#		!dev-tinyos/channelgen"
+#		!dev-tinyos/tos-getenv
+#		!dev-tinyos/ncc"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
-         >=dev-java/ibm-jdk-bin-1.5"
+		 >=dev-java/ibm-jdk-bin-1.5"
 
 # provides :
 
@@ -71,7 +71,7 @@ RDEPEND=">=dev-tinyos/nesc-1.2.7a
 # >>> /usr/lib64/tinyos/serial/__init__.py
 
 
-#those two are move to the right directory 
+#those two are move to the right directory
 
 # >>> /usr/lib64/tinyos/libtoscomm.so
 # >>> /usr/lib64/tinyos/libgetenv.so
@@ -82,20 +82,20 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-    ### needs some cleanup 
-	
-	# not a good patch but bug evaporates when building with gcc 3.4.6
-	
-#	if [ `gcc-major-version` -ge 4 ] ; then 
-#		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934" 
-#		die "libtoscomm.so is buyggy when built against gcc-4"
-#		
-#	fi
-	# bug in toscomm java vm plugin 
-	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
-	
+	### needs some cleanup
 
-	# tos-bsl needs to be actually "built" in order to adapt to the  correct libdir  
+	# not a good patch but bug evaporates when building with gcc 3.4.6
+
+#	if [ `gcc-major-version` -ge 4 ] ; then
+#		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934"
+#		die "libtoscomm.so is buyggy when built against gcc-4"
+#
+#	fi
+	# bug in toscomm java vm plugin
+	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
+
+
+	# tos-bsl needs to be actually "built" in order to adapt to the  correct libdir
 	rm ${S}/platforms/msp430/pybsl/tos-bsl
 
 	./Bootstrap || die "Failed to bootstrap"
@@ -113,7 +113,7 @@ src_install() {
 	local JNI="$(java-config -O)/jre"
 	einfo "installing libgetenv.so  and libtoscomm.so in  ${JNI}"
 	into ${JNI}
- 	dobin ${S}/tinyos/java/env/libgetenv.so 
+	dobin ${S}/tinyos/java/env/libgetenv.so
 	dobin ${S}/tinyos/java/serial/libtoscomm.so
 }
 

@@ -1,20 +1,6 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-# NOTE: The comments in this file are for instruction and documentation.
-# They're not meant to appear with your final, production ebuild.  Please
-# remember to remove them before submitting or committing your ebuild.  That
-# doesn't mean you can't add your own comments though.
-
-# The 'Header' on the third line should just be left alone.  When your ebuild
-# will be committed to cvs, the details on that line will be automatically
-# generated to contain the correct data.
-
-# inherit lists eclasses to inherit functions from. Almost all ebuilds should
-# inherit eutils, as a large amount of important functionality has been
-# moved there. For example, the $(get_libdir) mentioned below wont work
-# without the following line:
 inherit eutils cvs java-pkg-2
 
 ECVS_SERVER="samoa.cs.ucla.edu:/project/cvs/pub"

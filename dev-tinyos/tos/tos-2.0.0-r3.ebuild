@@ -18,17 +18,17 @@ SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND="dev-tinyos/tinyos-tools
-        dev-tinyos/eselect-tinyos
-        doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
+		dev-tinyos/eselect-tinyos
+		doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc"
+		 dev-tinyos/nesc"
 
-#those two are in the jar file 
+#those two are in the jar file
 PDEPEND="${PDEPEND} "
 #!dev-tinyos/tos-plot
 #!dev-tinyos/serial-forwarder"
@@ -47,65 +47,65 @@ src_unpack() {
 
 
 	#
-    # simulation fixes 
-	# 
+	# simulation fixes
+	#
 
-    # 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
-	# on amd64 only ? 
+	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
+	# on amd64 only ?
 	einfo " -> sim.extra gcc 4.1.1  bug  "
-	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch 
+	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch
 
-	# set the python version to use 
+	# set the python version to use
 	python_version
 	einfo " -> sim.extra python version" ${PYVER}
-	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra 
-	
-	# tinyos warning 
-	
+	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra
+
+	# tinyos warning
+
 	#einfo " ->atm128hardware.h warning fix"
 	epatch ${FILESDIR}/atm128hardware.h-warning-signal.h.patch
 }
 
 src_compile() {
-	
-	
+
+
 	einfo "nothing to compile"
-	
+
 }
 
 src_install() {
 	local TOSROOT=/usr/src/tinyos-2.x
-	
+
 	#dobin ${FILESDIR}/tos-bcastinject
 
 	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
-	# don't really want to split make scripts ... 
-	dodir ${TOSROOT}/support 
+	# don't really want to split make scripts ...
+	dodir ${TOSROOT}/support
 	insinto ${TOSROOT}/support
 	doins -r support/make
 	chown -R root:0 "${D}"
-	
+
 	echo "VER=\"${PV}\"" > ${T}/${PV}
 	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
-	# not ok wrt gentoo java-config-2 rules but for now ...  
+	# not ok wrt gentoo java-config-2 rules but for now ...
 	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">>  ${T}/${PV}
 	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
-	# /usr/lib/ncc/nesc-compile needs to ba available on the path 
+	# /usr/lib/ncc/nesc-compile needs to ba available on the path
 	echo "PATH=/usr/lib/ncc/">>  ${T}/${PV}
 
 
- 	local env_dir="/etc/env.d/tinyos/"
+	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
- 	doins ${T}/${PV}
+	doins ${T}/${PV}
 
-	# hack 
+	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
 	doins ${FILESDIR}/1.1.15
-	
+
 
 }
 

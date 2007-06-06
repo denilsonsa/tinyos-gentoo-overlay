@@ -11,16 +11,16 @@ HOMEPAGE="http://www.tinyos.net/"
 SRC_URI="http://www.tinyos.net/dist-2.0.0/tinyos/source/${MY_P}.tar.gz"
 LICENSE="Intel"
 SLOT="0"
-KEYWORDS="~x86 ~amd64" 
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND=">=dev-tinyos/tos-2.0.0_beta2
-        !dev-tinyos/listen
-        !dev-tinyos/tos-uisp
-        !dev-tinyos/tos-getenv
-        !dev-tinyos/channelgen
-        !dev-tinyos/ncc"
+		!dev-tinyos/listen
+		!dev-tinyos/tos-uisp
+		!dev-tinyos/tos-getenv
+		!dev-tinyos/channelgen
+		!dev-tinyos/ncc"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
-         >=dev-java/ibm-jdk-bin-1.5"
+		>=dev-java/ibm-jdk-bin-1.5"
 
 
 # >>> /usr/bin/mig
@@ -47,7 +47,7 @@ S=${WORKDIR}/${MY_P}/tools
 
 src_unpack() {
 	unpack ${A}
-	cd ${S} 
+	cd ${S}
 	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
 	epatch ${FILESDIR}/tos-java_make_fPIC.patch
 	./Bootstrap || die "Failed to bootstrap"
