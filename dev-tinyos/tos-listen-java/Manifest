@@ -7,6 +7,10 @@ EBUILD tos-listen-java-1.1.15.ebuild 1586 RMD160 1a35215890257796d5df30fab6b5350
 MD5 c425c506d9e50be306decb7dcc1afc29 tos-listen-java-1.1.15.ebuild 1586
 RMD160 1a35215890257796d5df30fab6b53502e939cb5a tos-listen-java-1.1.15.ebuild 1586
 SHA256 ca55c8ce12ae0c9fe65305dfbc2b5c286e1da900d50d1d44ed7a657affbf7255 tos-listen-java-1.1.15.ebuild 1586
+MISC metadata.xml 291 RMD160 ba01df22ffd2eed36ff78149b60e37591a84a5ec SHA1 3ea2aa3a575775a08620883d12c012f901c0de01 SHA256 64ccc11663b6f16e14970ae7dd124e42490e893f7896c358513db48eac9b173a
+MD5 7bf7b022694a69afd31e5c3dda8de0cb metadata.xml 291
+RMD160 ba01df22ffd2eed36ff78149b60e37591a84a5ec metadata.xml 291
+SHA256 64ccc11663b6f16e14970ae7dd124e42490e893f7896c358513db48eac9b173a metadata.xml 291
 MD5 ee3e227f1140637c0a2902237487307a files/digest-tos-listen-java-1.1.15 277
 RMD160 a1216e8d4d893cb0269dc46144906b0fcfd86148 files/digest-tos-listen-java-1.1.15 277
 SHA256 283d09d9ff408b822f0e756457cbfe2c9c9bfaf6456e0c912375245ef978ac5b files/digest-tos-listen-java-1.1.15 277
