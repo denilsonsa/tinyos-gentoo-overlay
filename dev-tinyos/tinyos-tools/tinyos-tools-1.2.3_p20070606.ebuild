@@ -8,7 +8,7 @@ MY_P=${PN}-${PV}
 
 DESCRIPTION="The TinyOS tools"
 HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://naurel.org/stuff/${P}.tar.gz"
+SRC_URI="http://naurel.org/stuff/${PF}.tar.gz"
 LICENSE="Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
@@ -82,11 +82,20 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	# adapt to gentoo java handling
-	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
-	epatch ${FILESDIR}/tos-java_make_fPIC.patch
+	### needs some cleanup
 
-	# tos-bsl needs to be actually "built" in order to adapt to tke libdir
+	# not a good patch but bug evaporates when building with gcc 3.4.6
+
+#	if [ `gcc-major-version` -ge 4 ] ; then
+#		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934"
+#		die "libtoscomm.so is buyggy when built against gcc-4"
+#
+#	fi
+	# bug in toscomm java vm plugin
+	#epatch ${FILESDIR}/TOSComm_wrap.cxx.racecondition.patch
+
+
+	# tos-bsl needs to be actually "built" in order to adapt to the  correct libdir
 	rm ${S}/platforms/msp430/pybsl/tos-bsl
 
 	./Bootstrap || die "Failed to bootstrap"
