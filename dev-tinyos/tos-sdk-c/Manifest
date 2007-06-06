@@ -4,6 +4,10 @@ EBUILD tos-sdk-c-2.0.0-r3.ebuild 3035 RMD160 27e06e6a2a14ab6693ecaf7a69c58ec3644
 MD5 c6118e5029c531824d80dd19dabcd6ca tos-sdk-c-2.0.0-r3.ebuild 3035
 RMD160 27e06e6a2a14ab6693ecaf7a69c58ec36441fed9 tos-sdk-c-2.0.0-r3.ebuild 3035
 SHA256 e040648cd5edbe58946823b8d4c0f5b129d2107c1c3d6d47bd1bc3d0a34e8be0 tos-sdk-c-2.0.0-r3.ebuild 3035
+EBUILD tos-sdk-c-2.0.1-r1.ebuild 1884 RMD160 f0273f84d328b39b9a2068472a4830476e8f8319 SHA1 348aeafcaedfc70cda8dbe5a006a417a78b36e79 SHA256 ff073edb4efe0e3072c21de2a96e0da5afc99e741eaa212208b77ba4aa272ff0
+MD5 64faf6a605d72a6579fdebd340154248 tos-sdk-c-2.0.1-r1.ebuild 1884
+RMD160 f0273f84d328b39b9a2068472a4830476e8f8319 tos-sdk-c-2.0.1-r1.ebuild 1884
+SHA256 ff073edb4efe0e3072c21de2a96e0da5afc99e741eaa212208b77ba4aa272ff0 tos-sdk-c-2.0.1-r1.ebuild 1884
 EBUILD tos-sdk-c-2.0.1.ebuild 1234 RMD160 e832dd5a5b682552ca50babb5d069c3bd7bc94e7 SHA1 45500e3faad65a86f8d9d4b0586d741da4bac3db SHA256 604ec2ecfee77c6d1c5366992d3aa30806fcce200758f4efeed344e0c9cf9731
 MD5 8491161aec43277e00de113b461d0661 tos-sdk-c-2.0.1.ebuild 1234
 RMD160 e832dd5a5b682552ca50babb5d069c3bd7bc94e7 tos-sdk-c-2.0.1.ebuild 1234
@@ -14,3 +18,6 @@ SHA256 54a2fddd967c40e740cf93cb52956376f82836ee6213a4ef576614daf17ac34d files/di
 MD5 5870a3281ecf437d8046b890f361c3a7 files/digest-tos-sdk-c-2.0.1 241
 RMD160 9615a5823ece22e84b0ca23e675f99ea6dc72cdf files/digest-tos-sdk-c-2.0.1 241
 SHA256 640c85d1285b436151631450e1cb6aea69336f6bdcba84eae10dd82fa49f0248 files/digest-tos-sdk-c-2.0.1 241
+MD5 5870a3281ecf437d8046b890f361c3a7 files/digest-tos-sdk-c-2.0.1-r1 241
+RMD160 9615a5823ece22e84b0ca23e675f99ea6dc72cdf files/digest-tos-sdk-c-2.0.1-r1 241
+SHA256 640c85d1285b436151631450e1cb6aea69336f6bdcba84eae10dd82fa49f0248 files/digest-tos-sdk-c-2.0.1-r1 241
