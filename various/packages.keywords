@@ -112,3 +112,4 @@ cross-msp430/gdb 			x86 ~x86
 
 =dev-embedded/msp430-libc-20060423 ~*
 =dev-tinyos/tos-sdk-c-2.0.1
+=dev-tinyos/tos-sdk-c-2.0.1-r1
