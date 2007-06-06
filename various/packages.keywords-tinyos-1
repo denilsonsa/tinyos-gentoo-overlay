@@ -1,0 +1,75 @@
+
+
+###
+## tiny os / AVR devel
+###
+
+dev-tinyos/tinyos 		~*
+dev-tinyos/tos			~*
+dev-tinyos/ncc 			~*
+dev-tinyos/nesc			~*
+dev-tinyos/tos-apps		~*
+dev-tinyos/channelgen		~*
+dev-tinyos/listen		~*
+dev-tinyos/tos-make 		~*
+dev-tinyos/tos-scripts		~*
+dev-tinyos/tos-uisp		~*
+
+#tinyos java stuff
+dev-tinyos/tos-sf 		~*
+dev-tinyos/tos-packet 		~*
+dev-tinyos/tos-simdriver 	~*
+dev-tinyos/tos-sim-msg		~*
+dev-tinyos/serial-forwarder	~*
+dev-tinyos/tos-javalibs 	~*
+dev-tinyos/tos-getenv		~*
+dev-tinyos/tos-tython		~*
+dev-tinyos/tos-util 		~*
+dev-tinyos/tos-message		~*
+dev-tinyos/tos-deluge		~* 
+dev-tinyos/tos-listen-java	~*
+dev-tinyos/tos-plot		~*
+
+##
+## various tools 
+##
+
+dev-embedded/avarice		~*
+
+##
+## dependencies 
+##
+
+#dependency of java stuff
+=dev-java/ptplot-5.5
+
+# dependency of documentation 
+=app-text/tetex-3.0_p1-r2
+
+# needed for some of teh stufff made by K. Whitehouse...
+dev-python/jpype		~*
+
+# dependency of dev-tinyos/tos-simdriver
+=dev-java/oalnf-3.0
+
+# dependency of dev-tinyos/tos-javalibs-1.1.15 
+=www-servers/jetty-4.2.19
+=sci-mathematics/jama-1.0.2
+
+
+
+###
+## # AVR GCC 
+###
+cross-avr/binutils		* ~* -*
+cross-avr/gcc			* ~* -*
+cross-avr/avr-libc 		x86 ~x86
+cross-avr/gdb 			x86 ~x86
+
+cross-msp430/binutils		* ~* -*
+cross-msp430/gcc			* ~* -*
+cross-msp430/avr-libc 		x86 ~x86
+cross-msp430/gdb 			x86 ~x86
+
+
+=dev-embedded/msp430-libc-20060423 ~*

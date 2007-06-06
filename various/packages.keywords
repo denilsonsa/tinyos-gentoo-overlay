@@ -1,29 +1,5 @@
 
 
-
-
-### 
-##  Tinyos 2 dependencies 
-### 
-=dev-tinyos/tinyos-2.0.0-r3
-=dev-tinyos/tos-2.0.0-r3
-=dev-tinyos/tinyos-tools-1.2.3
-=dev-tinyos/tinyos-docs-2.0.0-r3
-=dev-tinyos/eselect-tinyos-0.1
-=dev-tinyos/tos-sdk-python-2.0.0-r3
-=dev-tinyos/tos-sdk-java-2.0.0-r3
-
-
-# update to 2.0.1
-=dev-tinyos/tinyos-2.0.1
-=dev-tinyos/tos-2.0.1
-=dev-tinyos/tinyos-docs-2.0.1
-=dev-tinyos/tos-sdk-python-2.0.1
-=dev-tinyos/tos-sdk-java-2.0.1
-=dev-tinyos/tinyos-tools-1.2.3-r1
-=dev-tinyos/eselect-tinyos-0.2
-
-
 ###
 ## tiny os / AVR devel
 ###
@@ -95,25 +71,84 @@ cross-msp430/gcc			* ~* -*
 cross-msp430/avr-libc 		x86 ~x86
 cross-msp430/gdb 			x86 ~x86
 
-###
-## ?
-###
-
-# =dev-tinyos/tos-oscilloscope-1.1.15
-
-# dev-java/oalnf ~x86
-# =dev-java/log4j-1.2.12
-# =dev-java/ant-1.6.5
-# =dev-java/ant-core-1.6.5-r2
-# =dev-java/ant-tasks-1.6.5
-# =sci-mathematics/jama-1.0.2
-# =www-servers/jetty-4.2.19
-
 
 =dev-embedded/msp430-libc-20060423 ~*
+
+
+
+
+### 
+##  Tinyos 2 dependencies 
+### 
+=dev-tinyos/tinyos-2.0.0-r3
+=dev-tinyos/tos-2.0.0-r3
+=dev-tinyos/tinyos-tools-1.2.3
+=dev-tinyos/tinyos-docs-2.0.0-r3
+=dev-tinyos/eselect-tinyos-0.1
+=dev-tinyos/tos-sdk-python-2.0.0-r3
+=dev-tinyos/tos-sdk-java-2.0.0-r3
 =dev-tinyos/tos-sdk-c-2.0.1
 =dev-tinyos/tos-sdk-c-2.0.1-r1
 
 
+# update to 2.0.1
+=dev-tinyos/tinyos-2.0.1
+=dev-tinyos/tos-2.0.1
+=dev-tinyos/tinyos-docs-2.0.1
+=dev-tinyos/tos-sdk-python-2.0.1
+=dev-tinyos/tos-sdk-java-2.0.1
+=dev-tinyos/tinyos-tools-1.2.3-r1
+=dev-tinyos/eselect-tinyos-0.2
+
+##
+## various tools 
+##
+
+dev-embedded/avarice		~*
+
+##
+## dependencies 
+##
+
+#dependency of java stuff
+# =dev-java/ptplot-5.5
+
+# # dependency of documentation 
+# =app-text/tetex-3.0_p1-r2
+
+# # needed for some of teh stufff made by K. Whitehouse...
+# dev-python/jpype		~*
+
+# # dependency of dev-tinyos/tos-simdriver
+# =dev-java/oalnf-3.0
+
+# # dependency of dev-tinyos/tos-javalibs-1.1.15 
+# =www-servers/jetty-4.2.19
+# =sci-mathematics/jama-1.0.2
+
+
+
+###
+## # AVR GCC 
+###
+cross-avr/binutils		* ~* -*
+cross-avr/gcc			* ~* -*
+cross-avr/avr-libc 		x86 ~x86
+cross-avr/gdb 			x86 ~x86
+
+cross-msp430/binutils		* ~* -*
+cross-msp430/gcc			* ~* -*
+cross-msp430/avr-libc 		x86 ~x86
+cross-msp430/gdb 			x86 ~x86
+
+
+=dev-embedded/msp430-libc-20060423 ~*
 
 # cvs snapshots 
+=dev-tinyos/tinyos-2.0.1_p20070606
+=dev-tinyos/tos-2.0.1_p20070606
+=dev-tinyos/tos-docs-2.0.1_p20070606
+=dev-tinyos/tinyos-tools-1.2.3_p20070606
+=dev-tinyos/tos-sdk-c-2.0.1_p20070606
+=dev-tinyos/tos-sdk-java-2.0.1_p20070606
+=dev-tinyos/tos-sdk-python-2.0.1_p20070606
