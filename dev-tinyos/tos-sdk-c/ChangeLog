@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2007; <aurel@gentoo.org> tos-sdk-c-2.0.1_p20070606.ebuild:
+  updating to install binaries properly and install source only if
+  "source" use-flag is set
+
   06 Jun 2007; Aurelien Francillon <aurel@naurel.org>
   +tos-sdk-c-2.0.1-r1.ebuild:
   version bump to support proper install of binaries and libs (suggestion by
