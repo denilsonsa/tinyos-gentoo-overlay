@@ -5,5 +5,5 @@
 <maintainer>
   <email>aurel@naurel.org</email>
 </maintainer>
- <longdescription>Java SDK for tinyos, includes libraries and utilities for communication with Tinyos motes </longdescription>
+ <longdescription>python SDK for tinyos, includes libraries and utilities for communication with Tinyos motes </longdescription>
 </pkgmetadata>

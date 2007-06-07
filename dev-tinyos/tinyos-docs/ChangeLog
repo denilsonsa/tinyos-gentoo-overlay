@@ -1,6 +1,14 @@
 # ChangeLog for <CATEGORY>/<PACKAGE_NAME>
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Jun 2007; Aurelien Francillon <aurel@naurel.org>
+  +tinyos-docs-2.0.1_p20070607.ebuild:
+  moved docs to the proper directory docs->doc
+
+  07 Jun 2007; Aurélien Francillon <aurel@naurel.org>
+  +tinyos-docs-2.0.1_p20070607.ebuild:
+  version bump to cvs of 20070607
 
 *<PACKAGE_NAME>-<PACKAGE_VERSION>-<PACKAGE_RELEASE> (DD MMM YYYY)
 

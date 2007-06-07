@@ -33,6 +33,25 @@ PDEPEND="${PDEPEND}"
 
 
 S=${WORKDIR}/${MY_P}
+
+pkg_setup() {
+
+	if use javacomm  &&\
+		! built_with_use dev-java/ibm-jdk-bin javacomm ; then 
+		eerror "javacomm support in ibm-jdk  is needed to build tos-sdk-c with javacomm support "
+		eerror "either build tos-sdk-c without javacommm support (it will then use tinyos own java serial port driver) or"
+		eerror "Add javacomm to your use flag then re-emerge ibm-jdk-bin and dev-tinyos/tinyos-tools."
+		die "need javacomm support"
+	fi 	
+	if  use javacomm  &&\
+		! built_with_use dev-tinyos/tinyos-tools javacomm; then 
+		eerror "javacomm support in tinyos-tools is needed to build tos-sdk-c with javacomm support "
+		eerror "either build tos-sdk-c without javacommm support (it will then use tinyos own java serial port driver) or"
+		eerror "Add javacomm to your use flag then re-emerge  dev-tinyos/tinyos-tools."
+		die "need javacomm support"
+	fi		
+
+}
 src_unpack() {
 	unpack ${A}
 	cd ${S}
@@ -72,6 +91,9 @@ src_install() {
 	insinto ${TOSROOT}/support/sdk/
 	doins -r support/sdk/java
 	chown -R root:0 "${D}"
-
+	if use doc; then 
+		insinto ${TOSROOT}/doc/html/
+		doins -r ${S}/doc/html/tos-javasdk-javadoc
+	fi 
 }
 

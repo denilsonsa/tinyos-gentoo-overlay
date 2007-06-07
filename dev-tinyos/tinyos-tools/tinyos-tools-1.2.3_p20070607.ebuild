@@ -23,6 +23,7 @@ IUSE="javacomm"
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
 		 >=dev-java/ibm-jdk-bin-1.5"
 
+
 S=${WORKDIR}/${MY_P}/tools
 
 src_unpack() {
@@ -30,6 +31,8 @@ src_unpack() {
 	cd ${S}
 
 	### needs some cleanup
+
+	# not a good patch but bug evaporates when building with gcc 3.4.6
 
 	if  ! use javacomm && [ `gcc-major-version` -ge 4 ] ; then
 		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934"
@@ -42,9 +45,6 @@ src_unpack() {
 	sed -i 's/-O2/-O1/' ${S}/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
 	sed -i 's/-m32//' ${S}/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
 	sed -i 's/-O2/-O1/' ${S}/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
-
-	# tos-bsl needs to be actually "built" in order to adapt to the  correct libdir
-	rm ${S}/platforms/msp430/pybsl/tos-bsl
 
 	./Bootstrap || die "Failed to bootstrap"
 }
@@ -64,9 +64,9 @@ src_install() {
 		into ${JNI}
 		dobin ${S}/tinyos/java/env/libgetenv.so
 		dobin ${S}/tinyos/java/serial/libtoscomm.so
-		# useless there we install it in the proper jdk directory...
-		rm ${D}/usr/lib64/tinyos/libtoscomm.so
-		rm ${D}/usr/lib64/tinyos/libgetenv.so
 	fi
+	# useless there we install it in the proper jdk directory...
+	rm ${D}/usr/lib64/tinyos/libtoscomm.so
+	rm ${D}/usr/lib64/tinyos/libgetenv.so
 }
 
