@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Jun 2007; Aurelien Francillon <aurel@naurel.org>
+  tinyos-tools-1.2.3_p20070607.ebuild:
+  libgetenv.so installation is be independent of use javacomm
+
   07 Jun 2007; Aurélien Francillon <aurel@naurel.org>
   tinyos-tools-1.2.3_p20070606.ebuild, +tinyos-tools-1.2.3_p20070607.ebuild:
   version bump to cvs of 20070607

@@ -58,15 +58,18 @@ src_compile(){
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 
+
+	local JNI="$(java-config -O)/jre"
+	einfo "installing libgetenv.so in  ${JNI}"
+	into ${JNI}
+	dobin ${S}/tinyos/java/env/libgetenv.so
+
 	if ! use javacomm; then
-		local JNI="$(java-config -O)/jre"
-		einfo "installing libgetenv.so  and libtoscomm.so in  ${JNI}"
-		into ${JNI}
-		dobin ${S}/tinyos/java/env/libgetenv.so
+		einfo "installing  libtoscomm.so in  ${JNI}"
 		dobin ${S}/tinyos/java/serial/libtoscomm.so
 	fi
-	# useless there we install it in the proper jdk directory...
+
+	# useless there, we install them in the proper jdk directory...
 	rm ${D}/usr/lib64/tinyos/libtoscomm.so
 	rm ${D}/usr/lib64/tinyos/libgetenv.so
 }
-
