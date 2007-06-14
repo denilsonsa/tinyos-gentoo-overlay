@@ -7,8 +7,8 @@
 
 
 # should lookup config files for this 
-#TOSDIR=/usr/src/tinyos-1.x/tos
-#TOSROOT=/usr/src/tinyos-1.x
+TOSDIR=/usr/src/tinyos-1.x/tos
+TOSROOT=/usr/src/tinyos-1.x
 
 # Nesc installs stuff here but needs that in the path ...
 NESCPATH=/usr/lib/ncc/

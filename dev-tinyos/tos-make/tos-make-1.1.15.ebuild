@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit eutils tinyos
 
-CVS_MONTH="Dec"
-CVS_YEAR="2005"
-MY_P="tinyos"
+# CVS_MONTH="Dec"
+# CVS_YEAR="2005"
+# MY_P="tinyos"
 
 DESCRIPTION="The TinyOS Make System"
-HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
+# HOMEPAGE="http://www.tinyos.net/"
+# SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
 LICENSE="Intel"
 SLOT="0"
 KEYWORDS="amd64 ~x86"

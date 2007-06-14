@@ -14,21 +14,21 @@ TINYOS_TOOLS_PATCHLEVEL=${DATE}
 TINYOS_TOOLS_RELEASE=
 #CVSTAG=release_tinyos_2_0_1
 
-
-BASE_PVR=2.0.1
+# verion of the ebuilds to take as base ...
+BASE_PVR=2.0.1_p20070607
 TINYOS_BASE_PNR=tinyos-${BASE_PVR}
 TOS_BASE_PNR=tos-${BASE_PVR}
 TOS_SDK_JAVA_BASE_PNR=tos-sdk-java-${BASE_PVR}
 TOS_SDK_PYTHON_BASE_PNR=tos-sdk-python-${BASE_PVR}
 TOS_SDK_C_BASE_PNR=tos-sdk-c-${BASE_PVR}
-TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.3
+TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.3_p20070607
 
 
 
 
 HOME=/home/francill/
 # some debugging facilities ...
-CVS_DONT_UPDATE=yes
+#CVS_DONT_UPDATE=yes
 #SCP_DONT_TRANSFER=yes
 # config path's here 
 #CVSDIR=${HOME}/work/sensors/tinyos/tinyos-sources/cvs/tinyos-2.x
@@ -38,8 +38,9 @@ WORKDIR=${HOME}/tmp/
 OVERLAYDIR=${HOME}/portageoverlays/tinyos-2-overlay
 #don't change after here ... 
 ORIG_PWD=`pwd`
-# generate packages versioned names 
 
+
+# generate packages versioned names 
 PV=${TINYOS_VERSION}
 if [ ! -z  ${PATCHLEVEL} ]; then 
     PV=${PV}_p${PATCHLEVEL}
@@ -72,6 +73,12 @@ if [ ! -z  ${TINYOS_TOOLS_RELEASE} ]; then
 else
 	TOOLS_PNR=tinyos-tools-${TOOLS_PV}
 fi 
+
+echo "will generate packages for tinyos version ${PNR} and tools ${TOOLS_PNR} ... "
+echo " hit enter to continue "
+read 
+
+
 
 
 if [[ "yes" != "${CVS_DONT_UPDATE}" ]] ; then 
@@ -163,9 +170,11 @@ done
 
 echo "to use the newly generated packages add :" 
 echo "=dev-tinyos/${PNR}"
-echo "=dev-tinyos/tinyos-tools-${PVR}"
+echo "=dev-tinyos/tos-${PVR}"
+echo "=dev-tinyos/${TOOLS_PNR}"
+echo "=dev-tinyos/tinyos-docs-${PVR}"
 echo "=dev-tinyos/tos-sdk-c-${PVR}"
-echo "=dev-tinyos/tos-sdk-java-${PVR}."
+echo "=dev-tinyos/tos-sdk-java-${PVR}"
 echo "=dev-tinyos/tos-sdk-python-${PVR}"
 
 
