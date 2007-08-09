@@ -1,0 +1,67 @@
+<!ELEMENT packages ( pkgmetadata* )>
+
+<!-- Metadata for a category -->
+<!ELEMENT catmetadata ( (longdescription)* )>
+<!ATTLIST catmetadata pkgname CDATA "">
+
+<!-- Metadata for a package -->
+<!ELEMENT pkgmetadata ( (herd|maintainer|longdescription)* )>
+<!ATTLIST pkgmetadata pkgname CDATA "">
+
+  <!-- One tag for each herd this package is assigned to. -->
+  <!ELEMENT herd (#PCDATA)>
+
+  <!-- One tag for each maintainer of a package, multiple allowed-->
+  <!ELEMENT maintainer ( email, (description| name)* )>
+
+  <!-- A long description of the package in freetext-->
+  <!ELEMENT longdescription (#PCDATA) >
+
+  <!-- The changelog of the package-->
+  <!ELEMENT changelog (change)* >
+    <!-- The changelog contains various "changes"-->
+    <!ELEMENT change (date,(developer|version|description|file|contributor|bug)*) >
+      <!ELEMENT date (#PCDATA) >
+        <!-- The date of the change, in "YYYY-MM-DD" format -->
+      <!ELEMENT developer (name?,email) >
+        <!-- The developer that made the change. The email is required, name
+	   is optional-->
+      <!ELEMENT version (#PCDATA) >
+        <!--version of the packages involved (one tag per version)-->
+      <!ELEMENT file (#PCDATA) ><!-- one tag per file touched -->
+      <!ELEMENT contributor (name?,email?) >
+        <!-- A reference to a user that helped in causing this change. 
+          There should at least be a name or email address included. 
+          Email is preferred -->
+      <!ELEMENT bug (#PCDATA) >
+        <!-- bug-id of a bug fixed by this change, multiple allowed. The 
+          format of this is a number or alias for a bug. NOT including a 
+          # character -->
+          
+<!-- Common attributes -->
+
+<!-- the lang attribute, specifies the language of this tag. This is 
+  only useful for descriptions of various kinds. If a tag with this 
+  attribute is included there must be a description in the default 
+  language "C" or "en", which is equivalent -->
+  <!ATTLIST description lang CDATA "C" >
+  <!ATTLIST longdescription lang CDATA "C" >
+
+<!-- The restrict attribute, this attribute specifies restrictions on 
+  the applicability of tags on versions. The format of this attribute is 
+  equal to the format of DEPEND lines in ebuilds. There is one special 
+  value though: restrict="*". A tag that specifies this only applies if 
+  there are no other tags that apply.
+  
+  For required tags, there must be either an unrestricted version, or a 
+  version that is default restricted. -->
+  <!ATTLIST herd restrict CDATA #IMPLIED >
+  <!ATTLIST maintainer restrict CDATA #IMPLIED >
+  <!ATTLIST longdescription restrict CDATA #IMPLIED >
+
+
+
+<!-- standard parts -->
+<!ELEMENT email (#PCDATA) ><!-- an email address -->
+<!ELEMENT name (#PCDATA) ><!-- the name of a person (maintainer, contributor)-->
+<!ELEMENT description (#PCDATA) ><!-- A description of a maintainer or change-->

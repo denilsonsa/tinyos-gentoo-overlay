@@ -23,6 +23,16 @@
 =dev-tinyos/tinyos-tools-1.2.3-r1
 =dev-tinyos/eselect-tinyos-0.2
 
+# update to 2.0.2
+=dev-tinyos/tinyos-2.0.2
+=dev-tinyos/tos-2.0.2
+=dev-tinyos/tinyos-docs-2.0.2
+=dev-tinyos/tos-sdk-python-2.0.2
+=dev-tinyos/tos-sdk-java-2.0.2
+=dev-tinyos/tos-sdk-c-2.0.2
+=dev-tinyos/tinyos-tools-1.2.4
+
+
 ##
 ## various tools 
 ##

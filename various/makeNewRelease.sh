@@ -6,29 +6,31 @@
 ## config verion tags here 
 DATE=`date +"%Y%m%d"`
 
-TINYOS_VERSION=2.0.1
-PATCHLEVEL=${DATE}
+TINYOS_VERSION=2.0.2
+PATCHLEVEL=
+#PATCHLEVEL=${DATE}
 TINYOS_RELEASE=
-TINYOS_TOOLS_VERSION=1.2.3
-TINYOS_TOOLS_PATCHLEVEL=${DATE}
+TINYOS_TOOLS_VERSION=1.2.4
+#TINYOS_TOOLS_PATCHLEVEL=${DATE}
+TINYOS_TOOLS_PATCHLEVEL=
 TINYOS_TOOLS_RELEASE=
 #CVSTAG=release_tinyos_2_0_1
 
 # verion of the ebuilds to take as base ...
-BASE_PVR=2.0.1_p20070607
+BASE_PVR=2.0.1_p20070611
 TINYOS_BASE_PNR=tinyos-${BASE_PVR}
 TOS_BASE_PNR=tos-${BASE_PVR}
 TOS_SDK_JAVA_BASE_PNR=tos-sdk-java-${BASE_PVR}
 TOS_SDK_PYTHON_BASE_PNR=tos-sdk-python-${BASE_PVR}
 TOS_SDK_C_BASE_PNR=tos-sdk-c-${BASE_PVR}
-TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.3_p20070607
+TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.3_p20070611
 
 
 
 
 HOME=/home/francill/
 # some debugging facilities ...
-#CVS_DONT_UPDATE=yes
+CVS_DONT_UPDATE=yes
 #SCP_DONT_TRANSFER=yes
 # config path's here 
 #CVSDIR=${HOME}/work/sensors/tinyos/tinyos-sources/cvs/tinyos-2.x
