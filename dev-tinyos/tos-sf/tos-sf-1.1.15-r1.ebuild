@@ -9,15 +9,15 @@ SLOT="0"
 KEYWORDS="amd64 ~x86"
 DEPEND=">=virtual/jdk-1.4
 	|| ( >=dev-tinyos/tos-getenv-1.1.15
-         >=dev-tinyos/tinyos-tools-1.2.3)
+         >=dev-tinyos/tinyos-tools-1.2.3 )
 	>=dev-tinyos/tos-packet-1.1.15
 	>=dev-tinyos/tos-sim-msg-1.1.15"
 
 RDEPEND=">=virtual/jdk-1.4
-	|| ( >=dev-tinyos/tos-getenv-1.1.15
-         >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-tinyos/tos-packet-1.1.15
-	>=dev-tinyos/tos-sim-msg-1.1.15"
+         || ( >=dev-tinyos/tos-getenv-1.1.15
+              >=dev-tinyos/tinyos-tools-1.2.3 )
+        >=dev-tinyos/tos-packet-1.1.15
+        >=dev-tinyos/tos-sim-msg-1.1.15"
 
 TOS_PKG_JAVA_DIR="net/tinyos/sf"
 TOS_JAVA_LAUNCHER=tos-sf

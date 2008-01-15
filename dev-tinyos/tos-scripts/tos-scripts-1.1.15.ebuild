@@ -16,9 +16,9 @@ SLOT="0"
 KEYWORDS="amd64 ~x86"
 IUSE=""
 DEPEND=">=dev-tinyos/tos-1.1.15"
-RDEPEND="|| (>=dev-tinyos/ncc-1.1.15
-             >=dev-tinyos/tinyos-tools-1.2.3)
-	>=dev-java/ibm-jdk-bin-1.4.0"
+RDEPEND=" || ( >=dev-tinyos/ncc-1.1.15
+              >=dev-tinyos/tinyos-tools-1.2.3 )
+          >=dev-java/ibm-jdk-bin-1.4.0"
 
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools
 

@@ -22,9 +22,9 @@ DEPEND=">=dev-java/ibm-jdk-bin-1.4.0
 	>=dev-tinyos/tos-message-1.1.15
 	>=dev-tinyos/ncc-1.1.15
 	source? ( app-arch/zip )
-    mica? (cross-avr/gcc)
-    micz? (cross-avr/gcc)
-    telosb? (cross-msp430/gcc)"
+    mica? ( cross-avr/gcc )
+    micaz? ( cross-avr/gcc )
+    telosb? ( cross-msp430/gcc ) "
 RDEPEND=">=dev-java/ibm-jdk-bin-1.4.0
 	>=dev-tinyos/tos-getenv-1.1.15
 	>=dev-tinyos/tos-util-1.1.15
