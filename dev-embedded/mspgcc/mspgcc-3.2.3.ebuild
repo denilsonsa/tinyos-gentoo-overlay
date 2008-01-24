@@ -44,7 +44,7 @@ DEPEND="${RDEPEND}
 	>=sys-apps/texinfo-4.2-r4
 	amd64? ( >=sys-devel/binutils-2.15.90.0.1.1-r1 )"
 PDEPEND="|| ( sys-devel/gcc-config app-admin/eselect-compiler )"
-
+RESTRICT="nostrip"
 
 src_unpack() {
 	ewarn "fixing some links issues (expected to fail if run with sandbox enabled)"
