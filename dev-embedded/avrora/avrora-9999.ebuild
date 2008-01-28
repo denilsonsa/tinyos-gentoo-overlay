@@ -8,6 +8,7 @@ ECVS_SERVER="samoa.cs.ucla.edu:/project/cvs/pub"
 ECVS_MODULE="avrora"
 ECVS_AUTH="pserver"
 ECVS_USER="anonymous"
+ECVS_CLEAN="true"
 
 S=${WORKDIR}/${ECVS_MODULE}
 
@@ -19,11 +20,13 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE=""
+#IUSE=""
 DEPEND=">=virtual/jdk-1.4"
 RDEPEND=">=virtual/jre-1.4"
 
-
+PATCHES="
+${FILESDIR}/avrora_GDBServer_dont_exit_when_reading_uninitialized_mem.patch
+"
 
 src_compile() {
 
