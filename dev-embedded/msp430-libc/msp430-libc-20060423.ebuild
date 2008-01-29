@@ -1,6 +1,7 @@
-# Copyright 1999-2004 Gentoo Technologies, Inc.
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
+# $Header: $
+
 # adapted from dev-embedded/avr-libc
 # adapted from http://www.informatik.uni-mannheim.de/pi4.data/content/projects/msp430/
 
@@ -66,11 +67,11 @@ src_unpack() {
 
 src_compile() {
 
-	cd ${WORKDIR}/${PN}-${PV}/src
+	cd "${WORKDIR}/${PN}-${PV}/src"
 	emake || die
 }
 
 src_install() {
-	cd ${WORKDIR}/${PN}-${PV}/src
+	cd "${WORKDIR}/${PN}-${PV}/src"
 	einstall || die
 }

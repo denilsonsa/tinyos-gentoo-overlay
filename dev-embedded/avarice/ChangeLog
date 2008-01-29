@@ -1,0 +1,8 @@
+# ChangeLog for <CATEGORY>/<PACKAGE_NAME>
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Jan 2008; Aurelien Francillon <aurel@naurel.org> avarice-2.4.ebuild,
+  avarice-2.5.ebuild, avarice-2.6.ebuild:
+  upodate copyright notice
+

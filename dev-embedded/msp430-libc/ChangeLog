@@ -1,0 +1,8 @@
+# ChangeLog for dev-embedded/msp430-libc
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Jan 2008; Aurelien Francillon <aurel@naurel.org>
+  msp430-libc-20060423.ebuild:
+  fixing headers and stuff reported by repoman
+

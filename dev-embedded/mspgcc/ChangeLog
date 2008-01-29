@@ -1,0 +1,8 @@
+# ChangeLog for dev-embedded/mspgcc
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Jan 2008; Aurelien Francillon <aurel@naurel.org> +Changelog,
+  files/msp430-binutilsroot-fix.sh, mspgcc-3.2.3.ebuild:
+  fix the strip mess
+

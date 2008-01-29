@@ -1,4 +1,4 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-embedded/avarice/avarice-2.3.ebuild,v 1.1 2005/09/08 01:56:38 vapier Exp $
 
@@ -17,7 +17,7 @@ IUSE=""
 DEPEND=""
 
 src_unpack(){
-	unpack ${A}
+	unpack "${A}"
 
 # prevents the error : Reply contains invalid hex digit 79
 
@@ -25,7 +25,7 @@ src_unpack(){
 #	echo "set remotetimeout 60"> ${P}/scripts/gdb-avarice-script-new
 #	cat ${P}/scripts/gdb-avarice-script >> ${P}/scripts/gdb-avarice-script-new
 #	mv ${P}/scripts/gdb-avarice-script-new ${P}/scripts/gdb-avarice-script
-	epatch ${FILESDIR}/gdb-avarice-script.patch
+	epatch "${FILESDIR}/gdb-avarice-script.patch"
 }
 
 

@@ -1,0 +1,8 @@
+# ChangeLog for dev-embedded/avrora
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Jan 2008; Aurelien Francillon <aurel@naurel.org> Manifest:
+  add a patch for memory reads < flash size > program size 
+  gdb stepping patch is in cvs
+

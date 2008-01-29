@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 inherit eutils cvs java-pkg-2
@@ -24,17 +24,15 @@ KEYWORDS="~amd64 ~x86"
 DEPEND=">=virtual/jdk-1.4"
 RDEPEND=">=virtual/jre-1.4"
 
-PATCHES="
-${FILESDIR}/avrora_GDBServer_dont_exit_when_reading_uninitialized_mem.patch
-"
+PATCHES="${FILESDIR}/avrora_GDBServer_dont_exit_when_reading_uninitialized_mem.patch"
 
 src_compile() {
 
 	emake avrora || die "emake failed"
 	emake cck || die "emake failed"
-	cd ${S}/bin/
+	cd "${S}/bin/"
 	jar cmf MANIFEST.MF ../${PN}.jar avrora cck || die "failed to make a jar"
-	cd ${S}
+	cd "${S}"
 
 }
 
@@ -42,6 +40,6 @@ src_install() {
 	use source && java-pkg_dosrc src
 	use doc && java-pkg_dohtml -r doc
 
-	java-pkg_dojar ${S}/${PN}.jar
+	java-pkg_dojar "${S}/${PN}.jar"
 	java-pkg_dolauncher
 }

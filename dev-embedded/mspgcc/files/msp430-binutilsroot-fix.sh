@@ -1,7 +1,7 @@
 #!/bin/bash 
 
-DEBUG=true
-#DEBUG=false 
+#DEBUG=true
+DEBUG=false 
 
 [[ -z ${ROOT} ]] && ROOT="/"
 [[ ${ROOT} != */ ]] && ROOT="${ROOT}/"

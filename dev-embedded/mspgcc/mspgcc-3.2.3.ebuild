@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
 
@@ -44,13 +44,12 @@ DEPEND="${RDEPEND}
 	>=sys-apps/texinfo-4.2-r4
 	amd64? ( >=sys-devel/binutils-2.15.90.0.1.1-r1 )"
 PDEPEND="|| ( sys-devel/gcc-config app-admin/eselect-compiler )"
-RESTRICT="nostrip"
 
 src_unpack() {
 	ewarn "fixing some links issues (expected to fail if run with sandbox enabled)"
 #	MERGEROOT=${D} bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
-	bash ${FILESDIR}/msp430-binutilsroot-fix.sh \
-		|| die "failed to fix links try to do this by hand with msp430-binutilsroot-fix.sh , try again with FEATURES=\-sandbox\" or report error "
+	bash "${FILESDIR}/msp430-binutilsroot-fix.sh" \
+		|| die "failed to fix links try to do this by hand with msp430-binutilsroot-fix.sh , try again with FEATURES=\"-sandbox\" or report error "
 
 	gcc_src_unpack
 	local PATCHESDIR=${FILESDIR}/${PV}
@@ -64,4 +63,5 @@ src_unpack() {
 
 	# msp430 support
 	epatch ${PATCHESDIR}/gcc323-msp430.patch
+	export STRIP_MASK="*libgcc*"
 }
