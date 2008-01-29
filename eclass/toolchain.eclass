@@ -1,12 +1,12 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/toolchain.eclass,v 1.332 2007/03/24 06:46:33 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/toolchain.eclass,v 1.344 2007/12/01 18:33:18 vapier Exp $
 #
 # Maintainer: Toolchain Ninjas <toolchain@gentoo.org>
 
 HOMEPAGE="http://gcc.gnu.org/"
 LICENSE="GPL-2 LGPL-2.1"
-RESTRICT="nostrip" # cross-compilers need controlled stripping
+RESTRICT="strip" # cross-compilers need controlled stripping
 
 #---->> eclass stuff <<----
 inherit eutils versionator libtool toolchain-funcs flag-o-matic gnuconfig multilib fixheadtails
@@ -137,7 +137,7 @@ if [[ ${ETYPE} == "gcc-library" ]] ; then
 else
 	IUSE="multislot test"
 
-	if [[ ${PN} != "kgcc64" ]] ; then
+	if [[ ${PN} != "kgcc64" && ${PN} != gcc-* ]] ; then
 		IUSE="${IUSE} altivec build fortran nls nocxx"
 		[[ -n ${PIE_VER} ]] && IUSE="${IUSE} nopie"
 		[[ -n ${PP_VER}	 ]] && IUSE="${IUSE} nossp"
@@ -152,14 +152,9 @@ else
 				IUSE="${IUSE} ip28 ip32r10k n32 n64"
 			fi
 
-			# these are features introduced in 4.0
-			if tc_version_is_at_least "4.0" ; then
-				IUSE="${IUSE} objc-gc mudflap"
-
-				if tc_version_is_at_least "4.1" ; then
-					IUSE="${IUSE} objc++"
-				fi
-			fi
+			tc_version_is_at_least "4.0" && IUSE="${IUSE} objc-gc mudflap"
+			tc_version_is_at_least "4.1" && IUSE="${IUSE} objc++"
+			tc_version_is_at_least "4.2" && IUSE="${IUSE} openmp"
 		fi
 	fi
 
@@ -632,8 +627,10 @@ create_gcc_env_entry() {
 		gcc_specs_file="${LIBPATH}/$1.specs"
 	fi
 
+	# phase PATH/ROOTPATH out ...
 	echo "PATH=\"${BINPATH}\"" > ${gcc_envd_file}
 	echo "ROOTPATH=\"${BINPATH}\"" >> ${gcc_envd_file}
+	echo "GCC_PATH=\"${BINPATH}\"" >> ${gcc_envd_file}
 
 	if use multilib && ! has_multilib_profile; then
 		LDPATH="${LIBPATH}"
@@ -670,12 +667,6 @@ create_gcc_env_entry() {
 	fi
 
 	echo "LDPATH=\"${LDPATH}\"" >> ${gcc_envd_file}
-
-	local mbits
-	CC=$(XGCC) has_m32 && mbits="${mbits:+${mbits} }32"
-	CC=$(XGCC) has_m64 && mbits="${mbits:+${mbits} }64"
-	echo "GCCBITS=\"${mbits}\"" >> ${gcc_envd_file}
-
 	echo "MANPATH=\"${DATAPATH}/man\"" >> ${gcc_envd_file}
 	echo "INFOPATH=\"${DATAPATH}/info\"" >> ${gcc_envd_file}
 	echo "STDCXX_INCDIR=\"${STDCXX_INCDIR##*/}\"" >> ${gcc_envd_file}
@@ -1025,6 +1016,7 @@ gcc_src_unpack() {
 			guess_patch_type_in_dir "${WORKDIR}"/patch
 			EPATCH_MULTI_MSG="Applying Gentoo patches ..." \
 			epatch "${WORKDIR}"/patch
+			release_version="${release_version} p${PATCH_VER}"
 		fi
 		if [[ -n ${UCLIBC_VER} ]] ; then
 			guess_patch_type_in_dir "${WORKDIR}"/uclibc
@@ -1062,7 +1054,6 @@ gcc_src_unpack() {
 	if [[ ${GCC_PVR} == "3.3.5-r1" || ${GCC_PVR} = "3.4.3-r1" ]] ; then
 		 version_string="${version_string} ${BRANCH_UPDATE}"
 	fi
-
 
 	einfo "patching gcc version: ${version_string} (${release_version})"
 	gcc_version_patch "${version_string}" "${release_version}"
@@ -1106,8 +1097,9 @@ gcc_src_unpack() {
 	# update configure files
 	local f
 	einfo "Fixing misc issues in configure files"
+	[[ ${GCCMAJOR} -ge 4 ]] && epatch "${GCC_FILESDIR}"/gcc-configure-texinfo.patch
 	for f in $(grep -l 'autoconf version 2.13' $(find "${S}" -name configure)) ; do
-		ebegin "  Updating ${f/${S}\/}"
+		ebegin "  Updating ${f/${S}\/} [LANG]"
 		patch "${f}" "${GCC_FILESDIR}"/gcc-configure-LANG.patch >& "${T}"/configure-patch.log \
 			|| eerror "Please file a bug about this"
 		eend $?
@@ -1117,7 +1109,7 @@ gcc_src_unpack() {
 		einfo "Touching generated files"
 		./contrib/gcc_update --touch | \
 			while read f ; do
-				einfo "	 ${f%%...}"
+				einfo "  ${f%%...}"
 			done
 	fi
 
@@ -1140,7 +1132,11 @@ gcc-compiler-configure() {
 	fi
 
 	if tc_version_is_at_least "4.0" ; then
-		confgcc="${confgcc} $(use_enable mudflap libmudflap)"
+		if has mudflap ${IUSE} ; then
+			confgcc="${confgcc} $(use_enable mudflap libmudflap)"
+		else
+			confgcc="${confgcc} --disable-libmudflap"
+		fi
 
 		if want_libssp ; then
 			confgcc="${confgcc} --enable-libssp"
@@ -1162,16 +1158,21 @@ gcc-compiler-configure() {
 	case $(tc-arch) in
 		# Add --with-abi flags to set default MIPS ABI
 		mips)
-		local mips_abi=""
-		use n64 && mips_abi="--with-abi=64"
-		use n32 && mips_abi="--with-abi=n32"
-		[[ -n ${mips_abi} ]] && confgcc="${confgcc} ${mips_abi}"
-		;;
+			local mips_abi=""
+			use n64 && mips_abi="--with-abi=64"
+			use n32 && mips_abi="--with-abi=n32"
+			[[ -n ${mips_abi} ]] && confgcc="${confgcc} ${mips_abi}"
+			;;
+		# Default arch for x86 is normally i386, lets give it a bump
+		# since glibc will do so based on CTARGET anyways
+		x86)
+			confgcc="${confgcc} --with-arch=${CTARGET%%-*}"
+			;;
 		# Enable sjlj exceptions for backward compatibility on hppa
 		hppa)
 			[[ ${GCC_PV:0:1} == "3" ]] && \
 			confgcc="${confgcc} --enable-sjlj-exceptions"
-		;;
+			;;
 	esac
 
 	GCC_LANG="c"
@@ -1183,6 +1184,7 @@ gcc-compiler-configure() {
 		use objc-gc && confgcc="${confgcc} --enable-objc-gc"
 		is_objcxx && GCC_LANG="${GCC_LANG},obj-c++"
 	fi
+	is_treelang && GCC_LANG="${GCC_LANG},treelang"
 
 	# fortran support just got sillier! the lang value can be f77 for
 	# fortran77, f95 for fortran95, or just plain old fortran for the
@@ -1280,7 +1282,8 @@ gcc_do_configure() {
 			*-uclibc*)		 needed_libc=uclibc;;
 			mingw*|*-mingw*) needed_libc=mingw-runtime;;
 			avr)			 confgcc="${confgcc} --enable-shared --disable-threads";;
-#			msp430)			 confgcc="${confgcc} --enable-shared --disable-threads";;
+			msp430)			 confgcc="${confgcc} --enable-shared --disable-threads";;
+
 		esac
 		if [[ -n ${needed_libc} ]] ; then
 			if ! has_version ${CATEGORY}/${needed_libc} ; then
@@ -1297,10 +1300,6 @@ gcc_do_configure() {
 		fi
 	elif [[ ${CHOST} != mingw* ]] && [[ ${CHOST} != *-mingw* ]] ; then
 		confgcc="${confgcc} --enable-shared --enable-threads=posix"
-
-		if [[ ${GCCMAJOR}.${GCCMINOR} > 4.1 ]] ; then
-			confgcc="${confgcc} --enable-bootstrap"
-		fi
 	fi
 	[[ ${CTARGET} == *-elf ]] && confgcc="${confgcc} --with-newlib"
 	# __cxa_atexit is "essential for fully standards-compliant handling of
@@ -2089,9 +2088,6 @@ do_gcc_PIE_patches() {
 }
 
 should_we_gcc_config() {
-	# we only want to switch compilers if installing to / or /tmp/stage1root
-	[[ ${ROOT} == "/" || ${ROOT} == "/tmp/stage1root" ]] || return 1
-
 	# we always want to run gcc-config if we're bootstrapping, otherwise
 	# we might get stuck with the c-only stage1 compiler
 	use bootstrap && return 0
@@ -2100,12 +2096,12 @@ should_we_gcc_config() {
 	# if the current config is invalid, we definitely want a new one
 	# Note: due to bash quirkiness, the following must not be 1 line
 	local curr_config
-	curr_config=$(env -i gcc-config -c ${CTARGET} 2>&1) || return 0
+	curr_config=$(env -i ROOT="${ROOT}" gcc-config -c ${CTARGET} 2>&1) || return 0
 
 	# if the previously selected config has the same major.minor (branch) as
 	# the version we are installing, then it will probably be uninstalled
 	# for being in the same SLOT, make sure we run gcc-config.
-	local curr_config_ver=$(env -i gcc-config -S ${curr_config} | awk '{print $2}')
+	local curr_config_ver=$(env -i ROOT="${ROOT}" gcc-config -S ${curr_config} | awk '{print $2}')
 
 	local curr_branch_ver=$(get_version_component_range 1-2 ${curr_config_ver})
 
@@ -2137,14 +2133,14 @@ should_we_gcc_config() {
 
 do_gcc_config() {
 	if ! should_we_gcc_config ; then
-		env -i gcc-config --use-old --force
+		env -i ROOT="${ROOT}" gcc-config --use-old --force
 		return 0
 	fi
 
 	local current_gcc_config="" current_specs="" use_specs=""
 
 	# We grep out any possible errors
-	current_gcc_config=$(env -i gcc-config -c ${CTARGET} | grep -v '^ ')
+	current_gcc_config=$(env -i ROOT="${ROOT}" gcc-config -c ${CTARGET} | grep -v '^ ')
 	if [[ -n ${current_gcc_config} ]] ; then
 		# figure out which specs-specific config is active
 		current_specs=$(gcc-config -S ${current_gcc_config} | awk '{print $3}')
@@ -2167,9 +2163,6 @@ do_gcc_config() {
 }
 
 should_we_eselect_compiler() {
-	# we only want to switch compilers if installing to / or /tmp/stage1root
-	[[ ${ROOT} == "/" || ${ROOT} == "/tmp/stage1root" ]] || return 1
-
 	# we always want to run gcc-config if we're bootstrapping, otherwise
 	# we might get stuck with the c-only stage1 compiler
 	use bootstrap && return 0
@@ -2392,4 +2385,12 @@ is_ada() {
 	gcc-lang-supported ada || return 1
 	use build && return 1
 	use ada
+}
+
+is_treelang() {
+	is_crosscompile && return 1 #199924
+	gcc-lang-supported treelang || return 1
+	use build && return 1
+	#use treelang
+	return 0
 }
