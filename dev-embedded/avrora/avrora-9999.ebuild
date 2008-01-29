@@ -1,6 +1,9 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+JAVA_PKG_IUSE="source doc"
+
 inherit eutils cvs java-pkg-2
 
 ECVS_SERVER="samoa.cs.ucla.edu:/project/cvs/pub"
@@ -19,8 +22,8 @@ SRC_URI=""
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE=""
 
-#IUSE=""
 DEPEND=">=virtual/jdk-1.4"
 RDEPEND=">=virtual/jre-1.4"
 
