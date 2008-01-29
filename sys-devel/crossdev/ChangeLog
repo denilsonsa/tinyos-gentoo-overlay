@@ -1,6 +1,10 @@
 # ChangeLog for sys-devel/crossdev
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/ChangeLog,v 1.51 2007/05/23 16:21:13 flameeyes Exp $
+
+  29 Jan 2008; Aurelien Francillon <aurel@naurel.org> files/crossdev,
+  -crossdev-0.9.18-r1.ebuild, +crossdev-0.9.18-r6.ebuild:
+  rebase to current crossdev, update mspgcc stuff
 
   23 May 2007; Diego Pettenò <flameeyes@gentoo.org>
   crossdev-0.9.17-r3.ebuild, crossdev-0.9.18-r1.ebuild:

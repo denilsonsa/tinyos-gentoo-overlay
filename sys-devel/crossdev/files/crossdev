@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev,v 1.94 2007/05/14 14:56:47 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev,v 1.101 2007/12/30 17:33:48 vapier Exp $
 
 cd /
 umask 0022 #159111
@@ -15,6 +15,8 @@ source /etc/init.d/functions.sh || exit 1
 esyslog() { :; }
 die() {
 	echo
+	eerror You are running a modified crossdev script 
+	eerror please report errors to aurelien@francillon.net i\'m responsible of the breakages \(DON\'t report errors to gentoo bugzilla!\)
 	eerror $*
 	eerror If you file a bug, please attach the following logfiles:
 	eerror ${PORT_LOGDIR}/cross-${CTARGET}-info.log
@@ -28,13 +30,17 @@ usage() {
 cat << EOF
 Usage: ${HILITE}crossdev${NORMAL} ${GOOD}[options]${NORMAL} ${BRACKET}--target TARGET${NORMAL}
 
+ ${GOOD} Please note that you are using a modified crossdev script, report 
+ ${GOOD} problems to  aurelien@francillon.net  and not to gentoo\'s bugzilla
+
 Options:
     ${GOOD}--b, --binutils${NORMAL} ver   Specify version of binutils to use
     ${GOOD}--g, --gcc${NORMAL} ver        Specify version of gcc to use
     ${GOOD}--k, --kernel${NORMAL} ver     Specify version of kernel headers to use
     ${GOOD}--l, --libc${NORMAL} ver       Specify version of libc to use
+    ${GOOD}-S, --stable${NORMAL}          Use latest stable versions as default
     ${GOOD}-C, --clean${NORMAL} target    Uninstall specified target
-    ${GOOD}-b, -d, -p, -v, -q${NORMAL}    Options to pass to emerge (see emerge(1))
+    ${GOOD}-P, --portage${NORMAL} opts    Options to pass to emerge (see emerge(1))
 Stage Options:
     ${GOOD}-s0, --stage0${NORMAL}         Build just binutils
     ${GOOD}-s1, --stage1${NORMAL}         Also build a C compiler (no libc/C++)
@@ -45,9 +51,9 @@ Extra Fun (must be run after above stages):
     ${GOOD}--ex-only${NORMAL}             Skip the stage steps above
     ${GOOD}--ex-gcc${NORMAL}              Build extra gcc targets (gcj/ada/etc...)
     ${GOOD}--ex-gdb${NORMAL}              Build a cross gdb
+    ${GOOD}--ex-insight${NORMAL}          Build a cross insight
 
-${BRACKET}Target (-t)${NORMAL}:   takes the form: ${BRACKET}ARCH-VENDOR-OS-LIBC${NORMAL}
-    Run 'crossdev -t help' for examples
+${BRACKET}Target (-t)${NORMAL} takes a tuple ${BRACKET}ARCH-VENDOR-OS-LIBC${NORMAL}; see 'crossdev -t help'
 EOF
 	[[ -n $* ]] && echo && eerror "Error: $*"
 	exit ${exit_status}
@@ -57,6 +63,7 @@ STAGE_C_ONLY=1
 STAGE_C_KERNEL=2
 STAGE_LIBC=3
 STAGE_C_CPP=4
+STAGE_DEFAULT=${STAGE_C_CPP}
 STAGE_DISP=( "binutils" "C compiler only" "kernel headers" "C compiler & libc" "C/C++ compiler" )
 
 parse_target() {
@@ -142,9 +149,8 @@ parse_target() {
 
 	# Now account for all the "special" architectures out there
 	case ${CTARGET} in
-		avr*) KPKG="[none]"; STAGE=${STAGE_LIBC};
+		avr*) KPKG="[none]"; STAGE_DEFAULT=${STAGE_LIBC};
 		      LCAT="dev-embedded"; LPKG="avr-libc";
-		      GVER="3.4.6"; BVER="2.16.1-r3";
 		      GUSE=${GUSE_DISABLE};;
 
 		mingw*|*-mingw*)
@@ -153,12 +159,11 @@ parse_target() {
 		      LCAT="dev-util"; LPKG="mingw-runtime";;
 
 		msp430)
-		      TARCH=${HARCH}; CPOST="";
+		      CPOST="";
 		      KPKG="[none]"; BVER="2.16.1-r3";
-			  GCAT="dev-embedded"; GPKG="mspgcc"; GVER="3.2.3-r5";
+		      GCAT="dev-embedded"; GPKG="mspgcc"; GVER="3.2.3-r5";
 		      LCAT="dev-embedded"; LPKG="msp430-libc";
-		      #STAGE=${STAGE_LIBC};
-		      STAGE=${STAGE_C_CPP};
+		      STAGE_DEFAULT=${STAGE_C_CPP};
 		      GUSE=${GUSE_DISABLE};;
 
 		nios2*)
@@ -182,15 +187,15 @@ parse_target() {
 		ee*)  TARCH=mips;
 		      KPKG="[none]"
 		      GVER="3.2.2"; BVER="2.14";
-		      STAGE=${STAGE_C_ONLY};
+		      STAGE_DEFAULT=${STAGE_C_ONLY};
 		      GUSE=${GUSE_DISABLE};;
 		iop*) TARCH=mips;
 		      GVER="3.2.2"; BVER="2.14";
-		      STAGE=${STAGE_C_ONLY};
+		      STAGE_DEFAULT=${STAGE_C_ONLY};
 		      GUSE=${GUSE_DISABLE};;
 		dvp*) TARCH=mips;
 		      GVER="3.2.2"; BVER="2.14";
-		      STAGE=${STAGE_BINUTILS};;
+		      STAGE_DEFAULT=${STAGE_BINUTILS};;
 	esac
 
 	# Tweak packages based upon CTARGET
@@ -206,7 +211,7 @@ parse_target() {
 		*-newlib|*-elf)
 			LPKG="newlib"
 			KPKG="[none]"
-			STAGE=${STAGE_LIBC}
+			STAGE_DEFAULT=${STAGE_LIBC}
 			;;
 
 		# Now for the BSDs ...
@@ -300,9 +305,10 @@ is_s5()    { is_stage 5 ; }
 
 with_headers()   { [[ ${WITH_HEADERS}   == "yes" ]] ; }
 
-ex_fast()  { [[ ${EX_FAST} == "yes" ]] ; }
-ex_gcc()   { [[ ${EX_GCC}  == "yes" ]] ; }
-ex_gdb()   { [[ ${EX_GDB}  == "yes" ]] ; }
+ex_fast()    { [[ ${EX_FAST}    == "yes" ]] ; }
+ex_gcc()     { [[ ${EX_GCC}     == "yes" ]] ; }
+ex_gdb()     { [[ ${EX_GDB}     == "yes" ]] ; }
+ex_insight() { [[ ${EX_INSIGHT} == "yes" ]] ; }
 
 hr() {
 	local c=${COLUMNS:-0}
@@ -312,11 +318,11 @@ hr() {
 			&& c=50 \
 			|| c=${c##* }
 	fi
-	local ext=${1:-  _  -  ~  -} br=""
-	while [[ ${#br} -lt ${c} ]] ; do
-		br=${br}${ext}
-	done
-	echo "${br:0:${c}}"
+	local ext=${1:-  _  -  ~  -}
+	local sext=${ext//?/ }
+	local br=$(printf "%$((c + ${#ext}))s")
+	local banner=${br//${sext}/${ext}}
+	echo "${banner:0:${c}}"
 }
 
 ##################
@@ -327,11 +333,12 @@ UOPTS=
 TARCH=
 HARCH=$(unset ARCH ; portageq envvar ARCH)
 CTARGET=
-STAGE="COW"
-BCAT="sys-devel"  ; BPKG="binutils"      ; BVER="[latest]" ; BUSE=""
-GCAT="sys-devel"  ; GPKG="gcc"           ; GVER="[latest]" ; GUSE=""
-KCAT="sys-kernel" ; KPKG="linux-headers" ; KVER="[latest]" ; KUSE=""
-LCAT="sys-libs"   ; LPKG=""              ; LVER="[latest]" ; LUSE=""
+STAGE=""
+BCAT="sys-devel"  ; BPKG="binutils"      ; BVER="" ; BUSE=""
+GCAT="sys-devel"  ; GPKG="gcc"           ; GVER="" ; GUSE=""
+KCAT="sys-kernel" ; KPKG="linux-headers" ; KVER="" ; KUSE=""
+LCAT="sys-libs"   ; LPKG=""              ; LVER="" ; LUSE=""
+DEFAULT_VER="[latest]"
 GUSE_DISABLE="-boundschecking -fortran -gtk -gcj -mudflap -objc -objc++ -objc-gc -d"
 GUSE_DISABLE_STAGE_2=${GUSE_DISABLE/-fortran}
 WITH_HEADERS="COW"   WITH_DEF_HEADERS="no"
@@ -348,14 +355,17 @@ while [[ $# -gt 0 ]] ; do
 	--g|--gcc)      shift; GVER=$1;;
 	--k|--kernel)   shift; KVER=$1;;
 	--l|--libc)     shift; LVER=$1;;
+	-S|--stable)    DEFAULT_VER="[stable]";;
 	-C|--clean)     shift; parse_target $1; uninstall;;
-	-s?|--stage?)   [[ ${STAGE} == "COW" ]] && STAGE=${1:0-1};;
+	-s?|--stage?)   STAGE=${1:0-1};;
 	--ex-only)      EX_FAST="yes";;
 	--ex-gcc)       EX_GCC="yes";;
 	--ex-gdb)       EX_GDB="yes";;
+	--ex-insight)   EX_INSIGHT="yes";;
 	--with-*)       eval $(set_withval $1);;
 	--without-*)    eval $(set_withval $1);;
 	-x)             SET_X="yes";;
+	-P|--portage)   UOPTS="${UOPTS} $2"; shift;;
 	-b|-d|-p|-v|-q) UOPTS="${UOPTS} $1";;
 	-pv|-vp)        UOPTS="${UOPTS} -p -v";;
 	-h|--help)      usage;;
@@ -366,8 +376,12 @@ while [[ $# -gt 0 ]] ; do
 done
 [[ ${SET_X} == "yes" ]] && set -x
 
+BVER=${BVER:-${DEFAULT_VER}}
+GVER=${GVER:-${DEFAULT_VER}}
+KVER=${KVER:-${DEFAULT_VER}}
+LVER=${LVER:-${DEFAULT_VER}}
+STAGE=${STAGE:-${STAGE_DEFAULT}}
 [[ -z ${CTARGET} ]] && usage 1
-[[ ${STAGE} == "COW" ]] && STAGE=${STAGE_C_CPP}
 for with in HEADERS ; do
 	var=WITH_${with} defvar=WITH_DEF_${with}
 	[[ ${!var} == "COW" ]] && eval ${var}=${!defvar}
@@ -445,6 +459,9 @@ einfo "Extra: gcc pass:       DO IT"
 ex_gdb && {
 einfo "Extra: gdb:            DO IT"
 }
+ex_insight && {
+einfo "Extra: insight:        DO IT"
+}
 echo
 einfo "PORTDIR_OVERLAY:       ${PORTDIR_OVERLAY}"
 einfo "PORT_LOGDIR:           ${PORT_LOGDIR}"
@@ -467,10 +484,16 @@ set_keywords() {
 	else
 		output="package.keywords/cross-${CTARGET}"
 	fi
-	if [[ ${ver} == "[latest]" ]] || [[ -z ${ver} ]] ; then
-		echo "cross-${CTARGET}/${pkg} ${TARCH} ~${TARCH}" >> ${output}
+	if [[ ${ver} == "["*"]" ]] || [[ -z ${ver} ]] ; then
+		local keywords=""
+		case ${ver} in
+			"[stable]") keywords="${TARCH}";;
+			*)          keywords="${TARCH} ~${TARCH}";;
+		esac
+		[[ "${TARCH}" != "${HARCH}" ]] && keywords="${keywords} -${HARCH} -~${HARCH}"
+		echo "cross-${CTARGET}/${pkg} ${keywords}" >> ${output}
 	else
-		echo "cross-${CTARGET}/${pkg} * ~* -* **" >> ${output}
+		echo "cross-${CTARGET}/${pkg} * ~* **" >> ${output}
 		if [[ -f package.mask ]] ; then
 			output="package.mask"
 			sed -i -e "/cross-${CTARGET}\/${pkg}/d" ${output}
@@ -534,6 +557,7 @@ set_portage ${GCAT} ${GPKG} ${GVER}
 set_portage ${KCAT} ${KPKG} ${KVER}
 set_portage ${LCAT} ${LPKG} ${LVER}
 set_portage sys-devel gdb
+set_portage dev-util insight
 
 #################
 emerged_with_use() {
@@ -558,7 +582,7 @@ doemerge() {
 
 	set_use $1 ${USE}
 
-	if [[ ${UOPTS/-v} != ${UOPTS} ]] ; then
+	if [[ ${UOPTS/-v} != ${UOPTS} || ${UOPTS/-p} != ${UOPTS} ]] ; then
 		emerge cross-${CTARGET}/$1 ${EOPTS} \
 			2>&1 | tee ${logfile}
 	else
@@ -576,6 +600,9 @@ EOPTS_UP="${EOPTS_DEF} -u"
 EOPTS=${EOPTS_UP}
 # keep things like --ask from screwing us up
 export EMERGE_DEFAULT_OPTS=""
+
+# maybe someday this work, but that day != today
+USE="${USE} -selinux"
 
 # make sure multilib crap doesn't screw us over
 export ABI=${ABI:-pos} LIBDIR_pos="lib" CFLAGS_pos="" LDFLAGS_pos=""
@@ -595,6 +622,7 @@ is_s1 || exit 0
 if with_headers ; then
 USE="${KUSE} ${USE}" CROSSCOMPILE_OPTS="headers-only" \
 	doemerge ${KPKG} ${KPKG}-quick
+[[ -n ${LPKG} ]] && \
 USE="${LUSE} ${USE}" CROSSCOMPILE_OPTS="headers-only" \
 	doemerge ${LPKG} ${LPKG}-headers
 fi
@@ -607,6 +635,7 @@ USE="${KUSE} ${USE}" CROSSCOMPILE_OPTS="" \
 	doemerge ${KPKG}
 
 is_s3 || exit 0
+[[ -z ${LPKG} ]] && die "Invalid target '${CTARGET}': unknown libc"
 set_eopts_on_pkg_status ${LPKG} crosscompile_opts_headers-only
 USE="${LUSE} ${USE}" CROSSCOMPILE_OPTS="" \
 	doemerge ${LPKG}
@@ -621,5 +650,6 @@ USE="${GUSE} ${USE} ${GUSE_DISABLE_STAGE_2}" \
 EOPTS="${EOPTS_UP} --newuse"
 ex_gcc && USE="${GUSE} ${USE}" doemerge ${GPKG} ${GPKG}-extra
 ex_gdb && doemerge gdb
+ex_insight && doemerge insight
 
 exit 0
