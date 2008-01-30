@@ -1,0 +1,146 @@
+diff --git a/src/avrora/monitors/GDBServer.java b/src/avrora/monitors/GDBServer.java
+index 6868421..7a550d6 100644
+--- a/src/avrora/monitors/GDBServer.java
++++ b/src/avrora/monitors/GDBServer.java
+@@ -42,12 +42,17 @@ import avrora.sim.util.SimUtil;
+ import cck.text.StringUtil;
+ import cck.text.Terminal;
+ import cck.util.Option;
++import cck.util.Options;
+ import cck.util.Util;
+ import java.io.*;
+ import java.net.ServerSocket;
+ import java.net.Socket;
+ import java.text.CharacterIterator;
+ import java.text.StringCharacterIterator;
++import java.util.HashMap;
++import java.util.Iterator;
++import java.util.Set;
++import java.util.HashSet;
+ 
+ /**
+  * The <code>GDBServer</code> class implements a monitor that can communicate to gdb via
+@@ -66,9 +71,23 @@ public class GDBServer extends MonitorFactory {
+             "send commands to Avrora. This allows gdb to be used as a front end for debugging a program " +
+             "running inside of Avrora.";
+ 
+-    private final Option.Long PORT = newOption("port", 10001,
++    private final Option.List PORT = newOptionList("port", "0:10001",
+             "This option specifies the port on which the GDB server will listen for a connection from " +
+-            "the GDB front-end.");
++            "the GDB front-end. It can be used to select which node to debug, the format is " +
++	    "the node number, the port number " +
++            "($node:$port,$node:$port).");
++
++    // this hash map is used to store the gdb connections and ports 
++    HashMap portMap;
++
++    abstract class Connection {
++        int port;
++        abstract void connect();
++    }
++    class SocketConnection extends Connection {
++        void connect() {
++        }
++    }
+ 
+     /**
+      * The <code>GDBMonitor</code> class implements a monitor that can interactively debug
+@@ -87,22 +106,39 @@ public class GDBServer extends MonitorFactory {
+         Socket socket;
+         InputStream input;
+         OutputStream output;
+-        final int port;
++        int port=10001;
+         BreakpointProbe BREAKPROBE = new BreakpointProbe();
+         StepProbe STEPPROBE = new StepProbe();
+         SimPrinter printer;
+         boolean isStepping;
+ 
+ 
+-        GDBMonitor(Simulator s, int p) {
++        GDBMonitor(Simulator s) {
++            
+             simulator = s;
+-            port = p;
+             printer = SimUtil.getPrinter(simulator, "monitor.gdb");
++
++            Set conns = (Set)portMap.get(new Integer(s.getID()));
++            // no gdb connections were configured for this node id 
++            if ( conns == null )
++                return;
++            Iterator i = conns.iterator();
++            Connection conn;
++
++            if ( i.hasNext() )
++                conn = (Connection)i.next();            
++            else
++                // has no element 
++                return;            
++            // use the first element we found  
++            port = conn.port;            
++
+             try {
+                 serverSocket = new ServerSocket(port);
+             } catch ( IOException e ) {
+                 Util.userError("GDBServer could not create socket on port "+port, e.getMessage());
+             }
++
+             // insert the startup probe at the beginning of the program
+             simulator.insertProbe(new StartupProbe(), 0);
+ 
+@@ -600,12 +636,46 @@ public class GDBServer extends MonitorFactory {
+ 
+     }
+ 
++
++    // poress option and connection options management, this is
++    // highliy inspired by SerialMonitor.java, SPImonitor doing
++    // basically the same thing too , would be nice to factorise all
++    // this logic
++
++    public void processOptions(Options o) {
++        super.processOptions(o);
++
++        Iterator i = PORT.get().iterator();
++        while ( i.hasNext() ) {
++            String pid = (String)i.next();
++            String[] str = pid.split(":");
++            if ( str.length < 2 ) Util.userError("Format error in \"port\" option");
++            int nid = Integer.parseInt(str[0]);
++            int port = Integer.parseInt(str[1]);
++            SocketConnection conn = new SocketConnection();
++            conn.port = port;
++            addConnection(nid, conn);
++        }
++    }
++
++    private void addConnection(int nid, Connection con) {
++        Integer nidI = new Integer(nid);
++        Set set = (Set)portMap.get(nidI);
++        if (set == null) {
++            set = new HashSet();
++            portMap.put(nidI, set);
++        }
++        set.add(con);
++    }
++
++
+     /**
+      * The constructor for the <code>GDBServer</code> class simply creates a new instance that
+      * is capable of creating monitors for simulators.
+      */
+     public GDBServer() {
+         super(HELP);
++        portMap = new HashMap();
+     }
+ 
+     /**
+@@ -616,6 +686,6 @@ public class GDBServer extends MonitorFactory {
+      * @return a new <code>Monitor</code> instance for the specified simulator
+      */
+     public Monitor newMonitor(Simulator s) {
+-        return new GDBMonitor(s, (int)PORT.get());
++        return new GDBMonitor(s);
+     }
+ }

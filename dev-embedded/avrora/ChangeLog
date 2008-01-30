@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jan 2008; Aurelien Francillon <aurel@naurel.org> ChangeLog:
+  avrora add the possibility to gebug multiple nodes at at the same time, and
+  use gdbmonitor with simulating multiple nodes
+
   29 Jan 2008; Aurelien Francillon <aurel@naurel.org> avrora-9999.ebuild:
   add doc and source to iuse , fixing a QA warning
 
