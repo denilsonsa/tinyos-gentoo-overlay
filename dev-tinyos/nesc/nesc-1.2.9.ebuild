@@ -11,6 +11,8 @@ LICENSE="GPL-2 Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
+JAVA_PKG_WANT_TARGET="1.4"
+JAVA_PKG_WANT_SOURCE="1.4"
 COMMON_DEP=">=dev-lang/perl-5.8.5-r2
 	>=dev-tinyos/tos-1.1.0"
 
@@ -40,15 +42,35 @@ pkg_setup() {
 	else
 		einfo "Building nesC for ${TOSDIR}"
 	fi
-
 	java-pkg-2_pkg_setup
+}
+src_unpack() {
+	unpack ${A}
+	# don't build java files from make  
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.in 
+	sed -i -e 's/SUBDIRS = java/SUBDIRS = /g' ${S}/tools/Makefile.in 
+	sed -i -e 's/NESC_JAR_DEPS = $(shell find java -name '*.java')//g' ${S}/tools/Makefile.in  
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.am 
+#	sed -i -e 's/^*java*$//g' ${S}/configure.in
 }
 
 src_compile() {
+
 	econf --disable-dependency-tracking || die "econf failed"
 	# language setting needed, otherwise gcc version
 	# will sometimes not be detected right
 	LANGUAGE=C emake || die "emake failed"
+
+	einfo " cleanup the java mess"
+	rm -f ${S}/tools/nesc.jar
+	rm -f $(find ${S} -name "*.class" )  
+
+	# build java files with ejavac 
+	einfo "building java files with ejavac"
+	ejavac $(find tools/java/ -name "*.java")
+	cd tools/java ; 
+	jar cf ../${PN}.jar $(find . -name "*.class")
+	cd ${S}
 }
 
 src_install() {
@@ -58,6 +80,10 @@ src_install() {
 	then
 		dohtml -r -a html,jpg,pdf,txt doc/*
 	fi
+	# nesc relies on the fact that it will find nesc.jar into /usr/lib/ncc 
+    # it should be fixed to be gentoo compliant ... 
+	java-pkg_jarinto "${ROOT}"/usr/lib/ncc/
+	java-pkg_dojar tools/nesc.jar
 
 	newdoc README NEWS
 	newdoc tools/java/net/tinyos/nesc/dump/README README.dump

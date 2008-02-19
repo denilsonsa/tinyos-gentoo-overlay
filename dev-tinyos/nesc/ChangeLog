@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/ChangeLog,v 1.15 2007/03/05 22:36:56 sanchan Exp $
 
+  19 Feb 2008; Aurelien Francillon <aurel@naurel.org> ChangeLog:
+  adding support to nesc ebuild to build java properly
+
   29 Jan 2008; Aurelien Francillon <aurel@naurel.org> +metadata.xml,
   +nesc-1.2.9.ebuild:
   update to 1.2.9 + cleanups
