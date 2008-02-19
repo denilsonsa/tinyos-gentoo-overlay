@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/nescc/${P}.tar.gz"
 LICENSE="GPL-2 Intel"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="doc"
+IUSE="doc emacs"
 JAVA_PKG_WANT_TARGET="1.4"
 JAVA_PKG_WANT_SOURCE="1.4"
 COMMON_DEP=">=dev-lang/perl-5.8.5-r2
@@ -85,12 +85,19 @@ src_install() {
 	java-pkg_jarinto "${ROOT}"/usr/lib/ncc/
 	java-pkg_dojar tools/nesc.jar
 
+	if use emacs; then
+		elisp-site-file-install "${S}/tools/editor-modes/emacs/*.el" \
+			|| die "elisp-site-file-install failed"
+	fi
+
+
 	newdoc README NEWS
 	newdoc tools/java/net/tinyos/nesc/dump/README README.dump
 	newdoc tools/java/net/tinyos/nesc/wiring/README README.wiring
 }
 
 pkg_postinst() {
+	use emacs && elisp-site-regen
 	elog "To install a nesC editor mode (currently, emacs, vim, kde):"
 	elog "Read /usr/share/ncc/editor-modes/<your-editor-name>/readme.txt"
 	elog ""
@@ -106,6 +113,11 @@ pkg_postinst() {
 	elog "nescc (ncc if using TinyOS) to use __ rather than $ in generated code."
 	elog "Example: PFLAGS=\"-fnesc-separator=__\" make mica2"
 	elog "See the nescc man page for details."
-	ebeep 5
 	epause 5
 }
+
+
+pkg_postrm() {
+        use emacs && elisp-site-regen
+}
+
