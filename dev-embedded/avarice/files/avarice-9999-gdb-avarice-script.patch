@@ -1,0 +1,9 @@
+
+diff -u -r1.3 gdb-avarice-script
+--- scripts/gdb-avarice-script	20 Jun 2005 20:35:24 -0000	1.3
++++ scripts/gdb-avarice-script	10 Mar 2008 23:32:50 -0000
+@@ -1,3 +1,4 @@
++set remotetimeout 60
+ set remoteaddresssize 32
+ set remote Z-packet enable
+ set remote hardware-breakpoint-limit 3
