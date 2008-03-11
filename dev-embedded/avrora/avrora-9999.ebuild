@@ -28,7 +28,9 @@ DEPEND=">=virtual/jdk-1.4"
 RDEPEND=">=virtual/jre-1.4"
 
 PATCHES="${FILESDIR}/avrora_GDBServer_dont_exit_when_reading_uninitialized_mem.patch
-${FILESDIR}/allow_debug_multiple_progs_at_once.patch"
+${FILESDIR}/allow_debug_multiple_progs_at_once.patch
+${FILESDIR}/update-node-id_also_consider__in_identifiers.patch
+"
 
 src_compile() {
 
