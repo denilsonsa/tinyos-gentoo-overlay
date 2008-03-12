@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-embedded/avarice/avarice-2.3.ebuild,v 1.1 2005/09/08 01:56:38 vapier Exp $
 
-inherit eutils cvs 
+inherit eutils cvs
 
 DESCRIPTION="Interface for GDB to Atmel AVR JTAGICE in circuit emulator"
 HOMEPAGE="http://avarice.sourceforge.net/"
 #SRC_URI="mirror://sourceforge/avarice/${P}.tar.bz2"
 #SRC_URI="http://naurel.org/stuff/${P}.tar.bz2"
 
-# cvs -z3 -d:pserver:anonymous@avarice.cvs.sourceforge.net:/cvsroot/avarice co -P modulename   
+# cvs -z3 -d:pserver:anonymous@avarice.cvs.sourceforge.net:/cvsroot/avarice co -P modulename
 
 ECVS_SERVER="avarice.cvs.sourceforge.net:/cvsroot/avarice"
 
@@ -33,6 +33,7 @@ src_unpack(){
 	cvs_src_unpack
 	cd ${S}
 	epatch "${FILESDIR}/avarice-9999-gdb-avarice-script.patch"
+	epatch "${FILESDIR}/jtag2run_fix_eventLoop.patch"
 	./Bootstrap
 }
 
