@@ -7,7 +7,7 @@ index 42eb02a..fddbfb0 100644
 +
 +	[1833340] cannot read program counter/Watchdog has expired
 +	* src/jtag2run.cc: Fix jtag2::eventLoop, the function needs to
-+	actually loop plus shoudl set breakpoint = true only when event
++	actually loop plus should set "breakpoint = true" only when event
 +	EVT_BREAK is received 
 + 
  2008-02-25  Joerg Wunsch <j.gnu@uriah.heep.sax.de>
