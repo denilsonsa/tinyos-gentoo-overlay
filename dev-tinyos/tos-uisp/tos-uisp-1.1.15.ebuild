@@ -30,6 +30,6 @@ src_compile() {
 
 src_install() {
 	INSTALL_MASK=/usr/share/doc/uisp-20050519tinyos
-	emake DESTDIR=${D} install || die "install failed"
+	emake DESTDIR="${D}" install || die "install failed"
 	dodoc doc/* AUTHORS ChangeLog CHANGES TODO
 }

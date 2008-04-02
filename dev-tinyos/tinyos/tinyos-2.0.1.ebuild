@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,4 +18,3 @@ RDEPEND=">=dev-tinyos/nesc-1.2.7a
 	python? ( >=dev-tinyos/tos-sdk-python-2.0.1 )
 	>=dev-tinyos/tinyos-tools-1.2.3
 	>=dev-tinyos/tos-sdk-c-2.0.1"
-

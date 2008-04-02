@@ -18,7 +18,7 @@ DEPEND=">=virtual/jdk-1.2
 	${RDEPEND}"
 
 
-src_compile() {	
+src_compile() {
 	local cp="."
 	local exclude=""
 
@@ -30,7 +30,7 @@ src_compile() {
 	fi
 	TOS_PKG_JAVA_DIR=org
 	java-pkg_addcp ${cp}
-	tos_java_build_source 
+	tos_java_build_source
 	tos_java_create_jar
 
 # 	find org -name "*.java" ${exclude} | xargs ${javac} -source 1.3 -classpath ${cp} -nowarn || die "Failed to compile"

@@ -175,3 +175,5 @@ cross-msp430/gdb 			x86 ~x86
 =dev-tinyos/tos-sdk-python-2.0.1_p20070611
 =dev-embedded/avrora-9999
 dev-embedded/avrdude ~amd64
+#sys-devel/gcc-3.2.3-r4 ~amd64 
+sys-devel/gcc ~amd64 

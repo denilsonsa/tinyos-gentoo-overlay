@@ -1,12 +1,11 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
+# $Header: $
 inherit eutils python java
 
-
-MY_PV=${PVR}
-MY_P=tinyos-${MY_PV}
-DOC_PV=${MY_PV}
+MY_PV="${PVR}"
+MY_P="tinyos-${MY_PV}"
+DOC_PV="${MY_PV}"
 
 DESCRIPTION="TinyOS java sdk"
 HOMEPAGE="http://www.tinyos.net/"
@@ -18,24 +17,24 @@ SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc javacomm"
 DEPEND=">=dev-tinyos/tinyos-tools-1.2.3
-        >=dev-tinyos/tos-${PV}
-        dev-tinyos/eselect-tinyos"
+	>=dev-tinyos/tos-${PV}
+	dev-tinyos/eselect-tinyos"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc"
+	dev-tinyos/nesc"
 
-#those two are in the jar file 
+#those two are in the jar file
 PDEPEND="${PDEPEND}"
 
+S="${WORKDIR}/${MY_P}"
 
-S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	einfo "various fixes"
 
@@ -43,33 +42,29 @@ src_unpack() {
 	export TOS="${S}"
 	export TOSDIR="${TOS}/tos"
 
-	# java build system minor patch 	
+	# java build system minor patch
 	einfo " java makefile clean target "
-	epatch ${FILESDIR}/message_Makefile_clean-mig-target.patch
-	
+	epatch "${FILESDIR}/message_Makefile_clean-mig-target.patch"
+
 	# replace the TOSComm Serial implementation with JavaComm-based code
 	if use javacomm; then
 		einfo "Using JavaComm-based serial communication instead of TOSComm."
-		cp -f ${FILESDIR}/SerialByteSource-JavaComm.java \
-			  ${S}/support/sdk/java/net/tinyos/packet/SerialByteSource.java
+		cp -f "${FILESDIR}/SerialByteSource-JavaComm.java" \
+			  "${S}/support/sdk/java/net/tinyos/packet/SerialByteSource.java"
 	fi
 }
 
 src_compile() {
-	
-	
 	einfo "compiling the java sdk"
-	
 	rm ${S}/support/sdk/java/tinyos.jar
-	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
-	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc	
+	CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" tinyos.jar
+	use doc && CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" javadoc
 
 }
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-	
-	insinto ${TOSROOT}/support/sdk/
+	insinto "${TOSROOT}/support/sdk/"
 	doins -r support/sdk/java
 	chown -R root:0 "${D}"
 
