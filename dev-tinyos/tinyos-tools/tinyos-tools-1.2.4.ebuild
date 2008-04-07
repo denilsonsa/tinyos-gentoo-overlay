@@ -28,11 +28,18 @@ src_unpack() {
 
 	# not a good patch but bug evaporates when building with gcc 3.4.6
 
-	if  ! use javacomm && [ `gcc-major-version` -ge 4 ] ; then
+	if  ! use javacomm && [ `gcc-fullversion` -ge 4.1.1  ] ; then
 		einfo "  see http://sourceforge.net/tracker/index.php?func=detail&aid=1606811&group_id=28656&atid=393934"
-		eerror "libtoscomm.so is buyggy when built against gcc-4,  will downgrade CFLAGS... should work"
+		eerror "libtoscomm.so is buyggy when built against gcc-4.1.1,  will downgrade CFLAGS... should work"
 	fi
-
+	
+	if use javacomm ; then
+		ewarn "to my experience javacomm works only if youare actually using ibm-sdk and it does not "	
+		ewarn "really know how to handle linux devices keep on looking for COM0 ports and the like ..."
+		ewarn "if you run into such trouble you can try to buid this ebuild AND tos-sdk-java with javacomm desactivated "
+	fi
+		
+	
 	# remove -m32 flag, breaks on amd64 hosts 
 	einfo "remove -m32 flag, breaks on amd64 hosts "
 	sed -i 's/-m32//' ${S}/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
