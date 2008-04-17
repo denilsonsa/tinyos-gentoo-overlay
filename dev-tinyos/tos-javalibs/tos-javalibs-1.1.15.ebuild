@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,6 @@ KEYWORDS="amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-java/xmlrpc-1.2_beta1
->=www-servers/jetty-4.2.15
 >=dev-java/log4j-1.2.11
 >=dev-java/jdom-1.0_beta9-r1
 >=dev-java/servletapi-2.3

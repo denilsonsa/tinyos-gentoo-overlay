@@ -1,0 +1,8 @@
+# ChangeLog for <CATEGORY>/<PACKAGE_NAME>
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Apr 2008; Aurelien Francillon <aurel@naurel.org>
+  tos-javalibs-1.1.15.ebuild:
+  drop jetty dependecy, not in tree anymore
+
