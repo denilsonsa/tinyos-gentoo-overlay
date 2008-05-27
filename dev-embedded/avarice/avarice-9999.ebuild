@@ -33,7 +33,6 @@ src_unpack(){
 	cvs_src_unpack
 	cd ${S}
 	epatch "${FILESDIR}/avarice-9999-gdb-avarice-script.patch"
-	epatch "${FILESDIR}/jtag2run_fix_eventLoop.patch"
 	./Bootstrap
 }
 
