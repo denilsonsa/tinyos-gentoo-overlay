@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/eclass/toolchain.eclass,v 1.346 2008/02/16 22:27:51 vapier Exp $
 #
@@ -340,6 +340,11 @@ get_gcc_src_uri() {
 	[[ -n ${D_VER} ]] && \
 		GCC_SRC_URI="${GCC_SRC_URI} d? ( mirror://sourceforge/dgcc/gdc-${D_VER}-src.tar.bz2 )"
 
+	# >= gcc-4.3 no longer bundles ecj.jar
+	tc_version_is_at_least "4.3" && \
+		GCC_SRC_URI="${GCC_SRC_URI}
+		gcj? ( ftp://sourceware.org/pub/java/ecj-${GCC_BRANCH_VER}.jar )"
+
 	echo "${GCC_SRC_URI}"
 }
 S=$(gcc_get_s_dir)
@@ -562,7 +567,7 @@ make_gcc_hard() {
 	fi
 
 	# rebrand to make bug reports easier
-	release_version="${release_version/Gentoo/Gentoo Hardened}"
+	BRANDING_GCC_PKGVERSION=${BRANDING_GCC_PKGVERSION/Gentoo/Gentoo Hardened}
 }
 
 # now we generate different spec files so that the user can select a compiler
@@ -839,8 +844,6 @@ gcc-compiler_pkg_preinst() {
 }
 
 gcc-compiler_pkg_postinst() {
-	export LD_LIBRARY_PATH=${LIBPATH}:${LD_LIBRARY_PATH}
-
 	if has_version 'app-admin/eselect-compiler' ; then
 		do_eselect_compiler
 	else
@@ -1010,7 +1013,7 @@ do_gcc_rename_java_bins() {
 	done
 }
 gcc_src_unpack() {
-	local release_version="Gentoo ${GCC_PVR}"
+	export BRANDING_GCC_PKGVERSION="Gentoo ${GCC_PVR}"
 
 	[[ -z ${UCLIBC_VER} ]] && [[ ${CTARGET} == *-uclibc* ]] && die "Sorry, this version does not support uClibc"
 
@@ -1024,7 +1027,7 @@ gcc_src_unpack() {
 			guess_patch_type_in_dir "${WORKDIR}"/patch
 			EPATCH_MULTI_MSG="Applying Gentoo patches ..." \
 			epatch "${WORKDIR}"/patch
-			release_version="${release_version} p${PATCH_VER}"
+			BRANDING_GCC_PKGVERSION="${BRANDING_GCC_PKGVERSION} p${PATCH_VER}"
 		fi
 		if [[ -n ${UCLIBC_VER} ]] ; then
 			guess_patch_type_in_dir "${WORKDIR}"/uclibc
@@ -1055,17 +1058,7 @@ gcc_src_unpack() {
 		disgusting_gcc_multilib_HACK || die "multilib hack failed"
 	fi
 
-	local version_string=${GCC_CONFIG_VER}
-
-	# Backwards support... add the BRANCH_UPDATE for 3.3.5-r1 and 3.4.3-r1
-	# which set it directly rather than using ${GCC_PV}
-	if [[ ${GCC_PVR} == "3.3.5-r1" || ${GCC_PVR} = "3.4.3-r1" ]] ; then
-		 version_string="${version_string} ${BRANCH_UPDATE}"
-	fi
-
-	einfo "patching gcc version: ${version_string} (${release_version})"
-	gcc_version_patch "${version_string}" "${release_version}"
-
+	gcc_version_patch
 	if [[ ${GCCMAJOR}.${GCCMINOR} > 4.0 ]] ; then
 		if [[ -n ${SNAPSHOT} || -n ${PRERELEASE} ]] ; then
 			echo ${PV/_/-} > "${S}"/gcc/BASE-VER
@@ -1076,6 +1069,12 @@ gcc_src_unpack() {
 	# Misdesign in libstdc++ (Redhat)
 	if [[ ${GCCMAJOR} -ge 3 ]] && [[ -e ${S}/libstdc++-v3/config/cpu/i486/atomicity.h ]] ; then
 		cp -pPR "${S}"/libstdc++-v3/config/cpu/i{4,3}86/atomicity.h
+	fi
+
+	# >= gcc-4.3 doesn't bundle ecj.jar anymore, so copy it
+	if [[ ${GCCMAJOR}.${GCCMINOR} > 4.2 ]] &&
+		use gcj ; then
+		cp -pPR "${DISTDIR}/ecj-${GCC_BRANCH_VER}.jar" "${S}/ecj.jar" || die
 	fi
 
 	# disable --as-needed from being compiled into gcc specs
@@ -1112,6 +1111,7 @@ gcc_src_unpack() {
 			|| eerror "Please file a bug about this"
 		eend $?
 	done
+	sed -i 's|A-Za-z0-9|[:alnum:]|g' "${S}"/gcc/*.awk #215828
 
 	if [[ -x contrib/gcc_update ]] ; then
 		einfo "Touching generated files"
@@ -1152,6 +1152,15 @@ gcc-compiler-configure() {
 			export gcc_cv_libc_provides_ssp=yes
 			confgcc="${confgcc} --disable-libssp"
 		fi
+
+		# enable the cld workaround until we move things to stable.
+		# by that point, the rest of the software out there should
+		# have caught up.
+		if tc_version_is_at_least "4.3" ; then
+			if ! has ${ARCH} ${KEYWORDS} ; then
+				confgcc="${confgcc} --enable-cld"
+			fi
+		fi
 	fi
 
 	# GTK+ is preferred over xlib in 3.4.x (xlib is unmaintained
@@ -1178,8 +1187,7 @@ gcc-compiler-configure() {
 			;;
 		# Enable sjlj exceptions for backward compatibility on hppa
 		hppa)
-			[[ ${GCC_PV:0:1} == "3" ]] && \
-			confgcc="${confgcc} --enable-sjlj-exceptions"
+			[[ ${GCCMAJOR} == "3" ]] && confgcc="${confgcc} --enable-sjlj-exceptions"
 			;;
 	esac
 
@@ -1189,7 +1197,9 @@ gcc-compiler-configure() {
 	is_gcj && GCC_LANG="${GCC_LANG},java"
 	if is_objc || is_objcxx ; then
 		GCC_LANG="${GCC_LANG},objc"
-		use objc-gc && confgcc="${confgcc} --enable-objc-gc"
+		if tc_version_is_at_least "4.0" ; then
+			use objc-gc && confgcc="${confgcc} --enable-objc-gc"
+		fi
 		is_objcxx && GCC_LANG="${GCC_LANG},obj-c++"
 	fi
 	is_treelang && GCC_LANG="${GCC_LANG},treelang"
@@ -1252,20 +1262,18 @@ gcc_do_configure() {
 	[[ $(tc-is-softfloat) == "yes" ]] && confgcc="${confgcc} --with-float=soft"
 
 	# Native Language Support
-	if use nls && ! use build ; then
+	if use nls ; then
 		confgcc="${confgcc} --enable-nls --without-included-gettext"
 	else
 		confgcc="${confgcc} --disable-nls"
 	fi
 
 	# reasonably sane globals (hopefully)
-	# --disable-libunwind-exceptions needed till unwind sections get fixed. see ps.m for details
 	confgcc="${confgcc} \
 		--with-system-zlib \
 		--disable-checking \
 		--disable-werror \
-		--enable-secureplt \
-		--disable-libunwind-exceptions"
+		--enable-secureplt"
 
 	# etype specific configuration
 	einfo "running ${ETYPE}-configure"
@@ -1312,21 +1320,30 @@ gcc_do_configure() {
 	[[ ${CTARGET} == *-elf ]] && confgcc="${confgcc} --with-newlib"
 	# __cxa_atexit is "essential for fully standards-compliant handling of
 	# destructors", but apparently requires glibc.
-	# --enable-sjlj-exceptions : currently the unwind stuff seems to work
-	# for statically linked apps but not dynamic
-	# so use setjmp/longjmp exceptions by default
 	if [[ ${CTARGET} == *-uclibc* ]] ; then
 		confgcc="${confgcc} --disable-__cxa_atexit --enable-target-optspace"
-		[[ ${GCCMAJOR}.${GCCMINOR} == 3.3 ]] && \
-			confgcc="${confgcc} --enable-sjlj-exceptions"
+		[[ ${GCCMAJOR}.${GCCMINOR} == 3.3 ]] && confgcc="${confgcc} --enable-sjlj-exceptions"
+		[[ ${GCCMAJOR}.${GCCMINOR} > 3.3 ]] && confgcc="${confgcc} --enable-clocale=uclibc"
 	elif [[ ${CTARGET} == *-gnu* ]] ; then
 		confgcc="${confgcc} --enable-__cxa_atexit"
+		confgcc="${confgcc} --enable-clocale=gnu"
 	elif [[ ${CTARGET} == *-freebsd* ]]; then
 		confgcc="${confgcc} --enable-__cxa_atexit"
 	fi
-	[[ ${CTARGET} == *-gnu* ]] && confgcc="${confgcc} --enable-clocale=gnu"
-	[[ ${CTARGET} == *-uclibc* ]] && [[ ${GCCMAJOR}.${GCCMINOR} > 3.3 ]] \
-		&& confgcc="${confgcc} --enable-clocale=uclibc"
+	[[ ${GCCMAJOR}.${GCCMINOR} < 3.4 ]] && confgcc="${confgcc} --disable-libunwind-exceptions"
+
+	# create a sparc*linux*-{gcc,g++} that can handle -m32 and -m64 (biarch)
+	if [[ ${CTARGET} == sparc*linux* ]] \
+		&& is_multilib \
+		&& [[ ${GCCMAJOR}.${GCCMINOR} > 4.2 ]]
+	then
+		confgcc="${confgcc} --enable-targets=all"
+	fi
+
+	tc_version_is_at_least 4.3 && set -- "$@" \
+		--with-bugurl=http://bugs.gentoo.org/ \
+		--with-pkgversion="${BRANDING_GCC_PKGVERSION}"
+	set -- ${confgcc} "$@" ${EXTRA_ECONF}
 
 	# Nothing wrong with a good dose of verbosity
 	echo
@@ -1336,7 +1353,7 @@ gcc_do_configure() {
 	einfo "DATAPATH:		${DATAPATH}"
 	einfo "STDCXX_INCDIR:	${STDCXX_INCDIR}"
 	echo
-	einfo "Configuring GCC with: ${confgcc//--/\n\t--} ${@} ${EXTRA_ECONF}"
+	einfo "Configuring GCC with: ${@//--/\n\t--}"
 	echo
 
 	# Build in a separate build tree
@@ -1345,8 +1362,8 @@ gcc_do_configure() {
 
 	# and now to do the actual configuration
 	addwrite /dev/zero
-	"${S}"/configure ${confgcc} $@ ${EXTRA_ECONF} \
-		|| die "failed to run configure"
+	echo "${S}"/configure "$@"
+	"${S}"/configure "$@" || die "failed to run configure"
 
 	# return to whatever directory we were in before
 	popd > /dev/null
@@ -1431,10 +1448,10 @@ gcc_do_make() {
 		${GCC_MAKE_TARGET} \
 		|| die "emake failed with ${GCC_MAKE_TARGET}"
 
-	if ! use build && ! is_crosscompile && ! use nocxx && use doc ; then
+	if ! is_crosscompile && ! use nocxx && use doc ; then
 		if type -p doxygen > /dev/null ; then
 			cd "${CTARGET}"/libstdc++-v3
-			make doxygen-man || ewarn "failed to make docs"
+			emake doxygen-man || ewarn "failed to make docs"
 		else
 			ewarn "Skipping libstdc++ manpage generation since you don't have doxygen installed"
 		fi
@@ -1568,7 +1585,7 @@ gcc_src_compile() {
 
 gcc_src_test() {
 	cd "${WORKDIR}"/build
-	make check || ewarn "check failed and that sucks :("
+	make -k check || ewarn "check failed and that sucks :("
 }
 
 gcc-library_src_install() {
@@ -1615,12 +1632,12 @@ gcc-compiler_src_install() {
 
 	# Do allow symlinks in ${PREFIX}/lib/gcc-lib/${CHOST}/${GCC_CONFIG_VER}/include as
 	# this can break the build.
-	for x in "${WORKDIR}"/build/gcc/include/* ; do
+	for x in "${WORKDIR}"/build/gcc/include*/* ; do
 		[[ -L ${x} ]] && rm -f "${x}"
 	done
 	# Remove generated headers, as they can cause things to break
 	# (ncurses, openssl, etc).
-	for x in $(find "${WORKDIR}"/build/gcc/include/ -name '*.h') ; do
+	for x in $(find "${WORKDIR}"/build/gcc/include*/ -name '*.h') ; do
 		grep -q 'It has been auto-edited by fixincludes from' "${x}" \
 			&& rm -f "${x}"
 	done
@@ -1666,74 +1683,72 @@ gcc-compiler_src_install() {
 
 	# Make sure we dont have stuff lying around that
 	# can nuke multiple versions of gcc
-	if ! use build ; then
-		cd "${D}"${LIBPATH}
+	cd "${D}"${LIBPATH}
 
-		# Move Java headers to compiler-specific dir
-		for x in "${D}"${PREFIX}/include/gc*.h "${D}"${PREFIX}/include/j*.h ; do
-			[[ -f ${x} ]] && mv -f "${x}" "${D}"${LIBPATH}/include/
-		done
-		for x in gcj gnu java javax org ; do
-			if [[ -d ${D}${PREFIX}/include/${x} ]] ; then
-				dodir /${LIBPATH}/include/${x}
-				mv -f "${D}"${PREFIX}/include/${x}/* "${D}"${LIBPATH}/include/${x}/
-				rm -rf "${D}"${PREFIX}/include/${x}
-			fi
-		done
+	# Move Java headers to compiler-specific dir
+	for x in "${D}"${PREFIX}/include/gc*.h "${D}"${PREFIX}/include/j*.h ; do
+		[[ -f ${x} ]] && mv -f "${x}" "${D}"${LIBPATH}/include/
+	done
+	for x in gcj gnu java javax org ; do
+		if [[ -d ${D}${PREFIX}/include/${x} ]] ; then
+			dodir /${LIBPATH}/include/${x}
+			mv -f "${D}"${PREFIX}/include/${x}/* "${D}"${LIBPATH}/include/${x}/
+			rm -rf "${D}"${PREFIX}/include/${x}
+		fi
+	done
 
-		if [[ -d ${D}${PREFIX}/lib/security ]] ; then
-			dodir /${LIBPATH}/security
-			mv -f "${D}"${PREFIX}/lib/security/* "${D}"${LIBPATH}/security
-			rm -rf "${D}"${PREFIX}/lib/security
+	if [[ -d ${D}${PREFIX}/lib/security ]] ; then
+		dodir /${LIBPATH}/security
+		mv -f "${D}"${PREFIX}/lib/security/* "${D}"${LIBPATH}/security
+		rm -rf "${D}"${PREFIX}/lib/security
+	fi
+
+	# Move libgcj.spec to compiler-specific directories
+	[[ -f ${D}${PREFIX}/lib/libgcj.spec ]] && \
+		mv -f "${D}"${PREFIX}/lib/libgcj.spec "${D}"${LIBPATH}/libgcj.spec
+
+	# Rename jar because it could clash with Kaffe's jar if this gcc is
+	# primary compiler (aka don't have the -<version> extension)
+	cd "${D}"${BINPATH}
+	[[ -f jar ]] && mv -f jar gcj-jar
+
+	# Move <cxxabi.h> to compiler-specific directories
+	[[ -f ${D}${STDCXX_INCDIR}/cxxabi.h ]] && \
+		mv -f "${D}"${STDCXX_INCDIR}/cxxabi.h "${D}"${LIBPATH}/include/
+
+	# These should be symlinks
+	dodir /usr/bin
+	cd "${D}"${BINPATH}
+	for x in cpp gcc g++ c++ g77 gcj gcjh gfortran ; do
+		# For some reason, g77 gets made instead of ${CTARGET}-g77...
+		# this should take care of that
+		[[ -f ${x} ]] && mv ${x} ${CTARGET}-${x}
+
+		if [[ -f ${CTARGET}-${x} ]] && ! is_crosscompile ; then
+			ln -sf ${CTARGET}-${x} ${x}
+
+			# Create version-ed symlinks
+			dosym ${BINPATH}/${CTARGET}-${x} \
+				/usr/bin/${CTARGET}-${x}-${GCC_CONFIG_VER}
+			dosym ${BINPATH}/${CTARGET}-${x} \
+				/usr/bin/${x}-${GCC_CONFIG_VER}
 		fi
 
-		# Move libgcj.spec to compiler-specific directories
-		[[ -f ${D}${PREFIX}/lib/libgcj.spec ]] && \
-			mv -f "${D}"${PREFIX}/lib/libgcj.spec "${D}"${LIBPATH}/libgcj.spec
-
-		# Rename jar because it could clash with Kaffe's jar if this gcc is
-		# primary compiler (aka don't have the -<version> extension)
-		cd "${D}"${BINPATH}
-		[[ -f jar ]] && mv -f jar gcj-jar
-
-		# Move <cxxabi.h> to compiler-specific directories
-		[[ -f ${D}${STDCXX_INCDIR}/cxxabi.h ]] && \
-			mv -f "${D}"${STDCXX_INCDIR}/cxxabi.h "${D}"${LIBPATH}/include/
-
-		# These should be symlinks
-		dodir /usr/bin
-		cd "${D}"${BINPATH}
-		for x in cpp gcc g++ c++ g77 gcj gcjh gfortran ; do
-			# For some reason, g77 gets made instead of ${CTARGET}-g77...
-			# this should take care of that
-			[[ -f ${x} ]] && mv ${x} ${CTARGET}-${x}
-
-			if [[ -f ${CTARGET}-${x} ]] && ! is_crosscompile ; then
-				ln -sf ${CTARGET}-${x} ${x}
-
-				# Create version-ed symlinks
-				dosym ${BINPATH}/${CTARGET}-${x} \
-					/usr/bin/${CTARGET}-${x}-${GCC_CONFIG_VER}
-				dosym ${BINPATH}/${CTARGET}-${x} \
-					/usr/bin/${x}-${GCC_CONFIG_VER}
-			fi
-
-			if [[ -f ${CTARGET}-${x}-${GCC_CONFIG_VER} ]] ; then
-				rm -f ${CTARGET}-${x}-${GCC_CONFIG_VER}
-				ln -sf ${CTARGET}-${x} ${CTARGET}-${x}-${GCC_CONFIG_VER}
-			fi
-		done
-
-		# I do not know if this will break gcj stuff, so I'll only do it for
-		#	objc for now; basically "ffi.h" is the correct file to include,
-		#	but it gets installed in .../GCCVER/include and yet it does
-		#	"#include <ffitarget.h>" which (correctly, as it's an "extra" file)
-		#	is installed in .../GCCVER/include/libffi; the following fixes
-		#	ffi.'s include of ffitarget.h - Armando Di Cianno <fafhrd@gentoo.org>
-		if [[ -d ${D}${LIBPATH}/include/libffi ]] ; then
-			mv -i "${D}"${LIBPATH}/include/libffi/* "${D}"${LIBPATH}/include || die
-			rm -r "${D}"${LIBPATH}/include/libffi || die
+		if [[ -f ${CTARGET}-${x}-${GCC_CONFIG_VER} ]] ; then
+			rm -f ${CTARGET}-${x}-${GCC_CONFIG_VER}
+			ln -sf ${CTARGET}-${x} ${CTARGET}-${x}-${GCC_CONFIG_VER}
 		fi
+	done
+
+	# I do not know if this will break gcj stuff, so I'll only do it for
+	#	objc for now; basically "ffi.h" is the correct file to include,
+	#	but it gets installed in .../GCCVER/include and yet it does
+	#	"#include <ffitarget.h>" which (correctly, as it's an "extra" file)
+	#	is installed in .../GCCVER/include/libffi; the following fixes
+	#	ffi.'s include of ffitarget.h - Armando Di Cianno <fafhrd@gentoo.org>
+	if [[ -d ${D}${LIBPATH}/include/libffi ]] ; then
+		mv -i "${D}"${LIBPATH}/include/libffi/* "${D}"${LIBPATH}/include || die
+		rm -r "${D}"${LIBPATH}/include/libffi || die
 	fi
 
 	# Now do the fun stripping stuff
@@ -1744,7 +1759,7 @@ gcc-compiler_src_install() {
 		env RESTRICT="" CHOST=${CHOST} prepstrip "${D}${PREFIX}/libexec/gcc/${CTARGET}/${GCC_CONFIG_VER}"
 
 	cd "${S}"
-	if use build || is_crosscompile; then
+	if is_crosscompile; then
 		rm -rf "${D}"/usr/share/{man,info}
 		rm -rf "${D}"${DATAPATH}/{man,info}
 	else
@@ -1763,6 +1778,14 @@ gcc-compiler_src_install() {
 	fi
 	# prune empty dirs left behind
 	find "${D}" -type d | xargs rmdir >& /dev/null
+
+	# install testsuite results
+	if use test; then
+		docinto testsuite
+		find "${WORKDIR}"/build -type f -name "*.sum" -print0 | xargs -0 dodoc
+		find "${WORKDIR}"/build -type f -path "*/testsuite/*.log" -print0 \
+			| xargs -0 dodoc
+	fi
 
 	# Rather install the script, else portage with changing $FILESDIR
 	# between binary and source package borks things ....
@@ -1968,7 +1991,7 @@ do_gcc_HTB_patches() {
 
 	# modify the bounds checking patch with a regression patch
 	epatch "${WORKDIR}/bounds-checking-gcc-${HTB_GCC_VER}-${HTB_VER}.patch"
-	release_version="${release_version}, HTB-${HTB_GCC_VER}-${HTB_VER}"
+	BRANDING_GCC_PKGVERSION="${BRANDING_GCC_PKGVERSION}, HTB-${HTB_GCC_VER}-${HTB_VER}"
 }
 
 # patch in ProPolice Stack Smashing protection
@@ -2030,7 +2053,7 @@ do_gcc_SSP_patches() {
 		fi
 	fi
 
-	release_version="${release_version}, ssp-${PP_FVER:-${PP_GCC_VER}-${PP_VER}}"
+	BRANDING_GCC_PKGVERSION="${BRANDING_GCC_PKGVERSION}, ssp-${PP_FVER:-${PP_GCC_VER}-${PP_VER}}"
 	if want_libssp ; then
 		update_gcc_for_libssp
 	else
@@ -2091,7 +2114,7 @@ do_gcc_PIE_patches() {
 		-e 's|^ALL_CFLAGS = |ALL_CFLAGS = $(HARD_CFLAGS) |' \
 		-i "${S}"/gcc/Makefile.in
 
-	release_version="${release_version}, pie-${PIE_VER}"
+	BRANDING_GCC_PKGVERSION="${BRANDING_GCC_PKGVERSION}, pie-${PIE_VER}"
 }
 
 should_we_gcc_config() {
@@ -2261,17 +2284,20 @@ do_eselect_compiler() {
 
 # This function allows us to gentoo-ize gcc's version number and bugzilla
 # URL without needing to use patches.
-#
-# Travis Tilley <lv@gentoo.org> (02 Sep 2004)
-#
 gcc_version_patch() {
-	[[ -z $1 ]] && die "no arguments to gcc_version_patch"
+	# gcc-4.3+ has configure flags (whoo!)
+	tc_version_is_at_least 4.3 && return 0
+
+	local version_string=${GCC_CONFIG_VER}
+	[[ -n ${BRANCH_UPDATE} ]] && version_string="${version_string} ${BRANCH_UPDATE}"
+
+	einfo "patching gcc version: ${version_string} (${BRANDING_GCC_PKGVERSION})"
 
 	if grep -qs VERSUFFIX "${S}"/gcc/version.c ; then
-		sed -i -e "s~VERSUFFIX \"\"~VERSUFFIX \" ($2)\"~" \
+		sed -i -e "s~VERSUFFIX \"\"~VERSUFFIX \" (${BRANDING_GCC_PKGVERSION})\"~" \
 			"${S}"/gcc/version.c || die "failed to update VERSUFFIX with Gentoo branding"
 	else
-		version_string="$1 ($2)"
+		version_string="${version_string} (${BRANDING_GCC_PKGVERSION})"
 		sed -i -e "s~\(const char version_string\[\] = \"\).*\(\".*\)~\1$version_string\2~" \
 			"${S}"/gcc/version.c || die "failed to update version.c with Gentoo branding."
 	fi
@@ -2334,7 +2360,7 @@ fix_libtool_libdir_paths() {
 is_multilib() {
 	[[ ${GCCMAJOR} < 3 ]] && return 1
 	case ${CTARGET} in
-		mips64*|powerpc64*|s390x*|sparc64*|x86_64*)
+		mips64*|powerpc64*|s390x*|sparc*|x86_64*)
 			has_multilib_profile || use multilib ;;
 		*)	false ;;
 	esac
@@ -2342,68 +2368,57 @@ is_multilib() {
 
 is_cxx() {
 	gcc-lang-supported 'c++' || return 1
-	use build && return 1
 	! use nocxx
 }
 
 is_d() {
 	gcc-lang-supported d || return 1
-	use build && return 1
 	use d
 }
 
 is_f77() {
 	gcc-lang-supported f77 || return 1
-	use build && return 1
 	use fortran
 }
 
 is_f95() {
 	gcc-lang-supported f95 || return 1
-	use build && return 1
 	use fortran
 }
 
 is_fortran() {
 	gcc-lang-supported fortran || return 1
-	use build && return 1
 	use fortran
 }
 
 is_gcj() {
 	gcc-lang-supported java || return 1
-	use build && return 1
 	use gcj
 }
 
 is_libffi() {
 	has libffi ${USE} || return 1
-	use build && return 1
 	use libffi
 }
 
 is_objc() {
 	gcc-lang-supported objc || return 1
-	use build && return 1
 	use objc
 }
 
 is_objcxx() {
 	gcc-lang-supported 'obj-c++' || return 1
-	use build && return 1
 	use objc++
 }
 
 is_ada() {
 	gcc-lang-supported ada || return 1
-	use build && return 1
 	use ada
 }
 
 is_treelang() {
 	is_crosscompile && return 1 #199924
 	gcc-lang-supported treelang || return 1
-	use build && return 1
 	#use treelang
 	return 0
 }

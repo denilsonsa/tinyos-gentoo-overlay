@@ -1,6 +1,11 @@
 # ChangeLog for <CATEGORY>/<PACKAGE_NAME>
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Aug 2008; Aurelien Francillon <aurel@naurel.org>
+  tinyos-tools-1.2.4.ebuild:
+  - proper handling of javacomm flags, dpends on ibm-jdk only when javacomm is
+  activated - prpoer handling of tinyos jni libraries 32/64 bits...
 
   07 Jun 2007; Aurelien Francillon <aurel@naurel.org>
   tinyos-tools-1.2.3_p20070607.ebuild:

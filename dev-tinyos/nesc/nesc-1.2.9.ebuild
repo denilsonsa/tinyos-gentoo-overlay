@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/nesc-1.2.8a.ebuild,v 1.1 2006/12/26 12:01:32 sanchan Exp $
 
-inherit eutils java-pkg-2
+inherit eutils java-pkg-2 elisp-common
 
 DESCRIPTION="An extension to gcc that knows how to compile nesC applications"
 HOMEPAGE="http://nescc.sourceforge.net/"
@@ -22,7 +22,8 @@ DEPEND="${COMMON_DEP}
 RDEPEND="${COMMON_DEP}
 	>=virtual/jre-1.4.2
 	dev-perl/XML-Simple
-	media-gfx/graphviz"
+	media-gfx/graphviz
+	emacs? ( virtual/emacs )"
 
 pkg_setup() {
 	if [ -z "${TOSDIR}" ]
@@ -46,11 +47,11 @@ pkg_setup() {
 }
 src_unpack() {
 	unpack ${A}
-	# don't build java files from make  
-	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.in 
-	sed -i -e 's/SUBDIRS = java/SUBDIRS = /g' ${S}/tools/Makefile.in 
-	sed -i -e 's/NESC_JAR_DEPS = $(shell find java -name '*.java')//g' ${S}/tools/Makefile.in  
-	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.am 
+	# don't build java files from make
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.in
+	sed -i -e 's/SUBDIRS = java/SUBDIRS = /g' ${S}/tools/Makefile.in
+	sed -i -e 's/NESC_JAR_DEPS = $(shell find java -name '*.java')//g' ${S}/tools/Makefile.in
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.am
 #	sed -i -e 's/^*java*$//g' ${S}/configure.in
 }
 
@@ -63,14 +64,21 @@ src_compile() {
 
 	einfo " cleanup the java mess"
 	rm -f ${S}/tools/nesc.jar
-	rm -f $(find ${S} -name "*.class" )  
+	rm -f $(find ${S} -name "*.class" )
 
-	# build java files with ejavac 
+	# build java files with ejavac
 	einfo "building java files with ejavac"
 	ejavac $(find tools/java/ -name "*.java")
-	cd tools/java ; 
+	cd tools/java ;
 	jar cf ../${PN}.jar $(find . -name "*.class")
 	cd ${S}
+	if use emacs; then
+		cd tools/editor-modes/emacs/
+		elisp-comp *.el \
+			|| die "failed to comple emacs mode files"
+		cd ${S}
+	fi
+
 }
 
 src_install() {
@@ -80,13 +88,14 @@ src_install() {
 	then
 		dohtml -r -a html,jpg,pdf,txt doc/*
 	fi
-	# nesc relies on the fact that it will find nesc.jar into /usr/lib/ncc 
-    # it should be fixed to be gentoo compliant ... 
+	# nesc relies on the fact that it will find nesc.jar into /usr/lib/ncc
+	# it should be fixed to be gentoo compliant ...
 	java-pkg_jarinto "${ROOT}"/usr/lib/ncc/
 	java-pkg_dojar tools/nesc.jar
 
 	if use emacs; then
-		elisp-site-file-install "${S}/tools/editor-modes/emacs/*.el" \
+		elisp-install ${PN} "${S}"/tools/editor-modes/emacs/*.el \
+			"${S}"/tools/editor-modes/emacs/*.elc \
 			|| die "elisp-site-file-install failed"
 	fi
 
@@ -118,6 +127,6 @@ pkg_postinst() {
 
 
 pkg_postrm() {
-        use emacs && elisp-site-regen
+		use emacs && elisp-site-regen
 }
 

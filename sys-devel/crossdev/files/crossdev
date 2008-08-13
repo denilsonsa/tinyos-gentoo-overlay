@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev,v 1.101 2007/12/30 17:33:48 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/files/crossdev,v 1.104 2008/06/23 01:46:04 vapier Exp $
 
 cd /
 umask 0022 #159111
@@ -16,7 +16,8 @@ esyslog() { :; }
 die() {
 	echo
 	eerror You are running a modified crossdev script 
-	eerror please report errors to aurelien@francillon.net i\'m responsible of the breakages \(DON\'t report errors to gentoo bugzilla!\)
+	eerror please report errors to aurelien@francillon.net i\'m responsible of the breakages
+	eerror \(don\'t report errors to gentoo bugzilla!\)
 	eerror $*
 	eerror If you file a bug, please attach the following logfiles:
 	eerror ${PORT_LOGDIR}/cross-${CTARGET}-info.log
@@ -32,6 +33,7 @@ Usage: ${HILITE}crossdev${NORMAL} ${GOOD}[options]${NORMAL} ${BRACKET}--target T
 
  ${GOOD} Please note that you are using a modified crossdev script, report 
  ${GOOD} problems to  aurelien@francillon.net  and not to gentoo\'s bugzilla
+
 
 Options:
     ${GOOD}--b, --binutils${NORMAL} ver   Specify version of binutils to use
@@ -134,7 +136,7 @@ parse_target() {
 		ia64*)      TARCH=ia64    WITH_DEF_HEADERS="yes";;
 		i?86*)      TARCH=x86;;
 		m68*)       TARCH=m68k;;
-		mips*)      TARCH=mips ;  KPKG="mips-headers";;
+		mips*)      TARCH=mips;;
 		powerpc64*) TARCH=ppc64;;
 		powerpc*)   TARCH=ppc;;
 		sparc*)     TARCH=sparc;;
@@ -150,6 +152,8 @@ parse_target() {
 	# Now account for all the "special" architectures out there
 	case ${CTARGET} in
 		avr*) KPKG="[none]"; STAGE_DEFAULT=${STAGE_LIBC};
+		      WITH_DEF_HEADERS="no";
+		      GVER="3.4.6-r2";
 		      LCAT="dev-embedded"; LPKG="avr-libc";
 		      GUSE=${GUSE_DISABLE};;
 
@@ -160,10 +164,12 @@ parse_target() {
 
 		msp430)
 		      CPOST="";
+		      WITH_DEF_HEADERS="no";
 		      KPKG="[none]"; BVER="2.16.1-r3";
 		      GCAT="dev-embedded"; GPKG="mspgcc"; GVER="3.2.3-r5";
 		      LCAT="dev-embedded"; LPKG="msp430-libc";
-		      STAGE_DEFAULT=${STAGE_C_CPP};
+		      STAGE_DEFAULT=${STAGE_LIBC};
+		      #STAGE_DEFAULT=${STAGE_C_CPP};
 		      GUSE=${GUSE_DISABLE};;
 
 		nios2*)
@@ -339,9 +345,9 @@ GCAT="sys-devel"  ; GPKG="gcc"           ; GVER="" ; GUSE=""
 KCAT="sys-kernel" ; KPKG="linux-headers" ; KVER="" ; KUSE=""
 LCAT="sys-libs"   ; LPKG=""              ; LVER="" ; LUSE=""
 DEFAULT_VER="[latest]"
-GUSE_DISABLE="-boundschecking -fortran -gtk -gcj -mudflap -objc -objc++ -objc-gc -d"
+GUSE_DISABLE="-boundschecking -d -fortran -gtk -gcj -libffi -mudflap -objc -objc++ -objc-gc -openmp"
 GUSE_DISABLE_STAGE_2=${GUSE_DISABLE/-fortran}
-WITH_HEADERS="COW"   WITH_DEF_HEADERS="no"
+WITH_HEADERS="COW"   WITH_DEF_HEADERS="yes" #227065 gcc-4.3+ is a pita w/out headers
 EX_FAST="no"
 EX_GCC="no"
 EX_GDB="no"

@@ -19,13 +19,14 @@ IUSE="doc javacomm"
 DEPEND=">=dev-tinyos/tinyos-tools-1.2.3
 	>=dev-tinyos/tos-${PV}
 	dev-tinyos/eselect-tinyos"
-RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
+RDEPEND="javacomm? ( >=dev-java/ibm-jdk-bin-1.5 )
+	!javacomm? ( >=virtual/jdk-1.5 )"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc"
+		 dev-tinyos/nesc"
 
 #those two are in the jar file
 PDEPEND="${PDEPEND}"
@@ -37,14 +38,15 @@ pkg_setup() {
 
 	if use javacomm  &&\
 		! built_with_use dev-java/ibm-jdk-bin javacomm ; then
-		eerror "javacomm support in ibm-jdk  is needed to build tos-sdk-c with javacomm support "
-		eerror "either build tos-sdk-c without javacommm support (it will then use tinyos own java serial port driver) or"
+		eerror "javacomm support in ibm-jdk  is needed to build tos-sdk-java with javacomm support "
+		eerror "either build tos-sdk-java without javacommm support (it will then use tinyos own java serial"
+		eerror "port driver) or"
 		eerror "Add javacomm to your use flag then re-emerge ibm-jdk-bin and dev-tinyos/tinyos-tools."
 		die "need javacomm support"
 	fi
 	if  use javacomm  &&\
 		! built_with_use dev-tinyos/tinyos-tools javacomm; then
-		eerror "javacomm support in tinyos-tools is needed to build tos-sdk-c with javacomm support "
+		eerror "javacomm support in tinyos-tools is needed to build tos-sdk-java with javacomm support "
 		eerror "either build tos-sdk-c without javacommm support (it will then use tinyos own java serial port driver) or"
 		eerror "Add javacomm to your use flag then re-emerge  dev-tinyos/tinyos-tools."
 		die "need javacomm support"

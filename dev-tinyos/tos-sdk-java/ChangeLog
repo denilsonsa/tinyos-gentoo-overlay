@@ -1,6 +1,10 @@
 # ChangeLog for dev-tinyos/tos-sdk-java
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Aug 2008; Aurelien Francillon <aurel@naurel.org>
+  tos-sdk-java-2.0.2.ebuild:
+  depends on ibm jdk only when javacomm use flag is present
 
   07 Jun 2007; Aurelien Francillon <aurel@naurel.org>
   +files/SerialByteSource-JavaComm.java,
