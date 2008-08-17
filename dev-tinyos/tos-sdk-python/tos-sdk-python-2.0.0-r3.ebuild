@@ -17,8 +17,8 @@ LICENSE="Intel"
 SLOT="2"
 KEYWORDS="~x86 ~amd64"
 DEPEND=">=dev-tinyos/tos-2.0.0
-        >=dev-tinyos/tinyos-2.0.0
-        >=dev-tinyos/tinyos-tools-1.2.3"
+		>=dev-tinyos/tinyos-2.0.0
+		>=dev-tinyos/tinyos-tools-1.2.3"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
@@ -27,7 +27,7 @@ DEPEND=">=dev-tinyos/tos-2.0.0
 S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 }
 
 src_compile() {
@@ -36,11 +36,11 @@ src_compile() {
 
 src_install() {
 	local TOSROOT=/usr/src/tinyos-2.x
-	
+
 
 	dodir ${TOSROOT}/support/sdk/
 	insinto ${TOSROOT}/support/sdk/
-	doins -r ${S}/support/sdk/python/
+	doins -r "${S}"/support/sdk/python/
 	chown -R root:0 "${D}"
 }
 

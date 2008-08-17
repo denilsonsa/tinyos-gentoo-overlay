@@ -18,24 +18,24 @@ SLOT="2"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND=">=dev-tinyos/tinyos-tools-1.2.3
-        >=dev-tinyos/tos-${PV}
-        dev-tinyos/eselect-tinyos"
+		>=dev-tinyos/tos-${PV}
+		dev-tinyos/eselect-tinyos"
 RDEPEND=">=dev-java/ibm-jdk-bin-1.5"
 
 # Required to do anything useful. Could not be a RDEPEND since portage
 # try to emerge nesc before tos.
 
 PDEPEND="dev-tinyos/eselect-tinyos
-         dev-tinyos/nesc"
+		 dev-tinyos/nesc"
 
-#those two are in the jar file 
+#those two are in the jar file
 PDEPEND="${PDEPEND}"
 
 
 S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	einfo "various fixes"
 
@@ -43,26 +43,26 @@ src_unpack() {
 	export TOS="${S}"
 	export TOSDIR="${TOS}/tos"
 
-	# java build system minor patch 	
+	# java build system minor patch
 	einfo " java makefile clean target "
-	epatch ${FILESDIR}/message_Makefile_clean-mig-target.patch
-	
+	epatch "${FILESDIR}"/message_Makefile_clean-mig-target.patch
+
 }
 
 src_compile() {
-	
-	
+
+
 	einfo "compiling the java sdk"
-	
-	rm ${S}/support/sdk/java/tinyos.jar
-	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
-	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc	
+
+	rm "${S}"/support/sdk/java/tinyos.jar
+	CLASSPATH="${S}"/support/sdk/java/ make -C "${S}"/support/sdk/java/ tinyos.jar
+	use doc && CLASSPATH="${S}"/support/sdk/java/ make -C "${S}"/support/sdk/java/ javadoc
 
 }
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-	
+
 	insinto ${TOSROOT}
 	doins -r support/sdk/java
 	chown -R root:0 "${D}"

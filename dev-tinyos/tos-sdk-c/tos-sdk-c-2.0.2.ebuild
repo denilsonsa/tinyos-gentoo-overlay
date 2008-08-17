@@ -24,7 +24,7 @@ DEPEND=" dev-tinyos/nesc
 S=${WORKDIR}/${MY_P}/support/sdk/c
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	export TOSROOT="/usr/src/tinyos-2.x"
 	export TOS="${TOSROOT}"
@@ -45,10 +45,10 @@ src_install() {
 
 	# installing binaries
 	for i in seriallisten sflisten sfsend prettylisten sf ; do
-		dobin ${S}/${i}
+		dobin "${S}"/${i}
 	done
 	# installing libmote.a this library provides low level serial packets access to motes
-	dolib.a ${S}/libmote.a
+	dolib.a "${S}"/libmote.a
 
 	# installs include files for libmote.a
 	insinto /usr/include
@@ -66,7 +66,7 @@ src_install() {
 		insinto ${TOSROOT}
 		dodir ${TOSROOT}/support/sdk/
 		insinto ${TOSROOT}/support/sdk/
-		doins -r ${S}
+		doins -r "${S}"
 		chown -R root:root "${D}"
 	fi
 }

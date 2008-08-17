@@ -46,7 +46,7 @@ pkg_setup() {
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 	einfo "various fixes"
 	export TOSROOT="${S}"
 	export TOS="${S}"
@@ -64,9 +64,9 @@ src_unpack() {
 
 src_compile() {
 	einfo "compiling the java sdk"
-	rm ${S}/support/sdk/java/tinyos.jar
-	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
-	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc
+	rm "${S}"/support/sdk/java/tinyos.jar
+	CLASSPATH="${S}"/support/sdk/java/ make -C "${S}"/support/sdk/java/ tinyos.jar
+	use doc && CLASSPATH="${S}"/support/sdk/java/ make -C "${S}"/support/sdk/java/ javadoc
 }
 
 src_install() {
@@ -76,6 +76,6 @@ src_install() {
 	chown -R root:0 "${D}"
 	if use doc; then
 		insinto ${TOSROOT}/doc/html/
-		doins -r ${S}/doc/html/tos-javasdk-javadoc
+		doins -r "${S}"/doc/html/tos-javasdk-javadoc
 	fi
 }

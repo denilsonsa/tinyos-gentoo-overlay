@@ -25,7 +25,7 @@ DEPEND=">=dev-tinyos/tos-2.0.1
 S="${WORKDIR}/${MY_P}"
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 }
 
 src_compile() {

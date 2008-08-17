@@ -23,7 +23,7 @@ S=${WORKDIR}/${MY_P}/tools
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	### needs some cleanup
 
@@ -44,10 +44,10 @@ src_unpack() {
 
 	# remove -m32 flag, breaks on amd64 hosts
 	einfo "remove -m32 flag, breaks on amd64 hosts "
-	sed -i 's/-m32//' ${S}/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
-	sed -i 's/-O2/-O1/' ${S}/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
-	sed -i 's/-m32//' ${S}/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
-	sed -i 's/-O2/-O1/' ${S}/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
+	sed -i 's/-m32//' "${S}"/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
+	sed -i 's/-O2/-O1/' "${S}"/tinyos/java/env/Makefile.am || die "failed to fix tinyos/java/env/Makefile.am"
+	sed -i 's/-m32//' "${S}"/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
+	sed -i 's/-O2/-O1/' "${S}"/tinyos/java/serial/Makefile.am|| die "failed to fix tinyos/java/serial/Makefile.am"
 
 	./Bootstrap || die "Failed to bootstrap"
 }
@@ -68,14 +68,14 @@ src_install() {
 	[[ $(tc-arch) == "amd64"  ]] && ARCH=64 || ARCH=32
 
 
-	dobin ${S}/tinyos/java/env/libgetenv-${ARCH}.so
+	dobin "${S}"/tinyos/java/env/libgetenv-${ARCH}.so
 
 	if ! use javacomm; then
 		einfo "installing  libtoscomm-${ARCH}.so in  ${JNI}"
-		dobin ${S}/tinyos/java/serial/libtoscomm-${ARCH}.so
+		dobin "${S}"/tinyos/java/serial/libtoscomm-${ARCH}.so
 	fi
 
 	# useless there, we install them in the proper jdk directory...
-	rm ${D}/usr/lib64/tinyos/libtoscomm.so
-	rm ${D}/usr/lib64/tinyos/libgetenv.so
+	rm "${D}"/usr/lib64/tinyos/libtoscomm.so
+	rm "${D}"/usr/lib64/tinyos/libgetenv.so
 }
