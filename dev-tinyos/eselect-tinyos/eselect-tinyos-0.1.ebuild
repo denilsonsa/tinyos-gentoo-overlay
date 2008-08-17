@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:$
 
@@ -17,6 +17,6 @@ RDEPEND=">=app-admin/eselect-1.0.2"
 src_install() {
 	insinto /usr/share/eselect/modules
 	#cp ${WORKDIR}/eselect-tinyos-${PV} ${T}/tinyos.eselect
-	cp ${FILESDIR}/eselect-tinyos ${T}/tinyos.eselect
-	doins ${T}/tinyos.eselect
+	cp "${FILESDIR}"/eselect-tinyos "${T}"/tinyos.eselect
+	doins "${T}"/tinyos.eselect
 }

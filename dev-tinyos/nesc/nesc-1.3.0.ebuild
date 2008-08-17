@@ -49,11 +49,10 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	# don't build java files from make
-	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.in
-	sed -i -e 's/SUBDIRS = java/SUBDIRS = /g' ${S}/tools/Makefile.in
-	sed -i -e 's/NESC_JAR_DEPS = $(shell find java -name '*.java')//g' ${S}/tools/Makefile.in
-	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' ${S}/tools/Makefile.am
-#	sed -i -e 's/^*java*$//g' ${S}/configure.in
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' "${S}"/tools/Makefile.in
+	sed -i -e 's/SUBDIRS = java/SUBDIRS = /g' "${S}"/tools/Makefile.in
+	sed -i -e 's/NESC_JAR_DEPS = $(shell find java -name '*.java')//g' "${S}"/tools/Makefile.in
+	sed -i -e 's/nodist_ncclib_DATA = nesc.jar/nodist_ncclib_DATA = /g' "${S}"/tools/Makefile.am
 }
 
 src_compile() {
@@ -64,20 +63,20 @@ src_compile() {
 	LANGUAGE=C emake || die "emake failed"
 
 	einfo " cleanup the java mess"
-	rm -f ${S}/tools/nesc.jar
-	rm -f $(find ${S} -name "*.class" )
+	rm -f "${S}"/tools/nesc.jar
+	rm -f $(find "${S}" -name "*.class" )
 
 	# build java files with ejavac
 	einfo "building java files with ejavac"
 	ejavac $(find tools/java/ -name "*.java")
 	cd tools/java ;
 	jar cf ../${PN}.jar $(find . -name "*.class")
-	cd ${S}
+	cd "${S}"
 	if use emacs; then
 		cd tools/editor-modes/emacs/
 		elisp-comp *.el \
 			|| die "failed to comple emacs mode files"
-		cd ${S}
+		cd "${S}"
 	fi
 
 }
