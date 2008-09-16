@@ -1,0 +1,11 @@
+--- tinyos-tools-1.2.4.orig/tools/tinyos/java/serial/NativeSerial_linux.cpp	2008-08-27 22:02:17.102811776 +0200
++++ tinyos-tools-1.2.4/tools/tinyos/java/serial/NativeSerial_linux.cpp	2008-08-27 22:05:11.861812923 +0200
+@@ -27,6 +27,8 @@
+ #include <iostream>
+ #include <fstream>
+ 
++#include <stdlib.h>
++#include <string.h>
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <fcntl.h>

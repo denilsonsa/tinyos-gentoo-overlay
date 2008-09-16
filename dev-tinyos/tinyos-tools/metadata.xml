@@ -1,24 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<!-- 
-
-This is the example metadata file.
-The root element of this file is <pkgmetadata>. Within this element a 
-number of subelements are allowed: herd, maintainer, and 
-longdescription. herd is a required subelement.
-
-For a full description look at:
-http://www.gentoo.org/proj/en/metastructure/herds/
-
-
-Before committing, please remove the comments from this file. They are 
-not relevant for general metadata.xml files.
--->
 <pkgmetadata>
 <herd>no-herd</herd>
 <maintainer>
   <email>@gentoo.org</email>
 <!--  <description>Description of the maintainership</description> -->
 </maintainer>
-<!-- <longdescription>Long description of the package</longdescription> -->
+	<longdescription>
+# provides :
+
+# >>> /usr/bin/mig
+# >>> /usr/bin/ncc
+# >>> /usr/bin/ncg
+# deprecates dev-tinyos/ncc
+
+# >>> /usr/bin/uisp
+# deprecates  dev-tinyos/tos-uisp
+
+
+# >>> /usr/bin/tos-write-image
+# >>> /usr/bin/tos-serial-configure
+# >>> /usr/bin/tos-locate-jre
+# >>> /usr/bin/tos-storage-stm25p
+# >>> /usr/bin/tos-serial-debug
+# >>> /usr/bin/tos-check-env
+# >>> /usr/bin/tos-set-symbols
+# >>> /usr/bin/tos-bsl
+# >>> /usr/bin/motelist
+
+
+# >>> /usr/bin/tos-channelgen
+# >>> /usr/bin/tos-ident-flags
+# >>> /usr/bin/tos-mote-key
+# >>> /usr/bin/tos-install-jni
+# >>> /usr/bin/tos-storage-at45db
+# >>> /usr/lib64/tinyos/elf.py
+# --- /usr/lib64/tinyos/nesdoc/
+# >>> /usr/lib64/tinyos/nesdoc/graph.py
+# >>> /usr/lib64/tinyos/nesdoc/genhtml.py
+# >>> /usr/lib64/tinyos/nesdoc/nesdoc.css
+# >>> /usr/lib64/tinyos/nesdoc/interfaces.py
+# >>> /usr/lib64/tinyos/nesdoc/archive.py
+# >>> /usr/lib64/tinyos/nesdoc/components.py
+# >>> /usr/lib64/tinyos/nesdoc/generators.py
+# >>> /usr/lib64/tinyos/nesdoc/index.py
+# >>> /usr/lib64/tinyos/nesdoc/html.py
+# >>> /usr/lib64/tinyos/nesdoc/__init__.py
+# >>> /usr/lib64/tinyos/nesdoc/utils.py
+# --- /usr/lib64/tinyos/serial/
+# >>> /usr/lib64/tinyos/serial/serialposix.py
+# >>> /usr/lib64/tinyos/serial/serialwin32.py
+# >>> /usr/lib64/tinyos/serial/serialutil.py
+# >>> /usr/lib64/tinyos/serial/serialjava.py
+# >>> /usr/lib64/tinyos/serial/__init__.py
+
+
+#those two are move to the right directory
+
+# >>> /usr/lib64/tinyos/libtoscomm.so
+# >>> /usr/lib64/tinyos/libgetenv.so	
+	</longdescription>
 </pkgmetadata>

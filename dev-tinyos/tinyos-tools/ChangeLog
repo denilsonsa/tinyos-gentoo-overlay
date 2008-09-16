@@ -2,6 +2,14 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Sep 2008; Aurelien Francillon <aurel@naurel.org>
+  +files/tinyos-tools-1.2.4-include-missing.patch, metadata.xml,
+  tinyos-tools-1.2.2.ebuild, tinyos-tools-1.2.3.ebuild,
+  tinyos-tools-1.2.3-r1.ebuild, tinyos-tools-1.2.3-r2.ebuild,
+  tinyos-tools-1.2.3_p20070606.ebuild, tinyos-tools-1.2.3_p20070607.ebuild,
+  tinyos-tools-1.2.3_p20070611.ebuild, tinyos-tools-1.2.4.ebuild:
+  update from Sandro Bonazzola
+
   14 Aug 2008; Aurelien Francillon <aurel@naurel.org>
   tinyos-tools-1.2.4.ebuild:
   - proper handling of javacomm flags, dpends on ibm-jdk only when javacomm is

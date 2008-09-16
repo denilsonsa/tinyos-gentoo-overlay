@@ -1,6 +1,6 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos-make/tos-make-1.1.15.ebuild,v 1.2 2006/08/09 19:51:22 sanchan Exp $
+# $Header: $
 
 inherit eutils
 
@@ -22,39 +22,17 @@ DEPEND=">=dev-tinyos/tos-2.0.0_beta2
 RDEPEND=">=dev-tinyos/nesc-1.2.7a
 		>=dev-java/ibm-jdk-bin-1.5"
 
-
-# >>> /usr/bin/mig
-# >>> /usr/bin/ncc
-# >>> /usr/bin/ncg
-# >>> /usr/bin/uisp
-# >>> /usr/bin/tos-write-image
-# >>> /usr/bin/tos-serial-configure
-# >>> /usr/bin/tos-locate-jre
-# >>> /usr/bin/tos-storage-stm25p
-# >>> /usr/bin/tos-serial-debug
-# >>> /usr/bin/tos-check-env
-# >>> /usr/bin/tos-set-symbols
-# >>> /usr/bin/tos-bsl
-# >>> /usr/bin/motelist
-# >>> /usr/bin/nesdoc
-# >>> /usr/bin/tos-channelgen
-# >>> /usr/bin/tos-ident-flags
-# >>> /usr/bin/tos-mote-key
-# >>> /usr/bin/tos-install-jni
-# >>> /usr/bin/tos-storage-at45db
-
-S=${WORKDIR}/${MY_P}/tools
+S="${WORKDIR}/${MY_P}/tools"
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-	epatch ${FILESDIR}/tos-locate-jre_gentoo.patch
-	epatch ${FILESDIR}/tos-java_make_fPIC.patch
+	cd "${S}"
+	epatch "${FILESDIR}/tos-locate-jre_gentoo.patch"
+	epatch "${FILESDIR}/tos-java_make_fPIC.patch"
 	./Bootstrap || die "Failed to bootstrap"
 }
 
 src_compile(){
-
 	econf || die "Failed to build "
 	emake || die "Failed to build "
 }

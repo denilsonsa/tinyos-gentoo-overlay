@@ -12,3 +12,4 @@ dev-tinyos/tos-bcastinject:micaz - Build support for the micaz target
 dev-tinyos/tos-bcastinject:mica2 - Build support for the mica2 target
 dev-tinyos/tos-bcastinject:telosb - Build support for the telosb target
 dev-tinyos/nesc:safetinyos - Adds support for the Deputy type-safety-for-C system
+dev-tinyos/tinyos-tools:javacomm - Enable Java Communications API support
