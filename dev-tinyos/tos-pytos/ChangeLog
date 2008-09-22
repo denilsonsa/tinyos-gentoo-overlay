@@ -1,0 +1,8 @@
+# ChangeLog for dev-tinyos/tos-pytos
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  22 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
+  tos-pytos-1.1.15.ebuild:
+  Fixing header.
+
