@@ -1,8 +1,8 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic
+inherit eutils
 
 CVS_MONTH="Dec"
 CVS_YEAR="2005"
@@ -21,7 +21,6 @@ RDEPEND="!dev-embedded/uisp"
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools/src/uisp
 
 src_compile() {
-	append-ldflags $(bindnow-flags)
 	dosed "s:AM_INIT_AUTOMAKE(uisp, 20050519tinyos):AM_INIT_AUTOMAKE(tos-uisp, ${PV}):" configure.in
 	./bootstrap
 	econf || die "configure failed"
