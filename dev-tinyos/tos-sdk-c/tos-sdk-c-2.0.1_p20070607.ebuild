@@ -1,8 +1,7 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
+# $Header: $
 inherit eutils python java
-
 
 MY_PV=${PV}
 MY_P=tinyos-${MY_PV}
@@ -20,36 +19,30 @@ IUSE="doc source"
 DEPEND=" dev-tinyos/nesc
 	 doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 
-
 S=${WORKDIR}/${MY_P}/support/sdk/c
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-
+	cd "${S}"
 	export TOSROOT="/usr/src/tinyos-2.x"
 	export TOS="${TOSROOT}"
 	export TOSDIR="${TOS}/tos"
 }
 
 src_compile() {
-
 	./bootstrap
 	econf || die "econf failed"
 	einfo "compiling the c sdk"
 	emake || die "emake failed"
-
 }
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-
 	# installing binaries
 	for i in seriallisten sflisten sfsend prettylisten sf ; do
-		dobin ${S}/${i}
+		dobin "${S}/${i}"
 	done
 	# installing libmote.a this library provides low level serial packets access to motes
-	dolib.a ${S}/libmote.a
-
+	dolib.a "${S}/libmote.a"
 	# installs include files for libmote.a
 	insinto /usr/include
 	doins message.h
@@ -57,7 +50,6 @@ src_install() {
 	doins serialsource.h
 	doins serialprotocol.h
 	doins serialpacket.h
-
 	if use source ; then
 		# installing sdk source code
 		#cleaning up
@@ -66,7 +58,7 @@ src_install() {
 		insinto ${TOSROOT}
 		dodir ${TOSROOT}/support/sdk/
 		insinto ${TOSROOT}/support/sdk/
-		doins -r ${S}
+		doins -r "${S}"
 		chown -R root:root "${D}"
 	fi
 }

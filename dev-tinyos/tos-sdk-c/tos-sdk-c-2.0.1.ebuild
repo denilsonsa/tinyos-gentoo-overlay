@@ -1,8 +1,7 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
+# $Header: $
 inherit eutils python java
-
 
 MY_PV=${PVR}
 MY_P=tinyos-${MY_PV}
@@ -20,32 +19,27 @@ IUSE="doc"
 DEPEND=" dev-tinyos/nesc
 	 doc? ( =dev-tinyos/tinyos-docs-${MY_PV} )"
 
-
 S=${WORKDIR}/${MY_P}/support/sdk/c
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-
+	cd "${S}"
 	export TOSROOT="/usr/src/tinyos-2.x"
 	export TOS="${TOSROOT}"
 	export TOSDIR="${TOS}/tos"
 }
 
 src_compile() {
-#	cd $S}/support/sdk/c
 	./bootstrap
 	econf || die "econf failed"
 	einfo "compiling the c sdk"
 	emake || die "emake failed"
-
 }
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-
 	insinto ${TOSROOT}
 	dodir ${TOSROOT}/support/sdk/
 	insinto ${TOSROOT}/support/sdk/
-	doins -r ${S}
+	doins -r "${S}"
 	chown -R root:0 "${D}"
 }

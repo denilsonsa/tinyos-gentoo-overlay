@@ -1,8 +1,7 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
+# $Header: $
 inherit eutils python java
-
 
 MY_PV=${PVR}
 MY_P=tinyos-${MY_PV}
@@ -32,24 +31,18 @@ PDEPEND="dev-tinyos/eselect-tinyos
 #those two are in the jar file
 PDEPEND="${PDEPEND} !dev-tinyos/tos-plot
 	!dev-tinyos/serial-forwarder"
-
-
 S=${WORKDIR}/${MY_P}
+
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-
+	cd "${S}"
 	einfo "various fixes"
-
 	export TOSROOT="${S}"
 	export TOS="${S}"
 	export TOSDIR="${TOS}/tos"
-
-
 	#
 	# simulation fixes
 	#
-
 	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ?
 	einfo " -> sim.extra gcc bug  "
@@ -59,55 +52,40 @@ src_unpack() {
 	python_version
 	einfo " -> sim.extra python version" ${PYVER}
 	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra
-
-
 	# java build system minor patch
-
 	#einfo " -> java makefile clean target "
-	epatch ${FILESDIR}/message_Makefile_clean-mig-target.patch
-
+	epatch "${FILESDIR}/message_Makefile_clean-mig-target.patch"
 	# tinyos warning
-
 	#einfo " ->atm128hardware.h warning fix"
-	epatch ${FILESDIR}/atm128hardware.h-warning-signal.h.patch
+	epatch "${FILESDIR}/atm128hardware.h-warning-signal.h.patch"
 }
 
 src_compile() {
 	einfo "compiling the java sdk"
-
-	rm ${S}/support/sdk/java/tinyos.jar
-	CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ tinyos.jar
-
-	use doc && CLASSPATH=${S}/support/sdk/java/ make -C ${S}/support/sdk/java/ javadoc
+	rm "${S}/support/sdk/java/tinyos.jar"
+	CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" tinyos.jar
+	use doc && CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" javadoc
 }
 
 src_install() {
 	TOSROOT=/usr/src/tinyos-2.x
-
-	#dobin ${FILESDIR}/tos-bcastinject
-
 	insinto ${TOSROOT}
 	doins -r tos
 	doins -r apps
 	doins -r support
 	chown -R root:0 "${D}"
-
 	echo "VER=\"${PV}\"" > ${T}/${PV}
 	echo "TOSROOT=\"${TOSROOT}\"" >>  ${T}/${PV}
 	echo "TOSDIR=\"/usr/src/tinyos-2.x/tos\"">>  ${T}/${PV}
 	echo "CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar">>  ${T}/${PV}
 	echo "MAKERULES=$TOSROOT/support/make/Makerules">>  ${T}/${PV}
 	echo "PATH=/opt/msp430/bin:$PATH">>  ${T}/${PV}
-
-
- 	local env_dir="/etc/env.d/tinyos/"
+	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
- 	doins ${T}/${PV}
-
+	doins "${T}/${PV}"
 	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
-	doins ${FILESDIR}/1.1.15
-
+	doins "${FILESDIR}/1.1.15"
 }
 
