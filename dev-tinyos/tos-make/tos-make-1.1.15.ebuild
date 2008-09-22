@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,13 +13,12 @@ DESCRIPTION="The TinyOS Make System"
 # SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
 LICENSE="Intel"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 DEPEND=">=dev-tinyos/tos-1.1.15"
 RDEPEND="|| ( >=dev-tinyos/ncc-1.1.15
-              >=dev-tinyos/tinyos-tools-1.2.3
-            )
-         >=dev-tinyos/tos-scripts-1.1.15"
+	>=dev-tinyos/tinyos-tools-1.2.3 )
+	>=dev-tinyos/tos-scripts-1.1.15"
 
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools
 pkg_setup() {

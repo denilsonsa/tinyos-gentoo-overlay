@@ -1,0 +1,9 @@
+# ChangeLog for dev-tinyos/tos-make
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  22 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
+  tos-make-1.1.15.ebuild:
+  Keywording as unstable due to depndency not keyworded as stable. Fixed
+  some minor syntax issues.
+
