@@ -1,0 +1,9 @@
+# ChangeLog for dev-java/ptplot
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
+  ptplot-5.5.ebuild:
+  Fixed header.
+
+
