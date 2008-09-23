@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com> metadata.xml,
+  oalnf-3.0.ebuild:
+  Provided long description in metadata.xml. Fixed ebuild for using java
+  generation 2. Fixed HOMEPAGE, SRC_URI, EAPI.
+
   23 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
   oalnf-3.0.ebuild:
   Fixed header.

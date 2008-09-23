@@ -3,6 +3,8 @@
 <pkgmetadata>
 <herd>no-herd</herd>
 <maintainer>
-  <email>sanchan@gentoo.org</email>
+  <email>sandro.bonazzola@gmail.com</email>
 </maintainer>
+<longdescription>A javaTM swing look and feel with theme, animation, sound,
+and alpha channel support.</longdescription>
 </pkgmetadata>

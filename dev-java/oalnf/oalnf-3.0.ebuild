@@ -2,29 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-CVS_MONTH="Dec"
-CVS_YEAR="2005"
-MY_P="tinyos"
-inherit java-pkg
+EAPI="1"
+inherit java-pkg-2
+At="${PN}.zip"
+S="${WORKDIR}/${PN}"
 
-DESCRIPTION="oalnf"
-
+DESCRIPTION="A javaTM swing look and feel with theme, animation, sound, and alpha channel support"
+SRC_URI="mirror://sourceforge/oalnf/${At}"
 LICENSE="Apache-1.1"
-HOMEPAGE="http://www.tinyos.net/"
-SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-1.1.15${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
-SLOT="0"
+HOMEPAGE="http://sourceforge.net/projects/oalnf"
 KEYWORDS="amd64 ~x86"
+SLOT="0"
+DEPEND=">=virtual/jdk-1.4"
+RDEPEND=">=virtual/jre-1.4"
 IUSE=""
-RDEPEND=""
-DEPEND=""
-
-S=${WORKDIR}/${MY_P}-1.1.15${CVS_MONTH}${CVS_YEAR}cvs/tools/java/jars
-
-src_compile() {
-	einfo "no compile"
-}
 
 src_install() {
 	java-pkg_dojar oalnf.jar
 }
-
