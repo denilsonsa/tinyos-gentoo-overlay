@@ -5,5 +5,8 @@
 <maintainer>
   <email>aurel@naurel.org</email>
 </maintainer>
+<maintainer>
+	<email>sandro.bonazzola@gmail.com</email>
+</maintainer>
 <longdescription>Listen java application for TinyOS</longdescription>
 </pkgmetadata>
