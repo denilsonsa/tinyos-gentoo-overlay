@@ -14,18 +14,15 @@ HOMEPAGE="http://www.tinyos.net/"
 SRC_URI="http://www.tinyos.net/dist-1.1.0/tinyos/source/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs.tar.gz"
 LICENSE="Intel"
 SLOT="1"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="amd64 x86"
 IUSE="source"
-
-COMMON_DEP="source? ( app-arch/zip )"
-DEPEND=">=dev-java/ibm-jdk-bin-1.4.0
-	>=virtual/jdk-1.4
+COMMON_DEP="source? ( app-arch/zip )
+>=dev-java/ibm-jdk-bin-1.4.0"
+DEPEND=">=virtual/jdk-1.4
 	dev-java/java-config
 	${COMMON_DEP}"
-RDEPEND=">=dev-java/ibm-jre-bin-1.4.0
-	>=virtual/jre-1.4
+RDEPEND=">=virtual/jre-1.4
 	${COMMON_DEP}"
-
 S="${WORKDIR}/tinyos-1.x/tools/java"
 
 pkg_setup() {
@@ -40,7 +37,6 @@ pkg_setup() {
 	fi
 }
 
-
 src_unpack() {
 	unpack ${A}
 	cd "${WORKDIR}"
@@ -49,7 +45,6 @@ src_unpack() {
 
 src_compile() {
 	local cp="."
-
 	#Makefile broken, compiling by hand
 	einfo "Compiling TinyOS Listen"
 	$(java-config -c) -source 1.4 -classpath "${cp}" -nowarn net/tinyos/tools/Listen.java  || die "Failed to compile"

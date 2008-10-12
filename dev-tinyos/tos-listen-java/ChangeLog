@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Oct 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
+  tos-listen-java-1.1.15-r1.ebuild:
+  Reverted RDEPEND on ibm-jdk-bin instead of ibm-jre-bin. Stable on amd64
+  and x86.
+
 *tos-listen-java-1.1.5-r1 (12 Oct 2008)
 
   12 Oct 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com> metadata.xml,
