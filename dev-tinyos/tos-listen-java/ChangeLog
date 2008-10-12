@@ -4,6 +4,10 @@
 
   12 Oct 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
   tos-listen-java-1.1.15-r1.ebuild:
+  Using tinyos-java eclass instead of java-pkg-2 and java-utils-2 eclasses.
+
+  12 Oct 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
+  tos-listen-java-1.1.15-r1.ebuild:
   Reverted RDEPEND on ibm-jdk-bin instead of ibm-jre-bin. Stable on amd64
   and x86.
 

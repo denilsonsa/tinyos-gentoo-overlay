@@ -6,8 +6,7 @@ EAPI="1"
 CVS_MONTH="Dec"
 CVS_YEAR="2005"
 MY_P="tinyos"
-JAVA_PKG_IUSE="source"
-inherit java-pkg-2 java-utils-2
+inherit tinyos-java
 
 DESCRIPTION="The basic underlying abstraction for TinyOS packet-format layer"
 HOMEPAGE="http://www.tinyos.net/"
@@ -26,15 +25,7 @@ RDEPEND=">=virtual/jre-1.4
 S="${WORKDIR}/tinyos-1.x/tools/java"
 
 pkg_setup() {
-	java-pkg-2_pkg_setup
-	java-pkg_ensure-vm-version-ge 1 4 0
-	local vendor=`java-pkg_get-vm-vendor`
-	einfo "${vendor} vm detected."
-	if ! [[ ${vendor} = "ibm" ]]; then
-		eerror "IBM JDK is required!"
-		eerror "Please use JAVA_PKG_FORCE_VM=ibm-jdk-bin-1.6 to set your system vm to a IBM JDK."
-		die "setup failed due to missing prerequisite: IBM JDK"
-	fi
+	tinyos_check_vm
 }
 
 src_unpack() {
