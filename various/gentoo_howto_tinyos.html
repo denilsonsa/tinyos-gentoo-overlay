@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- base href="http://gentoo-wiki.com/TinyOS" --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="TinyOS"><title>TinyOS - Gentoo Linux Wiki</title></head><body class="mediawiki ns-0 ltr page-TinyOS"><div style="border: 1px solid rgb(153, 153, 153); margin: -1px -1px 0pt; padding: 0pt; background: rgb(255, 255, 255) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><div style="border: 1px solid rgb(153, 153, 153); margin: 12px; padding: 8px; background: rgb(221, 221, 221) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-family: arial,sans-serif; font-style: normal; font-variant: normal; font-size: 13px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: rgb(0, 0, 0); font-weight: normal; text-align: left;">This is a local copy of the page <a href="http://gentoo-wiki.com/TinyOS">http://gentoo-wiki.com/TinyOS</a>. This is a snapshot of the version of 13/10/2008. 
+It's kept here for convenience , 
+if you want to make an update of this page send a patch to 
+<a href="mailto:aurel@naurel.org?subject=About Gentoo Tinyos doc backup copy">aurel@naurel.org</a>
+</div></div></div><div style="position: relative;">
+
+	
+	<div id="globalWrapper">
+		<div id="column-content">
+
+<div style="padding: 0px; width: 160px; margin-top: 35px; float: right; right: 0pt; height: 1px;">
+</script>
+</div>
+
+	<div id="content" style="margin-right: 163px;">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">TinyOS</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From Gentoo Linux Wiki</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc" summary="Contents"><tbody><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1"><a href="#TinyOS_installation"><span class="tocnumber">2</span> <span class="toctext">TinyOS installation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Step_1:_Install_Java_1.5_JDK"><span class="tocnumber">2.1</span> <span class="toctext">Step 1: Install Java 1.5 JDK</span></a></li>
+<li class="toclevel-2"><a href="#Step_2:_Install_Cygwin"><span class="tocnumber">2.2</span> <span class="toctext">Step 2: Install Cygwin</span></a></li>
+<li class="toclevel-2"><a href="#Step_3:_Install_native_compilers"><span class="tocnumber">2.3</span> <span class="toctext">Step 3: Install native compilers</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Alternative_approach:_use_dedicated_msp430_ebuilds"><span class="tocnumber">2.3.1</span> <span class="toctext">Alternative approach: use dedicated msp430 ebuilds</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Step_4_.26_5:_Install_TinyOS"><span class="tocnumber">2.4</span> <span class="toctext">Step 4 &amp; 5: Install TinyOS</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Set_the_Java_CLASSPATH"><span class="tocnumber">2.4.1</span> <span class="toctext">Set the Java CLASSPATH</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Trying_it_out"><span class="tocnumber">3</span> <span class="toctext">Trying it out</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Add_the_user_to_the_uucp_group"><span class="tocnumber">3.1</span> <span class="toctext">Add the user to the uucp group</span></a></li>
+<li class="toclevel-2"><a href="#Check_that_the_Mote_is_connected_properly"><span class="tocnumber">3.2</span> <span class="toctext">Check that the Mote is connected properly</span></a></li>
+<li class="toclevel-2"><a href="#Download_the_sample_application"><span class="tocnumber">3.3</span> <span class="toctext">Download the sample application</span></a></li>
+<li class="toclevel-2"><a href="#Build_the_sample_application"><span class="tocnumber">3.4</span> <span class="toctext">Build the sample application</span></a></li>
+<li class="toclevel-2"><a href="#Other_examples"><span class="tocnumber">3.5</span> <span class="toctext">Other examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Help"><span class="tocnumber">4</span> <span class="toctext">Help</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Running_crossdev_fails"><span class="tocnumber">4.1</span> <span class="toctext">Running crossdev fails</span></a></li>
+<li class="toclevel-2"><a href="#When_trying_to_run_.60make_micaz.60_or_.60make_mica2.60.2C_an_.22unknown_opcode.22_error_is_produced"><span class="tocnumber">4.2</span> <span class="toctext">When trying to run `make micaz` or `make mica2`, an "unknown opcode" error is produced</span></a></li>
+<li class="toclevel-2"><a href="#.60make_micaz.60_or_.60make_mica2.60_fails_saying_.22.2Fusr.2Flibexec.2Fgcc.2Favr.2Fld:_cannot_open_linker_script_file_ldscripts.2Favr5.x:_No_such_file_or_directory.22"><span class="tocnumber">4.3</span> <span class="toctext">`make
+micaz` or `make mica2` fails saying "/usr/libexec/gcc/avr/ld: cannot
+open linker script file ldscripts/avr5.x: No such file or directory"</span></a></li>
+<li class="toclevel-2"><a href="#Trying_to_use_TOSSIM_and_Running_.60make_micaz_sim.60_fails_with_compiler_warnings_like_.22.60PyObject.27_was_not_declared_in_this_scope.22"><span class="tocnumber">4.4</span> <span class="toctext">Trying to use TOSSIM and Running `make micaz sim` fails with compiler warnings like "`PyObject' was not declared in this scope"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
+</ul>
+
+
+</td></tr></tbody></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Overview"></a><h1><span class="editsection"></span> <span class="mw-headline"> Overview </span></h1>
+<p>This page describes how to set up your Gentoo Linux Box for using <a href="http://www.tinyos.net/" class="external text" title="http://www.tinyos.net/" rel="nofollow">TinyOS</a>.
+The document describes setting up an environment for using Telos motes
+- additions to this document for other mote platforms are welcome.
+</p><p>This document is a work in progress at the moment.
+</p>
+<a name="TinyOS_installation"></a><h1><span class="editsection"></span> <span class="mw-headline"> TinyOS installation </span></h1>
+<p>This section of the document goes parallel with the official <a href="http://www.tinyos.net/tinyos-2.x/doc/html/install-tinyos.html" class="external text" title="http://www.tinyos.net/tinyos-2.x/doc/html/install-tinyos.html" rel="nofollow">TinyOS 2 installation guide</a>, following it's steps one by one.
+</p>
+<a name="Step_1:_Install_Java_1.5_JDK"></a><h2> <span class="mw-headline"> Step 1: Install Java 1.5 JDK </span></h2>
+<p>Simply:
+</p>
+<pre>emerge ibm-jdk-bin
+</pre>
+<p>or:
+</p>
+<pre>emerge sun-jdk
+</pre>
+<a name="Step_2:_Install_Cygwin"></a><h2> <span class="mw-headline"> Step 2: Install Cygwin </span></h2>
+<p>This step is not needed on Linux.
+</p>
+<a name="Step_3:_Install_native_compilers"></a><h2><span class="mw-headline"> Step 3: Install native compilers </span></h2>
+<p>Grab the <a href="https://naurel.org/svn/tinyos-2-overlay" class="external text" title="https://naurel.org/svn/tinyos-2-overlay" rel="nofollow">TinyOS 2 portage overlay</a> created by Aurélien Francillon, as root:
+</p>
+<pre>cd /usr/local
+mkdir portage
+svn checkout https://naurel.org/svn/tinyos-2-overlay
+</pre>
+<p>Also make sure to add the portage overlay directory to /etc/make.conf:
+</p>
+<pre>PORTDIR_OVERLAY="/usr/local/portage /usr/local/tinyos-2-overlay"
+</pre>
+<p>For msp430 you may want to try the crossdev version in the "tinyos overlay" and install the toolchain with 
+</p>
+<pre>emerge crossdev 
+FEATURES="-sandbox nostrip" crossdev -t msp430
+</pre>
+<p>Compiler install for Atmel AVR-based Motes 
+</p>
+<pre>emerge crossdev 
+FEATURES="nostrip" crossdev -t avr
+</pre>
+<p>The "nostrip" feature is needed because stripping ruins the libraries built by crossdev making them unusable, see <a href="http://bugs.gentoo.org/show_bug.cgi?id=207284" class="external free" title="http://bugs.gentoo.org/show_bug.cgi?id=207284" rel="nofollow">http://bugs.gentoo.org/show_bug.cgi?id=207284</a>
+</p>
+<a name="Alternative_approach:_use_dedicated_msp430_ebuilds"></a><h3><span class="mw-headline"> Alternative approach: use dedicated msp430 ebuilds </span></h3>
+<p>For Motes using the TI MSP430 platform, grab the <a href="http://www.informatik.uni-mannheim.de/pi4.data/content/projects/msp430/" class="external text" title="http://www.informatik.uni-mannheim.de/pi4.data/content/projects/msp430/" rel="nofollow">portage overlay</a>
+created by Matthias Transier, and untar it say to /usr/local/portage.
+Make sure to add this as an overlay directory to /etc/make.conf:
+</p>
+<pre>PORTDIR_OVERLAY="/usr/local/portage"
+</pre>
+<p>after this is done, emerge the following packages:
+</p>
+<pre>emerge msp430-binutils "=dev-embedded/msp430-gcc-3.2.3" msp430-libc "=dev-embedded/msp430-jtag-20040519"
+</pre>
+<p>Packages of other versions didn't seem to work, nor does msp430-gdb
+</p>
+<a name="Step_4_.26_5:_Install_TinyOS"></a><h2><span class="mw-headline"> Step 4 &amp; 5: Install TinyOS </span></h2>
+<p>Grab the <a href="https://naurel.org/svn/tinyos-2-overlay" class="external text" title="https://naurel.org/svn/tinyos-2-overlay" rel="nofollow">TinyOS 2 portage overlay</a> created by Aurélien Francillon, as root:
+</p>
+<pre>cd /usr/local
+svn checkout https://naurel.org/svn/tinyos-2-overlay
+</pre>
+<p>Also make sure to add the portage overlay directory to /etc/make.conf:
+</p>
+<pre>PORTDIR_OVERLAY="/usr/local/portage /usr/local/tinyos-2-overlay"
+</pre>
+<p>Ideally, it would be sufficient to emerge the tinyos ebuild, but at the moment this has to be done in multiple steps:
+</p>
+<pre>emerge eselect-tinyos tos
+eselect tinyos set 2.0.1
+env-update
+source /etc/profile
+emerge tinyos-tools
+emerge tinyos
+</pre>
+<a name="Set_the_Java_CLASSPATH"></a><h3><span class="editsection"></span> <span class="mw-headline"> Set the Java CLASSPATH </span></h3>
+<p>Even though eselect would need to set the CLASSPATH, for some reason
+it does not do so. Therefore it is important to set the classpath
+environment variable. To do this, issue the following command, or add
+it to your ~/.profile or ~/.bash_rc file:
+</p>
+<pre>export CLASSPATH=.:/usr/src/tinyos-2.x/support/sdk/java/tinyos.jar
+</pre>
+<a name="Trying_it_out"></a><h1><span class="editsection"></span> <span class="mw-headline"> Trying it out </span></h1>
+<a name="Add_the_user_to_the_uucp_group"></a><h2><span class="editsection"></span> <span class="mw-headline"> Add the user to the uucp group </span></h2>
+<p>To access the USB-serial port that the mote connects with to the
+system, add your user to the uucp group, then log out / log in for this
+change to take effect.
+</p>
+<a name="Check_that_the_Mote_is_connected_properly"></a><h2><span class="editsection"></span> <span class="mw-headline"> Check that the Mote is connected properly </span></h2>
+<p>Plug in the Mote to your machine, and see if it is listed with the motelist application. You should get something like:
+</p>
+<pre>$ motelist 
+Reference  Device           Description
+---------- ---------------- ---------------------------------------------
+M4MWCK52   /dev/ttyUSB0     Moteiv Telos (Rev A 2004-04-27)
+</pre>
+<a name="Download_the_sample_application"></a><h2><span class="editsection"></span> <span class="mw-headline"> Download the sample application </span></h2>
+<p>To try out if it works, let's compile the (in)famous Blink application. For this, one has to get the TinyOS 2 archive, extract it, 
+and try to compile the Blink application from there:
+</p>
+<pre>wget http://www.tinyos.net/dist-2.0.0/tinyos/linux/tinyos-2.0.1-5.noarch.rpm
+rpm2targz tinyos-2.0.1-5.noarch.rpm
+tar xfz tinyos-2.0.1-5.noarch.tar.gz
+cd opt/tinyos-2.x/apps/Blink
+</pre>
+<p><br>
+You may prefer to copy the apps directory in /usr/src/tinyos-2.x to your working directory
+</p>
+<pre>cp -r /usr/src/tinyos-2.x/apps  ~/yourworkdir/
+cd ~/yourworkdir/apps/Blink
+</pre>
+<a name="Build_the_sample_application"></a><h2><span class="editsection"></span> <span class="mw-headline"> Build the sample application </span></h2>
+<p>For Telos-based Motes, like the <a href="http://www.moteiv.com/products/tmotesky.php" class="external text" title="http://www.moteiv.com/products/tmotesky.php" rel="nofollow">MoteIV TMote Sky</a>,
+issue the following from the Blink application's directory, after the
+Mote has been connected to your machine. We'll assume the Mote is
+connected through the /dev/ttyUSB0 USB-serial device:
+</p>
+<pre>make telos install.1 bsl,/dev/ttyUSB0;
+</pre>
+<p>This should compile and install the Blink application.
+</p><p>For more information on getting started with TinyOS, see the <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/lesson1.html" class="external text" title="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/lesson1.html" rel="nofollow">TinyOS tutorial Lesson 1</a>
+</p>
+<a name="Other_examples"></a><h2><span class="editsection"></span> <span class="mw-headline"> Other examples </span></h2>
+<p>For other examples, follow through the <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/" class="external text" title="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/" rel="nofollow">TinyOS tutorial</a>.
+</p><p><br>
+</p>
+<a name="Help"></a><h1><span class="editsection"></span> <span class="mw-headline"> Help </span></h1>
+<a name="Running_crossdev_fails"></a><h2><span class="editsection"></span> <span class="mw-headline"> Running crossdev fails </span></h2>
+<p>The libc, gcc, and binutils versions should be specified when running crossdev.
+</p>
+<pre>emerge crossdev 
+FEATURES="nostrip" crossdev -S --libc 1.4.8 --binutils 2.16.1-r3 --gcc 3.4.6-r2 -t avr
+</pre>
+<p><br>
+</p>
+<a name="When_trying_to_run_.60make_micaz.60_or_.60make_mica2.60.2C_an_.22unknown_opcode.22_error_is_produced"></a><h2><span class="editsection"></span> <span class="mw-headline"> When trying to run `make micaz` or `make mica2`, an "unknown opcode" error is produced </span></h2>
+<p>When trying to compile a nesc program for an avr chip, sometimes an error like this is produced.
+</p>
+<pre>$ make micaz
+mkdir -p build/micaz
+   compiling BlinkAppC to a micaz binary
+ncc -o build/micaz/main.exe -Os -finline-limit=100000 -Wall -Wshadow -Wnesc-all -target=micaz -fnesc-cfile=build/micaz/app.c -board=micasb -DIDENT_PROGRAM_NAME=\"BlinkAppC\" -DIDENT_USER_ID=\"user\" -DIDENT_HOSTNAME=\"<b style="color: black; background-color: rgb(255, 255, 102);">gentoo</b>\" -DIDENT_USER_HASH=0xfb3074c7L -DIDENT_UNIX_TIME=0x4803ea6fL -DIDENT_UID_HASH=0x2e90e669L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/micaz/wiring-check.xml BlinkAppC.nc -lm 
+/tmp/cc7CxVQx.s: Assembler messages:
+/tmp/cc7CxVQx.s:10: Error: unknown opcode `atm128powe'
+/tmp/cc7CxVQx.s:12: Error: unrecognized symbol type ""
+/tmp/cc7CxVQx.s:12: Error: unknown opcode `atm128powe'
+/tmp/cc7CxVQx.s:13: Error: expected comma after name `McuSleepC' in .size directive
+/tmp/cc7CxVQx.s:13: Error: unknown opcode `atm128powe'
+/tmp/cc7CxVQx.s:14: Error: unknown opcode `mcusleepc'
+...
+</pre>
+<p>This is due to nesc trying to use "$" in symbol names. Recent
+versions of gcc and binutils do not have this functionality. In order
+to get rid of this error, older versions of gcc and binutils must be
+used.
+</p>
+<pre>emerge crossdev 
+FEATURES="nostrip" crossdev -S --libc 1.4.8 --binutils 2.16.1-r3 --gcc 3.4.6-r2 -t avr
+</pre>
+<p><br>
+</p>
+<a name=".60make_micaz.60_or_.60make_mica2.60_fails_saying_.22.2Fusr.2Flibexec.2Fgcc.2Favr.2Fld:_cannot_open_linker_script_file_ldscripts.2Favr5.x:_No_such_file_or_directory.22"></a><h2><span class="editsection"></span> <span class="mw-headline">
+`make micaz` or `make mica2` fails saying "/usr/libexec/gcc/avr/ld:
+cannot open linker script file ldscripts/avr5.x: No such file or
+directory" </span></h2>
+<pre>$ make micaz
+mkdir -p build/micaz
+   compiling BlinkAppC to a micaz binary
+ncc -o build/micaz/main.exe -Os -finline-limit=100000 -Wall -Wshadow -Wnesc-all -target=micaz -fnesc-cfile=build/micaz/app.c -board=micasb -DIDENT_PROGRAM_NAME=\"BlinkAppC\" -DIDENT_USER_ID=\"illabout\" -DIDENT_HOSTNAME=\"<b style="color: black; background-color: rgb(255, 255, 102);">gentoo</b>-virtualb\" -DIDENT_USER_HASH=0xfb3074c7L -DIDENT_UNIX_TIME=0x48055402L -DIDENT_UID_HASH=0x27aee2e5L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/micaz/wiring-check.xml BlinkAppC.nc -lm 
+/usr/libexec/gcc/avr/ld: cannot open linker script file ldscripts/avr5.x: No such file or directory
+make: *** [exe0] Error 1
+$
+</pre>
+<p>Due to <a href="http://bugs.gentoo.org/show_bug.cgi?id=147155" class="external text" title="http://bugs.gentoo.org/show_bug.cgi?id=147155" rel="nofollow">Bug 147155</a>, the correct directories do not get searched when calling ld.  This can be fixed by changing $CFLAGS.
+</p>
+<pre>$ CFLAGS="-L/usr/i686-pc-linux-gnu/avr/lib" make micaz
+</pre>
+<p><br>
+</p>
+<a name="Trying_to_use_TOSSIM_and_Running_.60make_micaz_sim.60_fails_with_compiler_warnings_like_.22.60PyObject.27_was_not_declared_in_this_scope.22"></a><h2><span class="editsection"></span> <span class="mw-headline">
+Trying to use TOSSIM and Running `make micaz sim` fails with compiler
+warnings like "`PyObject' was not declared in this scope" </span></h2>
+<p>Sometimes the Python version is not set correctly in /usr/src/tinyos-2.x/support/make/sim.extra.
+</p><p>The sim.extra file should be edited and the line
+</p>
+<pre>PYTHON_VERSION=2.5
+</pre>
+<p>should be replaced with your python version.  For example, if you are using python-2.4, the line should be changed to
+</p>
+<pre>PYTHON_VERSION=2.4
+</pre>
+<p>Doing so will remove the compiler error.
+</p>
+<a name="Links"></a><h1> <span class="mw-headline"> Links </span></h1>
+<ul><li> <a href="http://www.tinyos.net/" class="external text" title="http://www.tinyos.net/" rel="nofollow">TinyOS</a>
+</li><li> <a href="http://www.tinyos.net/tinyos-2.x/doc/html/install-tinyos.html" class="external text" title="http://www.tinyos.net/tinyos-2.x/doc/html/install-tinyos.html" rel="nofollow">TinyOS 2 installation guide</a>
+</li><li> <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/" class="external text" title="http://www.tinyos.net/tinyos-2.x/doc/html/tutorial/" rel="nofollow">TinyOS tutorial</a>
+</li><li> <a href="http://www.moteiv.com/community/Tmote_Linux_install" class="external text" title="http://www.moteiv.com/community/Tmote_Linux_install" rel="nofollow">MoteIV Linux install guide</a>
+</li><li> <a href="http://www.matthewjmiller.net/howtos/installing-tinyos-for-telos-on-linux/" class="external text" title="http://www.matthewjmiller.net/howtos/installing-tinyos-for-telos-on-linux/" rel="nofollow">Installing TinyOS for Telos Motes</a> by Matthew J. Miller
+</li><li> <a href="http://www.informatik.uni-mannheim.de/pi4.data/content/projects/msp430/" class="external text" title="http://www.informatik.uni-mannheim.de/pi4.data/content/projects/msp430/" rel="nofollow">msp430 gcc ebuilds</a> by Matthias Transier
+</li><li> <a href="https://naurel.org/svn/tinyos-2-overlay" class="external text" title="https://naurel.org/svn/tinyos-2-overlay" rel="nofollow">TinyOS 2 portage overlay</a> by Aurélien Francillon (a subversion repository)
+</li><li> <a href="http://bugs.gentoo.org/show_bug.cgi?id=156815" class="external text" title="http://bugs.gentoo.org/show_bug.cgi?id=156815" rel="nofollow">TinyOS 2 ebuild ticket</a> in the Gentoo bugtracker
+</li></ul>
+</body></html>
