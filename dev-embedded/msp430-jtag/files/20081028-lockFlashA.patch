@@ -1,0 +1,26 @@
+diff -Nur jtag/funclets/lockSegmentA.S jtag.new/funclets/lockSegmentA.S
+--- jtag/funclets/lockSegmentA.S        2006-11-15 22:08:39.000000000 +0100
++++ jtag.new/funclets/lockSegmentA.S    2008-10-11 14:05:16.000000000 +0200
+@@ -30,18 +30,18 @@
+         jnz     .Llock                  ; != 0 -> lock
+         
+         ; Unlock SegmentA (F2xx)
+-        bit     #LOCKA, &FCTL3          ; Test LOCKA
++        bit     #0x0040, &FCTL3          ; Test LOCKA
+         jz      .Lunlocked              ; Already unlocked?
+-        mov     #FWKEY|LOCKA, &FCTL3    ; No, unlock SegmentA
++        mov     #FWKEY|0x0040, &FCTL3    ; No, unlock SegmentA
+ .Lunlocked:
+         ; SegmentA is unlocked
+         jmp     stop
+ 
+ .Llock:
+         ; Lock SegmentA again (F2xx)     
+-        bit     #LOCKA, &FCTL3          ; Test LOCKA
++        bit     #0x0040, &FCTL3          ; Test LOCKA
+         jnz     .Llocked                ; Already locked?
+-        mov     #FWKEY|LOCKA, &FCTL3    ; No, lock SegmentA
++        mov     #FWKEY|0x0040, &FCTL3    ; No, lock SegmentA
+ .Llocked:
+         ; SegmentA is locked
+ 

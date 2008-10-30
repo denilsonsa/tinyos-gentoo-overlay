@@ -1,0 +1,11 @@
+# ChangeLog for dev-embedded/msp430-jtag
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Oct 2008; Aurelien Francillon <aurel@naurel.org>
+  +files/20081028-eraseFlashSegment.patch, +Changelog,
+  +files/20081028-lockFlashA.patch, +files/20081028-mk.patch,
+  +files/msp430-jtag, +metadata.xml, +msp430-jtag-20081028.ebuild:
+  initial ebuild for msp430-jtag, contributed by gwenhael.goavec
+  <gwen@trabucayre.com>
+

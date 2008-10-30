@@ -1,0 +1,27 @@
+ diff -Nur jtag/funclets/eraseFlashSegment.S jtag/funclets/eraseFlashSegment.S 
+--- jtag/funclets/eraseFlashSegment.S   2006-04-22 02:58:22.000000000 +0200
++++ jtag/funclets/eraseFlashSegment.S       2008-10-11 12:23:14.000000000 +0200
+@@ -44,9 +44,9 @@
+         jlo     .LAgain                 ; not segA -> start erase
+ 
+         ; Unlock SegmentA (F2xx)         
+-        bit     #LOCKA, &FCTL3          ; Test LOCKA
++        bit     #0040, &FCTL3          ; Test LOCKA
+         jz      .Lunlocked              ; Already unlocked?
+-        mov     #FWKEY|LOCKA, &FCTL3    ; No, unlock SegmentA
++        mov     #FWKEY|0040, &FCTL3    ; No, unlock SegmentA
+ .Lunlocked:
+         ; SegmentA is unlocked
+ 
+@@ -63,9 +63,9 @@
+         jnz     .LAgain                 ; 
+ 
+         ; Lock SegmentA again (F2xx)     
+-        bit     #LOCKA, &FCTL3          ; Test LOCKA
++        bit     #0040, &FCTL3          ; Test LOCKA
+         jnz     .Llocked                ; Already locked?
+-        mov     #FWKEY|LOCKA, &FCTL3    ; No, lock SegmentA
++        mov     #FWKEY|0040, &FCTL3    ; No, lock SegmentA
+ .Llocked:
+         ; SegmentA is locked
+         

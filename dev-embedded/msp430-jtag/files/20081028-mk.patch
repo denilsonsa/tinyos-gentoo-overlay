@@ -1,0 +1,13 @@
+--- jtag/funclets/makefile	2008-10-09 17:00:13.000000000 +0200
++++ jtag/funclets/makefile.new	2008-10-23 06:50:44.000000000 +0200
+@@ -6,8 +6,8 @@
+ #programs. CC is used for all source files incl. .S and .c
+ #assembler needs the define so that the includes work properly
+ CC      = msp430-gcc
+-CPU     = msp430x2121
+-ASFLAGS = -mmcu=${CPU}
++CPU     = msp430x149
++ASFLAGS = -mmcu=${CPU} -0s -D_GNU_ASSEMBLER_
+ CFLAGS  = -mmcu=${CPU} -O2 -Wall -g
+ 
+ .PHONY: all clean convert FORCE
