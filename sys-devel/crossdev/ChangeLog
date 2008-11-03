@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sys-devel/crossdev/ChangeLog,v 1.51 2007/05/23 16:21:13 flameeyes Exp $
 
+  04 Nov 2008; Aurelien Francillon <aurel@naurel.org> files/crossdev,
+  -crossdev-0.9.18-r9.ebuild, +crossdev-0.9.18-r10.ebuild:
+  remove deprecated ebuild, update to r10 in sync with mainline
+
   14 Aug 2008; Aurelien Francillon <aurel@naurel.org> files/crossdev,
   -crossdev-0.9.17-r3.ebuild, -crossdev-0.9.18-r6.ebuild,
   +crossdev-0.9.18-r9.ebuild:
