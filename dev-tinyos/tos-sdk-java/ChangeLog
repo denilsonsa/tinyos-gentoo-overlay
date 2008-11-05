@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Nov 2008; Aurelien Francillon <aurel@naurel.org>
+  +tos-sdk-java-2.1.0.ebuild:
+  bump to tinyos 2.1.0
+
   14 Aug 2008; Aurelien Francillon <aurel@naurel.org>
   tos-sdk-java-2.0.2.ebuild:
   depends on ibm jdk only when javacomm use flag is present

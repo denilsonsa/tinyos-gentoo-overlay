@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Nov 2008; Aurelien Francillon <aurel@naurel.org>
+  +tos-sdk-c-2.1.0.ebuild:
+  bump to tinyos 2.1.0
+
   22 Sep 2008; Sandro Bonazzola <sandro.bonazzola@gmail.com>
   tos-sdk-c-2.0.0-r3.ebuild, tos-sdk-c-2.0.1.ebuild,
   tos-sdk-c-2.0.1-r1.ebuild, tos-sdk-c-2.0.1_p20070606.ebuild,

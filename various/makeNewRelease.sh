@@ -6,32 +6,38 @@
 ## config verion tags here 
 DATE=`date +"%Y%m%d"`
 
-TINYOS_VERSION=2.0.2
-PATCHLEVEL=
+TINYOS_VERSION=2.1.0
+#PATCHLEVEL=
 #PATCHLEVEL=${DATE}
-TINYOS_RELEASE=
-TINYOS_TOOLS_VERSION=1.2.4
+#TINYOS_RELEASE=
+TINYOS_TOOLS_VERSION=1.3.0
 #TINYOS_TOOLS_PATCHLEVEL=${DATE}
-TINYOS_TOOLS_PATCHLEVEL=
-TINYOS_TOOLS_RELEASE=
-#CVSTAG=release_tinyos_2_0_1
+#TINYOS_TOOLS_PATCHLEVEL=
+#TINYOS_TOOLS_RELEASE=
+#CVSTAG=release_tinyos_2_1_0_0
+
+
 
 # verion of the ebuilds to take as base ...
-BASE_PVR=2.0.1_p20070611
+BASE_PVR=2.0.2
 TINYOS_BASE_PNR=tinyos-${BASE_PVR}
 TOS_BASE_PNR=tos-${BASE_PVR}
 TOS_SDK_JAVA_BASE_PNR=tos-sdk-java-${BASE_PVR}
 TOS_SDK_PYTHON_BASE_PNR=tos-sdk-python-${BASE_PVR}
 TOS_SDK_C_BASE_PNR=tos-sdk-c-${BASE_PVR}
-TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.3_p20070611
+TINYOS_TOOLS_BASE_PNR=tinyos-tools-1.2.4
 
+
+# choices ( depend on what you cant ot do regular ebuild cvs snapshot...)
+CVS_UPDATE=no
+MAKE_TARBALL=no
+SCP_TRANSFER=no
 
 
 
 HOME=/home/francill/
+
 # some debugging facilities ...
-CVS_DONT_UPDATE=yes
-#SCP_DONT_TRANSFER=yes
 # config path's here 
 #CVSDIR=${HOME}/work/sensors/tinyos/tinyos-sources/cvs/tinyos-2.x
 CVSDIR=${HOME}/cvstrees/tinyos/tinyos-2.x
@@ -83,7 +89,7 @@ read
 
 
 
-if [[ "yes" != "${CVS_DONT_UPDATE}" ]] ; then 
+if [[ "yes" == "${CVS_UPDATE}" ]] ; then 
 #cvs update and smash local changes 
 	cd ${CVSDIR}
 	
@@ -100,34 +106,39 @@ if [[ "yes" != "${CVS_DONT_UPDATE}" ]] ; then
 		fi 
 	fi 
 fi
-cd ${CVSDIR}/tools/release/
 
-echo "*** Building tarball for ${PN}"
-#fixing version 
-sed -i "s|VERSION=.*|VERSION=${PV}|" ${CVSDIR}/tools/release/tinyos.files
-bash tinyos.files
-#mv ${CVSDIR}/../${PNR}.tar.gz ${ORIG_PWD}/
+if [[ "yes" == "${MAKE_TARBALL}" ]] ; then 
 
-echo "*** Building tarball for ${TOOLS_PN}"
-sed -i "s|VERSION=.*|VERSION=${TOOLS_PV}|" ${CVSDIR}/tools/release/tinyos-tools.files
-sh tinyos-tools.files
-#mv ${TOOLS_PNR}.tar.gz ${ORIG_PWD}/
+		cd ${CVSDIR}/tools/release/
+		
+		
+		echo "*** Building tarball for ${PN}"
+    #fixing version 
+		sed -i "s|VERSION=.*|VERSION=${PV}|" ${CVSDIR}/tools/release/tinyos.files
+		bash tinyos.files
+    #mv ${CVSDIR}/../${PNR}.tar.gz ${ORIG_PWD}/
+		
+		echo "*** Building tarball for ${TOOLS_PN}"
+		sed -i "s|VERSION=.*|VERSION=${TOOLS_PV}|" ${CVSDIR}/tools/release/tinyos-tools.files
+		sh tinyos-tools.files
+    #mv ${TOOLS_PNR}.tar.gz ${ORIG_PWD}/
 
 
-echo "*** building tarball for tinyos-docs-$PN"  
-cd ${CVSDIR}
-cp -a doc $DOCS_PNR
-tar --exclude 'CVS' -zcf ${DOCS_PNR}.tar.gz ${DOCS_PNR}
-mv ${DOCS_PNR}.tar.gz ${CVSDIR}/../
-rm -rf ${CVSDIR}/${DOCS_PNR}
-
-cd ${ORIG_PWD}
+		echo "*** building tarball for tinyos-docs-$PN"  
+		cd ${CVSDIR}
+		cp -a doc $DOCS_PNR
+		tar --exclude 'CVS' -zcf ${DOCS_PNR}.tar.gz ${DOCS_PNR}
+		mv ${DOCS_PNR}.tar.gz ${CVSDIR}/../
+		rm -rf ${CVSDIR}/${DOCS_PNR}
+		
+		cd ${ORIG_PWD}
+fi 
 
 
 #mv tinyos-${TINYOS_VERSION}.tar.gz  tinyos-$PV.tar.gz 
 #mv tinyos-tools-${TINYOS_TOOLS_VERSION}.tar.gz  tinyos-tools-$TOOLS_PV.tar.gz 
 
-if [[ "yes" != ${SCP_DONT_TRANSFER} ]] ; then 
+if [[ "yes" == ${SCP_TRANSFER} ]] ; then 
 	echo "copy files to web sever ... "
 	scp ${CVSDIR}/../{$PNR,$TOOLS_PNR,$DOCS_PNR}.tar.gz  aurel@naurel.org:/var/www/localhost/htdocs/stuff
 fi 
