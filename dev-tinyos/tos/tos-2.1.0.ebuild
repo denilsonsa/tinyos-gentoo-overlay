@@ -22,7 +22,7 @@ DEPEND=" dev-tinyos/eselect-tinyos"
 
 PDEPEND="dev-tinyos/tinyos-tools
 	dev-tinyos/eselect-tinyos
-	dev-tinyos/nesc"
+	>=dev-tinyos/nesc-1.2.8"
 
 S="${WORKDIR}/${MY_P}"
 src_unpack() {
@@ -35,7 +35,9 @@ src_unpack() {
 
 	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ?
-	epatch "${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch"
+	epatch "${FILESDIR}"/tos_sim.extra_gcc_4.1.1_bug.patch
+	# adds support for toolchains without the infamous tinyos binutils dollar patch
+	epatch "${FILESDIR}"/tos-2.1.0_no_dollar.patch
 
 	# set the python version to use
 	python_version

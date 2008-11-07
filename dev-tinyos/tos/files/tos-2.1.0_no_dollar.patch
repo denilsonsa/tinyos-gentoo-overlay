@@ -1,0 +1,38 @@
+this patch adds support for toolchains without the infamous TinyOS 
+binutils dollar patch
+
+--- support/make/msp/msp.rules-orig	2008-11-07 15:43:11.000000000 +0100
++++ support/make/msp/msp.rules	2008-11-07 15:47:52.000000000 +0100
+@@ -39,7 +39,12 @@
+ NCC = ncc
+ LIBS = -lm
+ 
+-AMADDR = ActiveMessageAddressC\$$addr
++
++# The next two lines force nesc to avoid the dollar sign in symbols.
++# needs nesc 1.2.8 or newer (1.2.9 is recommended).
++PFLAGS += -fnesc-separator=__
++AMADDR = ActiveMessageAddressC__addr
++
+ BUILDDIR ?= build/$(PLATFORM)
+ MAIN_EXE = $(BUILDDIR)/main.exe
+ MAIN_IHEX = $(BUILDDIR)/main.ihex
+--- support/make/avr/avr.rules-orig	2008-11-07 15:42:28.000000000 +0100
++++ support/make/avr/avr.rules	2008-11-07 15:47:51.000000000 +0100
+@@ -36,11 +36,11 @@
+ NCC = ncc
+ LIBS = -lm
+ 
+-AMADDR = ActiveMessageAddressC\$$addr
+-# Uncomment the next two lines if you have a toolchain without the dollar sign
+-# patch. This needs nesc 1.2.8 or newer (1.2.9 is recommended).
+-#PFLAGS += -fnesc-separator=__
+-#AMADDR = ActiveMessageAddressC__addr
++# The next two lines force nesc to avoid the dollar sign in symbols.
++# needs nesc 1.2.8 or newer (1.2.9 is recommended).
++PFLAGS += -fnesc-separator=__
++AMADDR = ActiveMessageAddressC__addr
++
+ BUILDDIR ?= build/$(PLATFORM)
+ MAIN_EXE = $(BUILDDIR)/main.exe
+ MAIN_SREC = $(BUILDDIR)/main.srec
