@@ -31,7 +31,7 @@ PDEPEND="dev-tinyos/tinyos-tools
 S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	export TOSROOT="${S}"
 	export TOS="${S}"
@@ -39,7 +39,7 @@ src_unpack() {
 
 	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ?
-	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch
+	epatch "${FILESDIR}"/tos_sim.extra_gcc_4.1.1_bug.patch
 
 	# set the python version to use
 	python_version
@@ -73,18 +73,18 @@ src_install() {
 	echo "PATH=/usr/lib/ncc/">>  ${T}/${PV}
 	# needed to build some packages
 	echo "ROOTPATH=/usr/lib/ncc/">>  ${T}/${PV}
-	# TODO  ...  day  
+	# TODO  ...  day
 ##	echo "LDPATH=/usr/lib64/tinyos/">>  ${T}/${PV}
 #	echo "LDPATH=/usr/lib/tinyos/">>  ${T}/${PV}
 
 	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
-	doins ${T}/${PV}
+	doins "${T}"/${PV}
 
 	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
-	doins ${FILESDIR}/1.1.15
+	doins "${FILESDIR}"/1.1.15
 }
 
 pkg_postinst() {

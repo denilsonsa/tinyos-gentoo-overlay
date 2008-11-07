@@ -31,7 +31,7 @@ DEPEND=""
 
 src_unpack(){
 	cvs_src_unpack
-	cd ${S}
+	cd "${S}"
 	epatch "${FILESDIR}/avarice-9999-gdb-avarice-script.patch"
 	./Bootstrap
 }

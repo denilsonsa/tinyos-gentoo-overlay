@@ -73,7 +73,7 @@ src_compile() {
 	cd "${S}"
 	if use emacs; then
 		cd tools/editor-modes/emacs/
-		elisp-comp *.el \
+		elisp-compile *.el \
 			|| die "failed to comple emacs mode files"
 		cd "${S}"
 	fi

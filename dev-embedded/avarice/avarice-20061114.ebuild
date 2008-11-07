@@ -17,7 +17,7 @@ IUSE=""
 DEPEND=""
 
 src_unpack(){
-	unpack "${A}"
+	unpack ${A}
 
 # prevents the error : Reply contains invalid hex digit 79
 

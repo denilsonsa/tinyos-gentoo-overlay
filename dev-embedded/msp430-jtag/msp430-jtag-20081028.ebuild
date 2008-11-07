@@ -27,9 +27,9 @@ DEPEND="cross-msp430/mspgcc
 src_unpack() {
 	cvs_src_unpack
 	cd "${S}"
-	epatch ${FILESDIR}/${PV}-mk.patch
-	epatch ${FILESDIR}/${PV}-lockFlashA.patch
-	epatch ${FILESDIR}/${PV}-eraseFlashSegment.patch
+	epatch "${FILESDIR}"/${PV}-mk.patch
+	epatch "${FILESDIR}"/${PV}-lockFlashA.patch
+	epatch "${FILESDIR}"/${PV}-eraseFlashSegment.patch
 
 }
 
@@ -45,7 +45,7 @@ src_install() {
 	dolib msp430/libMSP430mspgcc.so
 	dolib.a msp430/libMSP430mspgcc.a
 	insinto ${DESTTREE}/bin
-	doins ${FILESDIR}/msp430-jtag
+	doins "${FILESDIR}"/msp430-jtag
 	ldconfig
 }
 

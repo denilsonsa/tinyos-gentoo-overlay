@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
 inherit eutils python
@@ -31,7 +31,7 @@ PDEPEND="dev-tinyos/tinyos-tools
 S=${WORKDIR}/${MY_P}
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	export TOSROOT="${S}"
 	export TOS="${S}"
@@ -39,7 +39,7 @@ src_unpack() {
 
 	# 'fix' for gcc-4.1.1 see bug  #151832 an alternative is to use sys-devel/gcc => 4.1.2 or sys-devel/gcc <= 4.1
 	# on amd64 only ?
-	epatch ${FILESDIR}/tos_sim.extra_gcc_4.1.1_bug.patch
+	epatch "${FILESDIR}"/tos_sim.extra_gcc_4.1.1_bug.patch
 
 	# set the python version to use
 	python_version
@@ -77,11 +77,11 @@ src_install() {
 	local env_dir="/etc/env.d/tinyos/"
 	dodir ${env_dir}
 	insinto ${env_dir}
-	doins ${T}/${PV}
+	doins "${T}"/${PV}
 
 	# hack
 	ewarn "as a temporary measure and to prevent any modification to 1.x ebuild I will install eselect env file for 1.1.15 ebuild ..."
-	doins ${FILESDIR}/1.1.15
+	doins "${FILESDIR}"/1.1.15
 }
 
 pkg_postinst() {

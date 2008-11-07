@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/ChangeLog,v 1.15 2007/03/05 22:36:56 sanchan Exp $
 
+  07 Nov 2008; Aurelien Francillon <aurel@naurel.org> nesc-1.2.9.ebuild,
+  nesc-1.3.0.ebuild:
+  use elisp-compile instead of elisp-comp, hard mask nesc-1.3.0 doesn't build
+  correctly ...
+
   17 Sep 2008; Aurelien Francillon <aurel@naurel.org> nesc-1.3.0.ebuild:
   updates from Sandro Bonazzola
 

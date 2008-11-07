@@ -9,7 +9,7 @@ HOMEPAGE="http://nescc.sourceforge.net/"
 SRC_URI="mirror://sourceforge/nescc/${P}.tar.gz"
 LICENSE="GPL-2 Intel"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="-x86 -amd64"
 IUSE="doc emacs safetinyos"
 JAVA_PKG_WANT_TARGET="1.4"
 JAVA_PKG_WANT_SOURCE="1.4"
@@ -74,7 +74,7 @@ src_compile() {
 	cd "${S}"
 	if use emacs; then
 		cd tools/editor-modes/emacs/
-		elisp-comp *.el \
+		elisp-compile *.el \
 			|| die "failed to comple emacs mode files"
 		cd "${S}"
 	fi
