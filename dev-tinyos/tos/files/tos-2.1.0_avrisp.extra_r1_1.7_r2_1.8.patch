@@ -1,0 +1,23 @@
+details:
+http://sourceforge.net/tracker/?func=detail&atid=393934&aid=2106886&group_id=28656
+patch :
+http://tinyos.cvs.sourceforge.net/viewvc/tinyos/tinyos-2.x/support/make/avr/avrisp.extra?r1=1.7&r2=1.8
+
+--- tinyos-2.x/support/make/avr/avrisp.extra	2008/06/18 20:22:51	1.7
++++ tinyos-2.x/support/make/avr/avrisp.extra	2008/09/22 15:41:35	1.8
+@@ -1,5 +1,5 @@
+ #-*-Makefile-*- vim:syntax=make
+-#$Id: avrisp.extra,v 1.7 2008/06/18 20:22:51 razvanm Exp $
++#$Id: avrisp.extra,v 1.8 2008/09/22 15:41:35 sallai Exp $
+ 
+ ifeq ($(AVRISP),)
+ $(error AVRISP must be defined, try "make $(TARGETS) help")
+@@ -13,7 +13,7 @@
+         BOOTLOADER_IMG := $(shell cygpath -m $(BOOTLOADER_IMG))
+       endif
+     endif
+-    PROGRAMMER_FLAGS = -cstk500 -P$(MIB510) -U hfuse:w:$(AVR_FUSE_H):m $(PROGRAMMER_PART) $(PROGRAMMER_EXTRA_FLAGS) $(PROGRAMMER_EXTRA_FLAGS_AVRISP)
++    PROGRAMMER_FLAGS = -cstk500 -P$(AVRISP) -U hfuse:w:$(AVR_FUSE_H):m $(PROGRAMMER_PART) $(PROGRAMMER_EXTRA_FLAGS) $(PROGRAMMER_EXTRA_FLAGS_AVRISP)
+     PROGRAMMER_INSTALL_SREC_FLAGS = -U flash:w:$(INSTALL_SREC):a
+     PROGRAMMER_INSTALL_BOOTLOADER_FLAGS = -V -D -U flash:w:$(BOOTLOADER_IMG):a
+ endif
