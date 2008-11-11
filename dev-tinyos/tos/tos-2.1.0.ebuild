@@ -38,6 +38,8 @@ src_unpack() {
 	epatch "${FILESDIR}"/tos_sim.extra_gcc_4.1.1_bug.patch
 	# adds support for toolchains without the infamous tinyos binutils dollar patch
 	epatch "${FILESDIR}"/tos-2.1.0_no_dollar.patch
+	# default avrdude config file location under gentoo
+	epatch "${FILESDIR}"/tos-2.1.0_avrdude.conf.patch
 	# bug with progamming with avrisp, in cvs
 	epatch "${FILESDIR}"/tos-2.1.0_avrisp.extra_r1_1.7_r2_1.8.patch
 

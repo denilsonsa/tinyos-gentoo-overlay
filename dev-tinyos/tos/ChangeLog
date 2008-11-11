@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/ChangeLog,v 1.3 2006/08/09 19:42:12 sanchan Exp $
 
+  11 Nov 2008; Aurelien Francillon <aurel@naurel.org>
+  +files/tos-2.1.0_avrdude.conf.patch, tos-2.1.0.ebuild:
+  fix the path to avrdude used in tos ebuild to match the way it's installed
+  by gentoo
+
   08 Nov 2008; Aurelien Francillon <aurel@naurel.org>
   +files/tos-2.1.0_avrisp.extra_r1_1.7_r2_1.8.patch, tos-2.1.0.ebuild:
   fix to avrdude.extra

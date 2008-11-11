@@ -1,0 +1,11 @@
+--- support/make/avr/avr.rules.orig	2008-11-09 20:21:07.000000000 +0100
++++ support/make/avr/avr.rules	2008-11-09 20:21:23.000000000 +0100
+@@ -67,7 +67,7 @@
+ endif
+ 
+ ifeq ($(PROGRAMMER),avrdude)
+-  AVRDUDE_CONF ?= /etc/avrdude/avrdude.conf
++  AVRDUDE_CONF ?= /etc/avrdude.conf
+   ifeq ($(shell [ -f /bin/cygwin1.dll ] && echo cygwin),cygwin)
+     AVRDUDE_CONF := $(shell cygpath -m $(AVRDUDE_CONF))
+   endif
