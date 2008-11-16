@@ -77,7 +77,9 @@ src_compile() {
 	einfo "compiling the java sdk"
 	rm "${S}"/support/sdk/java/tinyos.jar
 	CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/"	tinyos.jar || die "build failed "
-	use doc && CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" javadoc || die "doc generation failed "
+	if use doc; then
+		CLASSPATH="${S}/support/sdk/java/" make -C "${S}/support/sdk/java/" javadoc || die "doc generation failed "
+	fi
 
 }
 
