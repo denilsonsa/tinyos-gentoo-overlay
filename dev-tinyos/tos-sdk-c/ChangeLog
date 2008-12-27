@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Dec 2008; Aurelien Francillon <aurel@naurel.org>
+  tos-sdk-c-2.1.0.ebuild:
+  tos-sdk-c add a simlink /usr/lib/libmote.a =>
+  /usr/src/tinyos-2.x/support/sdk/c/sf/libmote.a required by some makefiles
+
   04 Nov 2008; Aurelien Francillon <aurel@naurel.org>
   +tos-sdk-c-2.1.0.ebuild:
   bump to tinyos 2.1.0

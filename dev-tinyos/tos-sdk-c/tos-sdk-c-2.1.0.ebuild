@@ -30,14 +30,14 @@ src_unpack() {
 }
 
 src_compile() {
-	einfo "building serial forwarder tools"	
+	einfo "building serial forwarder tools"
 	cd "${S}/sf"
 	./bootstrap
 	econf || die "econf failed"
 	emake || die "emake failed"
 
 	einfo "building 6lowpan tools"
-	cd "${S}/6lowpan/serial_tun" 
+	cd "${S}/6lowpan/serial_tun"
 	TOSROOT="${WORKDIR}/${MY_P}" make ||die
 }
 
@@ -48,10 +48,15 @@ src_install() {
 	for i in sf/seriallisten sf/sflisten sf/sfsend sf/prettylisten sf/sf 6lowpan/serial_tun/serial_tun ; do
 		dobin "${S}"/${i}
 	done
-	
+
 	# installing libmote.a this library provides low level serial packets access to motes
 	dolib.a "${S}"/sf/libmote.a
-	
+
+	# linking libmote into /usr/src/tinyos-2.x/ some makefiles looks for ot here
+	# TODO find a better way to find target of link
+	dodir ${TOSROOT}/support/sdk/c/sf
+	dosym /usr/lib/libmote.a ${TOSROOT}/support/sdk/c/sf/libmote.a
+
 	# installs include files for libmote.a
 	insinto /usr/include
 	doins sf/message.h
