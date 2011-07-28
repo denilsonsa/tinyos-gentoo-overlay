@@ -158,13 +158,13 @@ tos_java_create_jar() {
 	find "${TOS_PKG_JAVA_DIR}" -name "*.class" | xargs jar cf "${PN}.jar"
 }
 
-pkg_setup() {
+tinyos-java_pkg_setup() {
 	debug-print-function ${FUNCNAME} $*
 	tinyos_check_vm
 	tinyos_check_tosenv
 }
 
-src_install() {
+tinyos-java_src_install() {
 	debug-print-function ${FUNCNAME} $*
 	java-pkg_dojar "${PN}.jar"
 	if [[ -f "${TOS_PKG_JAVA_DIR}/README" ]]; then
@@ -186,7 +186,7 @@ src_install() {
 	use source && java-pkg_dosrc "${TOS_PKG_JAVA_DIR}"
 }
 
-src_compile() {
+tinyos-java_src_compile() {
 	tos_java_build_source
 	tos_java_create_jar
 }
