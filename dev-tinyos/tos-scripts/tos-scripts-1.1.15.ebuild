@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils java-utils
+inherit eutils java-utils-2
 
 CVS_MONTH="Dec"
 CVS_YEAR="2005"
@@ -49,9 +49,9 @@ pkg_setup() {
 		die "setup failed due to missing prerequisite: javacomm"
 	fi
 
-	java-utils_setup-vm
-	java-utils_ensure-vm-version-ge 1 4 0
-	local vendor=`java-utils_get-vm-vendor`
+	java-utils-2_setup-vm
+	java-utils-2_ensure-vm-version-ge 1 4 0
+	local vendor=`java-utils-2_get-vm-vendor`
 	einfo "${vendor} vm detected."
 	if ! [[ ${vendor} = "ibm-jdk-bin" ]]; then
 		eerror "ibm-jdk-bin is required!"

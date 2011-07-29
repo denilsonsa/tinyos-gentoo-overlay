@@ -1,0 +1,7 @@
+# ChangeLog for dev-tinyos/tos-scripts
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  28 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-scripts-1.1.15.ebuild:
+  Updated "java-utils" to "java-utils-2"
+

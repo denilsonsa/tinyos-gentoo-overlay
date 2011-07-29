@@ -18,7 +18,7 @@ RDEPEND="|| ( >=dev-tinyos/ncc-1.1.15
 S=${WORKDIR}/${MY_P}-${PV}${CVS_MONTH}${CVS_YEAR}cvs/tools
 
 pkg_setup() {
-	
+
 	if ! built_with_use dev-java/ibm-jdk-bin javacomm ; then
 		eerror "javacomm is required! Add javacomm to your use flag then re-emerge ibm-jdk-bin."
 		eerror "Then re-emerge this package."

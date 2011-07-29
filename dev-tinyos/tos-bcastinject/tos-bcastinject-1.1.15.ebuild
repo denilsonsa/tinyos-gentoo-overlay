@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ CVS_MONTH="Dec"
 CVS_YEAR="2005"
 MY_P="tinyos"
 
-inherit eutils java-pkg java-utils
+inherit eutils java-pkg-2 java-utils-2
 
 DESCRIPTION="The TinyOS tools to use deluge, progamation over the air for motes  "
 HOMEPAGE="http://www.tinyos.net/"
@@ -41,9 +41,9 @@ pkg_setup() {
 		die "setup failed due to missing prerequisite: javacomm"
 	fi
 
-	java-utils_setup-vm
-	java-utils_ensure-vm-version-ge 1 4 0
-	local vendor=`java-utils_get-vm-vendor`
+	java-utils-2_setup-vm
+	java-utils-2_ensure-vm-version-ge 1 4 0
+	local vendor=`java-utils-2_get-vm-vendor`
 	einfo "${vendor} vm detected."
 	if ! [[ ${vendor} = "ibm-jdk-bin" ]]; then
 		eerror "ibm-jdk-bin is required!"
@@ -58,21 +58,21 @@ src_compile() {
 	cp=${cp}:$(java-pkg_getjars tos-message)
 	cp=${cp}:${S}
 
-	
+
 	sed -i 's|SIMPLECMD_LIB=$(TOS)/../apps/SimpleCmd|SIMPLECMD_LIB?=$(TOS)/../apps/SimpleCmd|g' net/tinyos/tools/Makefile
-	
+
 	(use micaz && use mica2 || use micaz && use telosb || use telosb && use mica2 ) && die  "chose only one of mica2 micaz telosb "
 
 
-	if  use micaz ; then 
-		 sed -i 's@DELUGE_PLATFORM=telosb@DELUGE_PLATFORM=micaz@g' net/tinyos/deluge/Makefile && einfo "building deluge for micaz" ||die 
-	elif use mica2 ; then 
-		sed -i 's@DELUGE_PLATFORM=telosb@DELUGE_PLATFORM=mica2@g' net/tinyos/deluge/Makefile && einfo "building deluge for mica2" || die 
+	if  use micaz ; then
+		 sed -i 's@DELUGE_PLATFORM=telosb@DELUGE_PLATFORM=micaz@g' net/tinyos/deluge/Makefile && einfo "building deluge for micaz" ||die
+	elif use mica2 ; then
+		sed -i 's@DELUGE_PLATFORM=telosb@DELUGE_PLATFORM=mica2@g' net/tinyos/deluge/Makefile && einfo "building deluge for mica2" || die
 	elif  use telosb ;  then
 		einfo "building deluge for telosb"
-	else 
+	else
 		eerror "no platform chosen"
-		die "chose one of mica2 micaz telosb" 
+		die "chose one of mica2 micaz telosb"
 	fi
 
 	einfo "Creating java files with mig"
@@ -81,7 +81,7 @@ src_compile() {
 
 #	einfo "Compiling TinyOS Deluge"
 #	find net/tinyos/deluge -name "*.java" | xargs $(java-config-2 -c) -source 1.4 -classpath ${cp} -nowarn || die "Failed to compile"
-	
+
 	J_FILES="net/tinyos/tools/SimpleCmdMsg.java\
  net/tinyos/tools/LogMsg.java\
  net/tinyos/tools/BcastInject.java "
@@ -90,7 +90,7 @@ src_compile() {
 
 
 	einfo "Packaging TinyOS Bcast Inject"
-	find net/tinyos/tools  -name "*.class" | xargs jar cf ${PN}.jar 
+	find net/tinyos/tools  -name "*.class" | xargs jar cf ${PN}.jar
 }
 
 src_install() {

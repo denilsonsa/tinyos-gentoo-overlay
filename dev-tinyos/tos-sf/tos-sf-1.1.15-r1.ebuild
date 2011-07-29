@@ -1,6 +1,7 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
 inherit eutils tinyos-java
 
 DESCRIPTION="TinyOS serial forwarder multiplexer: provides serial port multiplexing"

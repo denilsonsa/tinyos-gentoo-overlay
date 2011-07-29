@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ CVS_MONTH="Dec"
 CVS_YEAR="2005"
 MY_P="tinyos"
 
-inherit eutils java-pkg java-utils
+inherit eutils java-pkg-2 java-utils-2
 
 DESCRIPTION="java classes nedded use the pytos python tools for tinyos "
 HOMEPAGE="http://www.tinyos.net/"
@@ -36,9 +36,9 @@ pkg_setup() {
 		die "setup failed due to missing prerequisite: javacomm"
 	fi
 
-	java-utils_setup-vm
-	java-utils_ensure-vm-version-ge 1 4 0
-	local vendor=`java-utils_get-vm-vendor`
+	java-utils-2_setup-vm
+	java-utils-2_ensure-vm-version-ge 1 4 0
+	local vendor=`java-utils-2_get-vm-vendor`
 	einfo "${vendor} vm detected."
 	if ! [[ ${vendor} = "ibm-jdk-bin" ]]; then
 		eerror "ibm-jdk-bin is required!"
