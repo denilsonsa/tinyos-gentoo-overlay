@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/tos/tos-1.1.15-r1.ebuild,v 1.2 2006/08/09 19:42:12 sanchan Exp $
 inherit eutils python
@@ -42,9 +42,8 @@ src_unpack() {
 	epatch "${FILESDIR}"/tos_sim.extra_gcc_4.1.1_bug.patch
 
 	# set the python version to use
-	python_version
-	einfo " fixing sim.extra python version" ${PYVER}
-	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=${PYVER}/g" support/make/sim.extra
+	einfo " fixing sim.extra python version $(python_get_version)"
+	sed -i "s/PYTHON_VERSION=2.3/PYTHON_VERSION=$(python_get_version)/g" support/make/sim.extra
 }
 
 src_compile() {

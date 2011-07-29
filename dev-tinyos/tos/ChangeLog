@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-2.0.0-r3.ebuild,
+  tos-2.0.1.ebuild, tos-2.0.1_p20070606.ebuild, tos-2.0.1_p20070607.ebuild,
+  tos-2.0.1_p20070611.ebuild, tos-2.0.2.ebuild, tos-2.1.0.ebuild:
+  Updated python_version to python_get_version
+
   28 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-2.0.0-r3.ebuild:
   Removed "inherit java", as it is not available anymore.
 
