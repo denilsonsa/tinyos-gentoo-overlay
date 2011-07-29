@@ -1,6 +1,11 @@
 # ChangeLog for dev-tinyos/nesc
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/ChangeLog,v 1.15 2007/03/05 22:36:56 sanchan Exp $
+
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> nesc-1.2.9.ebuild,
+  nesc-1.3.0.ebuild:
+  Adding ~amd64 and ~x86 keywords, adding double quotates, fixing indentation,
+  slightly improved elog message.
 
   07 Nov 2008; Aurelien Francillon <aurel@naurel.org> nesc-1.2.9.ebuild,
   nesc-1.3.0.ebuild:

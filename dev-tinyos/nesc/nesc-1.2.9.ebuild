@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/nesc-1.2.8a.ebuild,v 1.1 2006/12/26 12:01:32 sanchan Exp $
 
@@ -77,7 +77,6 @@ src_compile() {
 			|| die "failed to comple emacs mode files"
 		cd "${S}"
 	fi
-
 }
 
 src_install() {

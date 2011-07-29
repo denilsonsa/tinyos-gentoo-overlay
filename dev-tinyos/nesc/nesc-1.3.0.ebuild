@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tinyos/nesc/nesc-1.2.8a.ebuild,v 1.1 2006/12/26 12:01:32 sanchan Exp $
 
@@ -9,7 +9,7 @@ HOMEPAGE="http://nescc.sourceforge.net/"
 SRC_URI="mirror://sourceforge/nescc/${P}.tar.gz"
 LICENSE="GPL-2 Intel"
 SLOT="0"
-KEYWORDS="-x86 -amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE="doc emacs safetinyos"
 JAVA_PKG_WANT_TARGET="1.4"
 JAVA_PKG_WANT_SOURCE="1.4"
@@ -70,7 +70,7 @@ src_compile() {
 	einfo "building java files with ejavac"
 	ejavac $(find tools/java/ -name "*.java")
 	cd tools/java ;
-	jar cf ../${PN}.jar $(find . -name "*.class")
+	jar cf ../"${PN}".jar $(find . -name "*.class")
 	cd "${S}"
 	if use emacs; then
 		cd tools/editor-modes/emacs/
@@ -78,7 +78,6 @@ src_compile() {
 			|| die "failed to comple emacs mode files"
 		cd "${S}"
 	fi
-
 }
 
 src_install() {
@@ -94,11 +93,10 @@ src_install() {
 	java-pkg_dojar tools/nesc.jar
 
 	if use emacs; then
-		elisp-install ${PN} "${S}"/tools/editor-modes/emacs/*.el \
+		elisp-install "${PN}" "${S}"/tools/editor-modes/emacs/*.el \
 			"${S}"/tools/editor-modes/emacs/*.elc \
 			|| die "elisp-site-file-install failed"
 	fi
-
 
 	newdoc README NEWS
 	newdoc tools/java/net/tinyos/nesc/dump/README README.dump
@@ -117,20 +115,21 @@ pkg_postinst() {
 	elog "# crossdev -t avr"
 	elog "# crossdev -t msp430"
 	elog ""
-	elog "However, crossdev builds broken compilers for avr and msp430 "
+	elog "However, crossdev builds broken compilers for avr and msp430"
 	elog "in order to build a project with the avr compiler you may need:"
 	elog " - create a link \"ln -s /usr/lib/binutils/avr/2.18/ldscripts /usr/lib/gcc/avr/3.4.6\" "
-	elog " otherwise the linker won't be able to make the final link"
+	elog " otherwise the linker won't be able to make the final link (bug 147155)"
 	elog " - to add \"-I/usr/lib/gcc/avr/3.4.6/include/ -I/usr/avr/include\" to your CFLAGS"
-	elog " - bypass the symbol in identifiers in nesc with for example: "
+	elog " - bypass the symbol in identifiers in nesc with for example:"
 	elog "  PFLAGS=\"-fnesc-separator=__\" make mica2"
-	elog " altenatively editing your tinyos/support/make/avr/avr.rule or msp.rule by hand to force it "
+	elog " alternatively editing your tinyos/support/make/avr/avr.rule or"
+	elog " msp.rule by hand to force it"
 
 	epause 5
 }
 
 
 pkg_postrm() {
-		use emacs && elisp-site-regen
+	use emacs && elisp-site-regen
 }
 
