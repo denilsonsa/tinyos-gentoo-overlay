@@ -6,7 +6,7 @@ CVS_MONTH="Dec"
 CVS_YEAR="2005"
 MY_P="tinyos"
 
-inherit eutils java-pkg-2 java-utils-2
+inherit eutils java-pkg-2
 
 DESCRIPTION="java classes nedded use the pytos python tools for tinyos "
 HOMEPAGE="http://www.tinyos.net/"
@@ -36,9 +36,9 @@ pkg_setup() {
 		die "setup failed due to missing prerequisite: javacomm"
 	fi
 
-	java-utils-2_setup-vm
-	java-utils-2_ensure-vm-version-ge 1 4 0
-	local vendor=`java-utils-2_get-vm-vendor`
+	java-pkg_setup-vm
+	java-pkg_ensure-vm-version-ge 1 4 0
+	local vendor=`java-pkg_get-vm-vendor`
 	einfo "${vendor} vm detected."
 	if ! [[ ${vendor} = "ibm-jdk-bin" ]]; then
 		eerror "ibm-jdk-bin is required!"

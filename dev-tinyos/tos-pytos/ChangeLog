@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-pytos-1.1.15.ebuild:
+  Updated functions from java-utils-2_ to java-pkg_
+
   28 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-pytos-1.1.15.ebuild:
   Updated "java-utils" to "java-utils-2"
 

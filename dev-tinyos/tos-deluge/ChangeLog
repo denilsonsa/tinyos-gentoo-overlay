@@ -3,5 +3,8 @@
 # $Header: $
 
   29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-deluge-1.1.15.ebuild:
+  Updated functions from java-utils-2_ to java-pkg_
+
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-deluge-1.1.15.ebuild:
   Fixed USE flag "mica" to "mica2"
 

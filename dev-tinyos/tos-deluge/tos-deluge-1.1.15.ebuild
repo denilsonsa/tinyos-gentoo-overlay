@@ -43,7 +43,7 @@ pkg_setup() {
 
 	java-pkg-2_pkg_setup
 	java-pkg_ensure-vm-version-ge 1 4 0
-	local vendor=`java-utils_get-vm-vendor`
+	local vendor=`java-pkg_get-vm-vendor`
 	einfo "${vendor} vm detected."
 	if ! [[ ${vendor} = "ibm" ]]; then
 		eerror "ibm-jdk-bin is required!"
