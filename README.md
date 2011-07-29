@@ -29,8 +29,10 @@ to fork this project and update it!
 ## Links
 
 * Documentation used to be available at: http://gentoo-wiki.com/TinyOS (there
-  is a mirror at http://naurel.org/stuff/gentoo_howto_tinyos.html )
-* Previous self-hosted SVN repository was available at: https://naurel.org/svn/tinyos-2-overlay/
+  is a mirror at http://naurel.org/stuff/gentoo_howto_tinyos.html , and also a
+  local copy at the *various/* directory of this repository)
+* Previous self-hosted SVN repository was available at:
+  https://naurel.org/svn/tinyos-2-overlay/
 * TinyOS homepage: http://www.tinyos.net/ (a bit outdated, though)
 * TinyOS project page: http://code.google.com/p/tinyos-main/ (very active)
 
