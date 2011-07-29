@@ -1,0 +1,7 @@
+# ChangeLog for dev-tinyos/tos-deluge
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com> tos-deluge-1.1.15.ebuild:
+  Fixed USE flag "mica" to "mica2"
+

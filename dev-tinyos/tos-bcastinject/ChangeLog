@@ -4,5 +4,9 @@
 
   29 Jul 2011; Denilson Sá <denilsonsa@gmail.com>
   tos-bcastinject-1.1.15.ebuild:
+  Fixed USE flag "mica" to "mica2"
+
+  29 Jul 2011; Denilson Sá <denilsonsa@gmail.com>
+  tos-bcastinject-1.1.15.ebuild:
   Updated "java-utils" to "java-utils-2", and "java-pkg" to "java-pkg-2"
 
