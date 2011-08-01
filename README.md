@@ -8,7 +8,13 @@ The current state, as of 2011, is a half-working overlay: the ebuilds are
 "working" (as in portage being able to use them correctly), but the installed
 packages may not work correctly. In special, the **nesc** package is not being
 correctly installed/configured, and thus other TinyOS packages also fail to
-compile.
+compile. Maybe this is a bug in **nesc**, and thus should be patched. See
+these messages from [tinyos-help][tinyos-help] mailing list:
+[March 24th, 2011][msg1], [June 7th, 2011][msg2]
+
+[tinyos-help]: https://www.millennium.berkeley.edu/cgi-bin/mailman/listinfo/tinyos-help
+[msg1]: http://mail.millennium.berkeley.edu/pipermail/tinyos-help/2011-March/050233.html
+[msg2]: http://mail.millennium.berkeley.edu/pipermail/tinyos-help/2011-June/051361.html
 
 ## History
 
