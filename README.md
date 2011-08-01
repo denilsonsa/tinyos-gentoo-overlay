@@ -4,17 +4,26 @@
 
 This is a Gentoo Overlay for TinyOS 2.x.
 
-The current state, as of 2011, is a half-working overlay: the ebuilds are
-"working" (as in portage being able to use them correctly), but the installed
-packages may not work correctly. In special, the **nesc** package is not being
-correctly installed/configured, and thus other TinyOS packages also fail to
-compile. Maybe this is a bug in **nesc**, and thus should be patched. See
-these messages from [tinyos-help][tinyos-help] mailing list:
-[March 24th, 2011][msg1], [June 7th, 2011][msg2]
+As of mid-2011, this overlay seems to be working. The user can execute
+`emerge -avt tinyos` (after adding the relevant entries to
+`/etc/portage/package.keywords`), and portage will be able to install 7 ebuilds
+without failure. It is also possible to run `make micaz` inside *Blink* example
+app.
 
-[tinyos-help]: https://www.millennium.berkeley.edu/cgi-bin/mailman/listinfo/tinyos-help
-[msg1]: http://mail.millennium.berkeley.edu/pipermail/tinyos-help/2011-March/050233.html
-[msg2]: http://mail.millennium.berkeley.edu/pipermail/tinyos-help/2011-June/051361.html
+However, this overlay needs a maintainer. Do you work with TinyOS and want to
+help? Feel free to fork this project!
+
+## Further improvements
+
+Wanna help and don't know how to start? Here are some suggestions:
+
+* Make sure all ebuilds are updated to the latest portage changes. In other
+  words, make sure portage won't complain about errors or outdated features.
+* Make sure all packages are correctly installed and ready-to-use. (requires
+  knowing how to use each package)
+* Add an ebuild for TOSSIM simulator, or install it from `tos-sdk-python`. (so
+  that `import TOSSIM` works, inside Python)
+* Clean up old outdated ebuilds that are not relevant anymore.
 
 ## History
 
@@ -41,7 +50,6 @@ to fork this project and update it!
   https://naurel.org/svn/tinyos-2-overlay/
 * TinyOS homepage: http://www.tinyos.net/ (a bit outdated, though)
 * TinyOS project page: http://code.google.com/p/tinyos-main/ (very active)
-
 
 ## Old README information (that might be outdated)
 
